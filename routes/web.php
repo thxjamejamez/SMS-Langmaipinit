@@ -12,5 +12,13 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
+});
+
+Route::get('apanel', function () {
+    return view('admin');
+});
+
+Route::get('test', function (){
+    return view('test');
 });

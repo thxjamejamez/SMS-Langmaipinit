@@ -15,10 +15,16 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('apanel', function () {
-    return view('admin');
-});
+
 
 Route::get('test', function (){
     return view('test');
 });
+
+Auth::routes();
+Route::middleware(['auth'])->group(function () {
+    Route::get('apanel', 'adminController@index');
+    route::get('/logout', 'Auth\LoginController@logout');
+});
+Route::get('/home', 'HomeController@index')->name('home');
+Auth::routes();

@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker-bs3.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+  <link rel="stylesheet" href="admin/css/master.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -31,7 +32,7 @@
 <div class="wrapper">
 
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
+  <nav class="main-header navbar navbar-expand border-bottom navbar-light bg-brown">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
@@ -60,63 +61,6 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
-      <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="fa fa-comments-o"></i>
-          <span class="badge badge-danger navbar-badge">3</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="/admin/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  Brad Diesel
-                  <span class="float-right text-sm text-danger"><i class="fa fa-star"></i></span>
-                </h3>
-                <p class="text-sm">Call me whenever you can...</p>
-                <p class="text-sm text-muted"><i class="fa fa-clock-o mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="/admin/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  John Pierce
-                  <span class="float-right text-sm text-muted"><i class="fa fa-star"></i></span>
-                </h3>
-                <p class="text-sm">I got your message bro</p>
-                <p class="text-sm text-muted"><i class="fa fa-clock-o mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="/admin/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  Nora Silvester
-                  <span class="float-right text-sm text-warning"><i class="fa fa-star"></i></span>
-                </h3>
-                <p class="text-sm">The subject goes here</p>
-                <p class="text-sm text-muted"><i class="fa fa-clock-o mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-        </div>
-      </li>
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
@@ -145,20 +89,20 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i
-            class="fa fa-th-large"></i></a>
+        <a class="nav-link" href="/logout">
+        <i class="fa fa-unlock-alt"></i></a>
       </li>
     </ul>
   </nav>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <aside class="main-sidebar elevation-4 sidebar-light-warning">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="/apanel" class="brand-link bg-brown">
       <img src="/admin/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <span class="brand-text font-weight-light">Langmai Pinit</span>
     </a>
 
     <!-- Sidebar -->
@@ -169,20 +113,67 @@
           <img src="/admin/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">{{ $user->name }}</a>
         </div>
       </div>
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
+        <!-- <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false"> -->
+        
+        
+        
+        
+        
+        
+        
+        <!-- @foreach($ritems as $ritem) -->
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
+          <li class="nav-item has-treeview menu-open">{{ trans('index.menu') }}</li>
+          <?php $menu_type = 'menu';?>
+          @foreach($items as $item)
+            @if($menu_type != $item->menu_type)
+              <li class="header">{{ trans('index.'.$item->menu_type) }}</li>
+              <?php $menu_type = $item->menu_type;?>
+            @endif
+            @if( (isset($view[$item->menu_id]) && $view[$item->menu_id] == '1' ) || $user->id == 1 )
+              <li id= "{{ $item->menu_name }}-menu">
+                <a href="@if($item->menu_name == 'teacher' && isset($permission->related)){{ '/teachers/'.$permission->related->related_id.'/edit' }}@else{{ $item->menu_link }}@endif" >
+                  <i class="fa {{ $item->menu_icon }}"></i>
+                  <span> {{ trans('index.'.$item->menu_name) }}</span>
+                  @if(count($item['children']) > 0)
+                    <i class="fa fa-angle-left pull-right"></i>
+                  @endif 
+                </a>
+              @if(count($item['children']) > 0)
+                <ul class="treeview-menu" id="{{ $item->menu_id }}-child">
+                  @foreach($item['children'] as $child)
+                    @if( (isset($view[$child->menu_id]) && $view[$child->menu_id] == '1') || $user->id == 1 )
+                      <li id="{{ $child->menu_name }}"><a href="{{ $child->menu_link }}">{{ trans('index.'.$child->menu_name) }}</a></li>
+                    @endif
+                  @endforeach
+                </ul>
+              @endif
+              </li>
+            @else
+              </li>
+            @endif
+          @endforeach
+        </ul>
+        <!-- @endforeach -->
+
+
+
+
+
+
+
+
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link active">
               <i class="nav-icon fa fa-dashboard"></i>
               <p>
-                Dashboard
+                พนักงาน
                 <i class="right fa fa-angle-left"></i>
               </p>
             </a>

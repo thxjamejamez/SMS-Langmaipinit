@@ -1,0 +1,6 @@
+.alert-brown, .bg-brown, .label-brown{
+    background-color: #b3a57e!important;
+}
+.sidebar-light-warning .nav-sidebar>.nav-item>.nav-link.active{
+    background-color: #a39879;
+}

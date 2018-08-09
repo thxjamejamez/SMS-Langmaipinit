@@ -26,5 +26,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('apanel', 'adminController@index');
     route::get('/logout', 'Auth\LoginController@logout');
 });
+Route::resource('user', 'UserController');
 Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();

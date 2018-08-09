@@ -3,31 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use \App\UserPermission,
-    Illuminate\Foundation\Auth\ThrottlesLogins,
-    Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-use Auth;
 
-class adminController extends Controller
+class UserController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        
-        // $user = \Auth::user();
-        // $permission = UserPermission::with(['user','permission','page'])->where('user_id',$user->id)->first();
-        // $items = \App\Navigation::tree_left();
-        // $ritems = \App\Navigation::tree_right();
-        // var_dump ($items);
-        return view('admin');
-        // return view('admin', compact('user','permission', 'items', 'ritems'));
-
     }
-
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -35,7 +22,8 @@ class adminController extends Controller
      */
     public function create()
     {
-        //
+        return View('userprofile.profile');
+        
     }
 
     /**

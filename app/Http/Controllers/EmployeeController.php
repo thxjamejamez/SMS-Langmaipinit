@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request,
     DB;
 
-class UserController extends Controller
+class EmployeeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,9 @@ class UserController extends Controller
      */
     public function index()
     {
+        //
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -26,8 +27,7 @@ class UserController extends Controller
         $title = DB::Table('l_title')->get();
         $district = DB::table('l_city')->get();
         $province = DB::table('l_province')->get();
-        return View('userprofile.profile', compact('title', 'district', 'province'));
-        
+        return View('employee.profile', compact('title', 'district', 'province'));
     }
 
     /**

@@ -11,11 +11,39 @@
 </style>
 @stop
 <div class="container-fluid">
+    <form action="/employee" method="POST" accept-charset="utf-8">
+    {{ csrf_field() }}
     <div class="card card-default">
         <div class="card-header">
-            <h3 class="card-title">ข้อมูลผู้ใช้</h3>
+            <h3 class="card-title">จัดการข้อมูลผู้ใช้</h3>
         </div>
-        <form action="/emp">
+        <div class="card-body">
+            <div class="row">
+                <div class="form-group col-2">
+                    <label for="username">ชื่อผู้ใช้</label>
+                    <input id="username" type="text" class="form-control" name="username" required>
+                </div>
+                <div class="form-group col-2">
+                    <label for="password">รหัสผ่าน</label>
+                    <input id="password" type="password" class="form-control" name="password" required>
+                </div>
+                <div class="form-group col-2">
+                    <label>สิทธิ์ในการเข้าถึง</label>
+                    <select id="permission" class="form-control">
+                        @foreach($group_permission as $group_permissions)
+                        <option value="{{ $group_permissions->id }}">{{ $group_permissions->permission_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="card card-default">
+        <div class="card-header">
+            <h3 class="card-title">จัดการข้อมูลส่วนตัว</h3>
+        </div>
             <div class="card-body">
                 <div class="row">
                     <div class="form-group col-2">
@@ -40,6 +68,7 @@
                         <label>ที่อยู่</label>
                         <textarea class="form-control" rows="1"></textarea>
                     </div>
+
                     <div class="form-group col-3">
                         <label>จังหวัด</label>
                         <select id="province" class="form-control select2" style="width: 100%;" onchange="setprovice(this.value, '#district')">
@@ -73,7 +102,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-envelope"></i></span>
                             </div>
-                            <input type="email" class="form-control" placeholder="example@hotmail.com">
+                            <input type="email" name="email" class="form-control" placeholder="example@hotmail.com" required>
                         </div>
                     </div>
                     <div class="form-group col-2">
@@ -82,7 +111,7 @@
                             <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                             </div>
-                            <input id="birthday" type="text" class="form-control">
+                            <input id="birthday" type="text" name="birthday" class="form-control">
                         </div>
                     </div>
                     <div class="form-group col-2">
@@ -98,6 +127,26 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="form-group col-2">
+                        <label>วันที่เริ่มต้นทำงาน</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                            </div>
+                            <input id="startdate" type="text" name="startdate" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group col-2">
+                        <label>วันที่ลาออก</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                            </div>
+                            <input id="enddate" type="text" name="enddate" class="form-control">
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="card-footer">
                 <div class="row">
@@ -108,8 +157,6 @@
                         <button type="reset" class="btn btn-block btn-outline-danger btn-sm">ยกเลิก</button>
                     </div>
                 </div>
-                
-
             </div>
         </form> 
 </div>
@@ -123,9 +170,16 @@
     $(document).ready(function () {
         $('.select2').select2()
         $(".text-dark").append('ข้อมูลผู้ใช้');
-        // setprovice();
         $('[data-mask]').inputmask()
         $('#birthday').datepicker({
+            format: 'dd-mm-yyyy',
+            autoclose: true
+        });
+        $('#startdate').datepicker({
+            format: 'dd-mm-yyyy',
+            autoclose: true
+        });
+        $('#enddate').datepicker({
             format: 'dd-mm-yyyy',
             autoclose: true
         });

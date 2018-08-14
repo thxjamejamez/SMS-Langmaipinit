@@ -48,7 +48,7 @@
                 <div class="row">
                     <div class="form-group col-2">
                         <label>คำนำหน้านาม</label>
-                        <select class="form-control">
+                        <select class="form-control" name="title">
                             @foreach($title as $titles)
                             <option value="{{ $titles->title_id }}">{{ $titles->title_name }}</option>
                             @endforeach
@@ -66,12 +66,12 @@
                 <div class="row">
                     <div class="form-group col-5">
                         <label>ที่อยู่</label>
-                        <textarea class="form-control" rows="1"></textarea>
+                        <textarea class="form-control" rows="1" name="address"></textarea>
                     </div>
 
                     <div class="form-group col-3">
                         <label>จังหวัด</label>
-                        <select id="province" class="form-control select2" style="width: 100%;" onchange="setprovice(this.value, '#district')">
+                        <select id="province" name="province" class="form-control select2" style="width: 100%;" onchange="setprovice(this.value, '#district')">
                             @foreach($province as $provinces)
                             <option value="{{ $provinces->province_id }}">{{ $provinces->province_name }}</option>
                             @endforeach
@@ -79,7 +79,7 @@
                     </div>
                     <div class="form-group col-3">
                         <label>อำเภอ</label>
-                        <select id="district" class="form-control select2" style="width: 100%;">
+                        <select id="district" name="district" class="form-control select2" style="width: 100%;">
                             @foreach($district as $districts)
                             <option value="{{ $districts->city_id }}" province="{{ $districts->province_id }}">{{ $districts->city_name }}</option>
                             @endforeach
@@ -93,7 +93,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-phone"></i></span>
                             </div>
-                            <input type="text" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
+                            <input type="text" name="tel" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
                         </div>
                     </div>
                     <div class="form-group col-3">
@@ -111,7 +111,7 @@
                             <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                             </div>
-                            <input id="birthday" type="text" name="birthday" class="form-control">
+                            <input id="birthday" type="text" name="birthdate" class="form-control">
                         </div>
                     </div>
                     <div class="form-group col-2">
@@ -120,7 +120,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">$</span>
                             </div>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" name="salary">
                             <div class="input-group-append">
                                 <span class="input-group-text">.00</span>
                             </div>

@@ -20,12 +20,15 @@
   <link rel="stylesheet" href="/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
   <!-- Date Picker -->
   <link rel="stylesheet" href="/plugins/datepicker/datepicker3.css">
+  <link rel="stylesheet" href="/plugins/iCheck/all.css">
   <!-- Daterange picker -->
   <link rel="stylesheet" href="/plugins/daterangepicker/daterangepicker-bs3.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
   <link rel="stylesheet" href="/admin/css/master.css">
   <link rel="stylesheet" href="/plugins/select2/select2.css">
+  <link rel="stylesheet" href="/plugins/datatables/dataTables.bootstrap4.css">
+
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   @yield('css')
@@ -257,7 +260,8 @@
 <!-- Morris.js charts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 <script src="/plugins/morris/morris.min.js"></script>
-
+<script src="/plugins/datatables/jquery.dataTables.js"></script>
+<script src="/plugins/datatables/dataTables.bootstrap4.js"></script>
 {{-- select 2 --}}
 <script src="/plugins/select2/select2.full.min.js"></script>
 <!-- Sparkline -->
@@ -281,6 +285,7 @@
 <!-- AdminLTE App -->
 <script src="/admin/js/adminlte.js"></script>
 <script src="/plugins/input-mask/jquery.inputmask.js"></script>
+<script src="/plugins/iCheck/icheck.min.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <!-- <script src="/admin/js/pages/dashboard.js"></script> -->
 <!-- AdminLTE for demo purposes -->

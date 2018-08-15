@@ -53,9 +53,9 @@ class EmployeeController extends Controller
             $empinfoEloquent->email = $request['email'];
             $empinfoEloquent->tel = $request['tel'];
             $empinfoEloquent->salary = $request['salary'];
-            $empinfoEloquent->birthdate = date('Y-m-d', $request['birthdate']);
-            $empinfoEloquent->start_date = date('Y-m-d', $request['startdate']);
-            $empinfoEloquent->end_date = date('Y-m-d', $request['enddate']);
+            if(isset($request['birthdate'])){$empinfoEloquent->birthdate = date('Y-m-d', strtotime($request['birthdate']));}
+            if(isset($request['startdate'])){$empinfoEloquent->start_date = date('Y-m-d', strtotime($request['startdate']));}
+            if(isset($request['enddate'])){$empinfoEloquent->end_date = date('Y-m-d', strtotime($request['enddate']));}
             $empinfoEloquent->province_id = $request['province'];
             $empinfoEloquent->district_id = $request['district'];
             $empinfoEloquent->save();

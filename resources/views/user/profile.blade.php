@@ -29,7 +29,7 @@
                 </div>
                 <div class="form-group col-2">
                     <label>สิทธิ์ในการเข้าถึง</label>
-                    <select id="permission" class="form-control" name="permission">
+                    <select id="permission" class="form-control" name="permission" disabled>
                         @foreach($group_permission as $group_permissions)
                         <option value="{{ $group_permissions->id }}">{{ $group_permissions->permission_name }}</option>
                         @endforeach
@@ -114,39 +114,50 @@
                             <input id="birthday" type="text" name="birthdate" class="form-control">
                         </div>
                     </div>
-                    <div class="form-group col-2">
-                        <label>เงินเดือน</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">$</span>
-                            </div>
-                            <input type="text" class="form-control" name="salary">
-                            <div class="input-group-append">
-                                <span class="input-group-text">.00</span>
-                            </div>
-                        </div>
+                </div>
+            <div class="row">
+                <div class="form-group col-2">
+                <label>
+                    <input type="checkbox" class="flat-red" id="company" name="company" value="1">
+                    บริษัท
+                </label>
+                </div>
+            </div>
+            <div id="companydetail">
+                <div class="row">
+                    <div class="form-group col-4">
+                        <label for="companyname">ชื่อบริษัท</label>
+                        <input id="companyname" type="text" class="form-control" name="companyname">
+                    </div>
+                    <div class="form-group col-1">
+                        <label for="creditcompany">เครดิต</label>
+                        <input id="creditcompany" type="text" class="form-control" name="creditcompany">
                     </div>
                 </div>
                 <div class="row">
-                    <div class="form-group col-2">
-                        <label>วันที่เริ่มต้นทำงาน</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                            </div>
-                            <input id="startdate" type="text" name="startdate" class="form-control">
-                        </div>
+                    <div class="form-group col-5">
+                        <label>ที่อยู่ในการจัดส่งสินค้า</label>
+                        <textarea class="form-control" rows="1" name="address_company"></textarea>
                     </div>
-                    <div class="form-group col-2">
-                        <label>วันที่ลาออก</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                            </div>
-                            <input id="enddate" type="text" name="enddate" class="form-control">
-                        </div>
+                    <div class="form-group col-3">
+                        <label>จังหวัด</label>
+                        <select id="province_company" name="province_company" class="form-control select2" style="width: 100%;" onchange="setprovice_company(this.value, '#district_company')">
+                            @foreach($province as $provinces)
+                            <option value="{{ $provinces->province_id }}">{{ $provinces->province_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group col-3">
+                        <label>อำเภอ</label>
+                        <select id="district_company" name="district_company" class="form-control select2" style="width: 100%;">
+                            @foreach($district as $districts)
+                            <option value="{{ $districts->city_id }}" provincecompany="{{ $districts->province_id }}">{{ $districts->city_name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
+            </div>
+
             </div>
             <div class="card-footer">
                 <div class="row">
@@ -168,9 +179,14 @@
 @section('script')
 <script type="text/javascript">
     $(document).ready(function () {
+        $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+            checkboxClass: 'icheckbox_flat-green',
+            radioClass   : 'iradio_flat-green'
+        })
         $('.select2').select2()
         $(".text-dark").append('ข้อมูลผู้ใช้');
         $('[data-mask]').inputmask()
+        $('#permission').val(6);
         $('#birthday').datepicker({
             format: 'dd-mm-yyyy',
             autoclose: true
@@ -183,7 +199,17 @@
             format: 'dd-mm-yyyy',
             autoclose: true
         });
+        $('#companydetail').hide();
     });
+
+    $('#company').on('ifChanged', function(event){
+        if ($(this).prop('checked')) {
+            $('#companydetail').show();
+        }else{
+            $('#companydetail').hide();
+        }
+	});
+
 
     function setprovice(val, id) {
         $(id+" option").each(function(){
@@ -197,8 +223,24 @@
             }
         });
         $(id).val($(id+" option[province = "+ val +"]:first").val());
-    $(".select2").select2();
+        $(".select2").select2();
     }
+
+    function setprovice_company(val, id) {
+        $(id+" option").each(function(){
+            var p = $(this).attr('provincecompany');
+            if(parseInt(p) == parseInt(val)){
+            $(this).prop('disabled', false);
+            $(this).show();
+            }else{
+            $(this).prop('disabled', true);
+            $(this).hide();
+            }
+        });
+        $(id).val($(id+" option[provincecompany = "+ val +"]:first").val());
+        $(".select2").select2();
+    }
+
     
 
 </script>

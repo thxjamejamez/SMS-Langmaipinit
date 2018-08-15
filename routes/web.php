@@ -27,5 +27,9 @@ Route::middleware(['auth'])->group(function () {
     route::get('/logout', 'Auth\LoginController@logout');
 });
 Route::resource('employee', 'EmployeeController');
+Route::resource('user', 'UserController');
+Route::get('/getuserlist', 'UserController@userlist');
+
+
 Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();

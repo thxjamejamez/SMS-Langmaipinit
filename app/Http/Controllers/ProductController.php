@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request,
-    \Yajra\Datatables\Facades\Datatables,
     DB;
 
-class UserController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +14,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        return View('user.index');
+        return View('product.index');            
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -25,11 +24,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        $title = DB::Table('l_title')->get();
-        $district = DB::table('l_city')->get();
-        $province = DB::table('l_province')->get();
-        $group_permission = DB::table('group_permissions')->where('active', 1)->get();
-        return View('user.profile', compact('title', 'district', 'province', 'group_permission'));
+        $producttype = DB::Table('product_type')->where('active', 1)->get();
+        return View('product.form', compact('producttype'));            
+        
     }
 
     /**
@@ -88,19 +85,10 @@ class UserController extends Controller
         //
     }
 
-    function userlist(){
-        $users = DB::table('users')
-                    ->join('user_permissions','user_permissions.user_id','=','users.id')
-                    ->join('group_permissions','user_permissions.permission_id','=','group_permissions.id')
-                    ->leftjoin('employee_info', 'users.id', '=', 'employee_info.user_id')
-                    ->select([  'users.id',
-                                'users.username', 
-                                'employee_info.email', 
-                                'permission_name', 
-                                'employee_info.first_name',
-                                'employee_info.last_name'
-                    ])
-                    ->get();
-                    return response()->json(["data"=>$users]);
+    function productlist() {
+        $product = DB::table('product')
+            ->join('product_type', 'product.type_no', '=', 'product_type.type_no')
+            ->get();
+        return response()->json(["data"=>$product]);        
     }
 }

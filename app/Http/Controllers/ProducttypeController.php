@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Http\Request,
+    DB;
 
-class ProductcateController extends Controller
+class ProducttypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +14,7 @@ class ProductcateController extends Controller
      */
     public function index()
     {
-        //
+        return View('producttype.index');    
     }
 
     /**
@@ -23,7 +24,7 @@ class ProductcateController extends Controller
      */
     public function create()
     {
-        //
+        return View('producttype.form');            
     }
 
     /**
@@ -80,5 +81,12 @@ class ProductcateController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    function producttypelist() {
+        $data = DB::Table('product_type')
+            ->get();
+        return response()->json(["data"=>$data]);
+
     }
 }

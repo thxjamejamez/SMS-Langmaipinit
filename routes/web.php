@@ -30,6 +30,15 @@ Route::resource('employee', 'EmployeeController');
 Route::resource('user', 'UserController');
 Route::get('/getuserlist', 'UserController@userlist');
 
+#Product Type
+Route::resource('producttype', 'ProducttypeController');
+Route::get('/getproducttypelist', 'ProducttypeController@producttypelist');
+
+#Product
+Route::resource('product', 'ProductController');
+Route::get('/getproductlist', 'ProductController@productlist');
+
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();

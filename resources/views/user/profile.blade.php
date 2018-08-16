@@ -11,7 +11,7 @@
 </style>
 @stop
 <div class="container-fluid">
-    <form action="/employee" method="POST" accept-charset="utf-8">
+    <form action="/user" method="POST" accept-charset="utf-8">
     {{ csrf_field() }}
     <div class="card card-default">
         <div class="card-header">
@@ -183,10 +183,10 @@
             checkboxClass: 'icheckbox_flat-green',
             radioClass   : 'iradio_flat-green'
         })
+        $('#permission').val(6);
         $('.select2').select2()
         $(".text-dark").append('ข้อมูลผู้ใช้');
         $('[data-mask]').inputmask()
-        $('#permission').val(6);
         $('#birthday').datepicker({
             format: 'dd-mm-yyyy',
             autoclose: true

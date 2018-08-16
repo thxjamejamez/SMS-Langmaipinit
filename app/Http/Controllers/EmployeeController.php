@@ -35,36 +35,44 @@ class EmployeeController extends Controller
 
     public function store(Request $request)
     {
-        $userEloquent = new \App\User();
-        $userEloquent->username = trim($request['username']);
-        $userEloquent->name = '';
-        $userEloquent->password = \Hash::make($request['password']);
-        $userEloquent->email = trim($request['email']);
-        $userEloquent->status = 1;
-        $userEloquent->save();
-
-        if($request['permission']!=6){
-            $empinfoEloquent = new EmployeeInfo();
-            $empinfoEloquent->user_id = $userEloquent->id;
-            $empinfoEloquent->title_id = $request['title'];
-            $empinfoEloquent->first_name = $request['firstname'];
-            $empinfoEloquent->last_name = $request['lastname'];
-            $empinfoEloquent->address = $request['address'];
-            $empinfoEloquent->email = $request['email'];
-            $empinfoEloquent->tel = $request['tel'];
-            $empinfoEloquent->salary = $request['salary'];
-            if(isset($request['birthdate'])){$empinfoEloquent->birthdate = date('Y-m-d', strtotime($request['birthdate']));}
-            if(isset($request['startdate'])){$empinfoEloquent->start_date = date('Y-m-d', strtotime($request['startdate']));}
-            if(isset($request['enddate'])){$empinfoEloquent->end_date = date('Y-m-d', strtotime($request['enddate']));}
-            $empinfoEloquent->province_id = $request['province'];
-            $empinfoEloquent->district_id = $request['district'];
-            $empinfoEloquent->save();
+        try{
+            $userEloquent = new \App\User();
+            $userEloquent->username = trim($request['username']);
+            $userEloquent->name = '';
+            $userEloquent->password = \Hash::make($request['password']);
+            $userEloquent->email = trim($request['email']);
+            $userEloquent->status = 1;
+            $userEloquent->save();
+    
+            if($request['permission']!=6){
+                $empinfoEloquent = new EmployeeInfo();
+                $empinfoEloquent->user_id = $userEloquent->id;
+                $empinfoEloquent->title_id = $request['title'];
+                $empinfoEloquent->first_name = $request['firstname'];
+                $empinfoEloquent->last_name = $request['lastname'];
+                $empinfoEloquent->address = $request['address'];
+                $empinfoEloquent->email = $request['email'];
+                $empinfoEloquent->tel = $request['tel'];
+                $empinfoEloquent->salary = $request['salary'];
+                if(isset($request['birthdate'])){$empinfoEloquent->birthdate = date('Y-m-d', strtotime($request['birthdate']));}
+                if(isset($request['startdate'])){$empinfoEloquent->start_date = date('Y-m-d', strtotime($request['startdate']));}
+                if(isset($request['enddate'])){$empinfoEloquent->end_date = date('Y-m-d', strtotime($request['enddate']));}
+                $empinfoEloquent->province_id = $request['province'];
+                $empinfoEloquent->district_id = $request['district'];
+                $empinfoEloquent->save();
+            }
+    
+            $userrolesEloquent = new UserPermission();
+            $userrolesEloquent->user_id = $userEloquent->id;
+            $userrolesEloquent->permission_id = $request['permission'];
+            $userrolesEloquent->save();
+            
+            \Session::flash('massage','Updated');
+            return \Redirect::to('user');
+        } catch (Exception $e){
+            \Session::flash('massage','Not Success !!');
+            return \Redirect::to('user');
         }
-
-        $userrolesEloquent = new UserPermission();
-        $userrolesEloquent->user_id = $userEloquent->id;
-        $userrolesEloquent->permission_id = $request['permission'];
-        $userrolesEloquent->save();
 
     }
 

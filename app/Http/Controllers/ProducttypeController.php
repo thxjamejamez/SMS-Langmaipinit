@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request,
+    App\ProductType,
     DB;
 
 class ProducttypeController extends Controller
@@ -35,7 +36,17 @@ class ProducttypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+            $productTypeEloquent = new ProductType();
+            $productTypeEloquent->type_name = $request['producttype_name'];
+            $productTypeEloquent->active = 1;
+            $productTypeEloquent->save();
+            \Session::flash('massage','Inserted');
+            return \Redirect::to('producttype');
+        } catch (Exception $e){
+            \Session::flash('massage','Not Success !!');
+            return \Redirect::to('producttype');
+        }
     }
 
     /**

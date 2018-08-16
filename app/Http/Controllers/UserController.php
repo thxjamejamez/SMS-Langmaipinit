@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request,
-    \Yajra\Datatables\Facades\Datatables,
+    \App\CustomerInfo,
+    \App\UserPermission,
     DB;
 
 class UserController extends Controller
@@ -40,7 +41,49 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+            // dd($request['permission']);
+            $userEloquent = new \App\User();
+            $userEloquent->username = trim($request['username']);
+            $userEloquent->name = '';
+            $userEloquent->password = \Hash::make($request['password']);
+            $userEloquent->email = trim($request['email']);
+            $userEloquent->status = 1;
+            $userEloquent->save();
+
+            // if($request['permission']==6){
+                $custinfoEloquent = new CustomerInfo();
+                $custinfoEloquent->user_id = $userEloquent->id;
+                $custinfoEloquent->title_id = $request['title'];
+                $custinfoEloquent->first_name = $request['firstname'];
+                $custinfoEloquent->last_name = $request['lastname'];
+                $custinfoEloquent->address = $request['address'];
+                $custinfoEloquent->active = 1;
+                $custinfoEloquent->tel = $request['tel'];
+                if(isset($request['birthdate'])){$custinfoEloquent->birthdate = date('Y-m-d', strtotime($request['birthdate']));}
+                $custinfoEloquent->province_id = $request['province'];
+                $custinfoEloquent->district_id = $request['district'];
+                if(isset($request['company'])){
+                    $custinfoEloquent->company_name = $request['companyname'];
+                    $custinfoEloquent->company_credit = $request['creditcompany'];
+                    $custinfoEloquent->company_address = $request['address_company'];
+                    $custinfoEloquent->company_district = $request['province_company'];
+                    $custinfoEloquent->company_province = $request['district_company'];
+                }
+                $custinfoEloquent->save();
+            // }
+
+            $userrolesEloquent = new UserPermission();
+            $userrolesEloquent->user_id = $userEloquent->id;
+            $userrolesEloquent->permission_id = 6;
+            $userrolesEloquent->save();
+
+            \Session::flash('massage','Updated');
+            return \Redirect::to('user');
+        } catch (Exception $e){
+            \Session::flash('massage','Not Success !!');
+            return \Redirect::to('user');
+        }
     }
 
     /**
@@ -89,18 +132,29 @@ class UserController extends Controller
     }
 
     function userlist(){
-        $users = DB::table('users')
-                    ->join('user_permissions','user_permissions.user_id','=','users.id')
-                    ->join('group_permissions','user_permissions.permission_id','=','group_permissions.id')
-                    ->leftjoin('employee_info', 'users.id', '=', 'employee_info.user_id')
-                    ->select([  'users.id',
-                                'users.username', 
-                                'employee_info.email', 
-                                'permission_name', 
-                                'employee_info.first_name',
-                                'employee_info.last_name'
-                    ])
-                    ->get();
-                    return response()->json(["data"=>$users]);
+        $emp = DB::table('users')
+            ->join('user_permissions','user_permissions.user_id','=','users.id')
+            ->join('group_permissions','user_permissions.permission_id','=','group_permissions.id')
+            ->join('employee_info', 'users.id', '=', 'employee_info.user_id')
+            ->select([  'users.id',
+                        'users.username', 
+                        'users.email', 
+                        'permission_name', 
+                        'employee_info.first_name',
+                        'employee_info.last_name',
+            ]);
+        $cust = DB::table('users')
+            ->join('user_permissions','user_permissions.user_id','=','users.id')
+            ->join('group_permissions','user_permissions.permission_id','=','group_permissions.id')
+            ->join('customer_info', 'users.id', '=', 'customer_info.user_id')
+            ->select([  'users.id',
+                        'users.username', 
+                        'users.email', 
+                        'permission_name', 
+                        'customer_info.first_name',
+                        'customer_info.last_name',
+            ]);
+        $users = $emp->union($cust)->get();
+        return response()->json(["data"=>$users]);
     }
 }

@@ -41,10 +41,13 @@ Route::get('/getproductlist', 'ProductController@productlist');
 #Require Quotation
 Route::resource('requirequotation', 'RequireQuotationController');
 Route::get('/getrequirequotationlist', 'RequireQuotationController@requotationlist');
+// Add product for cust when confirm
+Route::any('/updatepdcust', 'RequireQuotationController@updatePdCust');
 
 #Quotation
 Route::resource('quotation', 'QuotationController');
 Route::get('/getquotationlist', 'QuotationController@quotationlist');
+
 
 
 Route::get('/home', 'HomeController@index')->name('home');

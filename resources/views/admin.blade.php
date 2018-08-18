@@ -21,6 +21,8 @@
   <!-- Date Picker -->
   <link rel="stylesheet" href="/plugins/datepicker/datepicker3.css">
   <link rel="stylesheet" href="/plugins/iCheck/all.css">
+  <link rel="stylesheet" href="/plugins/sweetalert/sweetalert2.css">
+  <link rel="stylesheet" href="/plugins/sweetalert/animate.css">
   <!-- Daterange picker -->
   <link rel="stylesheet" href="/plugins/daterangepicker/daterangepicker-bs3.css">
   <!-- bootstrap wysihtml5 - text editor -->
@@ -257,6 +259,7 @@
 </script>
 <!-- Bootstrap 4 -->
 <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/plugins/sweetalert/sweetalert2.js"></script>
 <!-- Morris.js charts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 <script src="/plugins/morris/morris.min.js"></script>

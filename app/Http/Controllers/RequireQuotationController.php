@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request,
     App\RequireQuotation,
+    App\ProductForCust,
     DB;
 
 class RequireQuotationController extends Controller
@@ -73,7 +74,15 @@ class RequireQuotationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $detail = DB::table('require_quotation')
+            ->where('require_no', $id)
+            ->first();
+        $product = DB::table('product')->where('active', 1)->get();
+        $detail_quotation = DB::table('quotation')
+            ->join('product', 'quotation.product_no', '=', 'product.product_no')
+            ->where('require_no', $id)
+            ->get();
+        return view('quotation.add_pd_cust', compact('detail', 'product', 'id', 'detail_quotation'));
     }
 
     /**
@@ -106,5 +115,32 @@ class RequireQuotationController extends Controller
             ->where('cust_no', $user->id)
             ->get();
         return response()->json(["data"=>$data]);
+    }
+
+    function updatePdCust(){
+        try{
+            $user = \Auth::user();
+            $pd = \Request::all();
+            DB::table('quotation')
+                ->where('require_no', $pd['require_no'])
+                ->where('product_no', $pd['product_no'])
+                ->update(['confirm_status'=>2]);
+    
+            ProductForCust::where('product_no', $pd['product_no'])
+                ->where('cust_no', $user->id)
+                ->delete();
+    
+            $pdforcustEloquent = new ProductForCust();
+            $pdforcustEloquent->product_no = $pd['product_no'];
+            $pdforcustEloquent->price = $pd['price'];
+            $pdforcustEloquent->update_date = DB::raw('NOW()');
+            $pdforcustEloquent->cust_no = $user->id;
+            $pdforcustEloquent->save();
+            
+            return 'success';
+        } catch (Exception $e){
+            return 'fail';
+        }
+
     }
 }

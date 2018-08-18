@@ -38,6 +38,13 @@ Route::get('/getproducttypelist', 'ProducttypeController@producttypelist');
 Route::resource('product', 'ProductController');
 Route::get('/getproductlist', 'ProductController@productlist');
 
+#Require Quotation
+Route::resource('requirequotation', 'RequireQuotationController');
+Route::get('/getrequirequotationlist', 'RequireQuotationController@requotationlist');
+
+#Quotation
+Route::resource('quotation', 'QuotationController');
+Route::get('/getquotationlist', 'QuotationController@quotationlist');
 
 
 Route::get('/home', 'HomeController@index')->name('home');

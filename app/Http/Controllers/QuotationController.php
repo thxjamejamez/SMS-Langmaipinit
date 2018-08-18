@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request,
-    App\RequireQuotation,
+    App\Quotation,
     DB;
 
-class RequireQuotationController extends Controller
+class QuotationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class RequireQuotationController extends Controller
      */
     public function index()
     {
-        return View('quotation.index');            
+        return view('admin_quotation.index');
     }
 
     /**
@@ -25,7 +25,7 @@ class RequireQuotationController extends Controller
      */
     public function create()
     {
-        return View('quotation.require');        
+        //
     }
 
     /**
@@ -36,22 +36,7 @@ class RequireQuotationController extends Controller
      */
     public function store(Request $request)
     {
-        $user = \Auth::user();
-        // $this->validate($request, [
-        //     'requofile' => 'mimes:jpeg,png,JPG,gif,svg|max:8000',
-        // ]);
-        $image = $request->file('requofile');
-        $fileName = time().'.'.$image->getClientOriginalExtension();
-        $image->move(public_path('/file_quotation'), $fileName);
-
-        $reQuoEloquent = new RequireQuotation();
-        $reQuoEloquent->require_detail = $request['re_detail'];
-        $reQuoEloquent->file = $fileName;
-        $reQuoEloquent->cust_no = $user->id;
-        $reQuoEloquent->sts_id = 1;
-        $reQuoEloquent->save();
-
-        return back()->with('success', 'Uploaded')->with('path', $fileName);
+        //
     }
 
     /**
@@ -73,7 +58,11 @@ class RequireQuotationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $detail = DB::table('require_quotation')
+            ->where('require_no', $id)
+            ->first();
+        $product = DB::table('product')->where('active', 1)->get();
+        return view('admin_quotation.form', compact('detail', 'product', 'id'));
     }
 
     /**
@@ -85,7 +74,33 @@ class RequireQuotationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try{
+            Quotation::where('require_no', $id)->delete();
+
+            foreach($request['product'] as $key => $pd){
+                $QuotationEloquent = new Quotation();
+                $QuotationEloquent->require_no = $id;
+                $QuotationEloquent->product_no = $pd;
+                $QuotationEloquent->price = $request['product_price'][$key];
+                $QuotationEloquent->confirm_status = 1;
+                $QuotationEloquent->save();
+            }
+
+            $chk = DB::table('require_quotation')->where('require_quotation.require_no', $id)->first();
+            if(isset($chk)){
+                if($chk->sts_id == 1){
+                    DB::table('require_quotation')
+                        ->where('require_quotation.require_no', $id)
+                        ->update(['sts_id' => 2]);
+                }
+            }
+
+            \Session::flash('massage','Inserted');
+            return \Redirect::to('quotation');
+        } catch (Exception $e){
+            \Session::flash('massage','Not Success !!');
+            return \Redirect::to('quotation');
+        }
     }
 
     /**
@@ -99,11 +114,9 @@ class RequireQuotationController extends Controller
         //
     }
 
-    function requotationlist () {
-        $user = \Auth::user();
+    function quotationlist () {
         $data = DB::Table('require_quotation')
             ->join('l_require_sts', 'require_quotation.sts_id', '=', 'l_require_sts.id')
-            ->where('cust_no', $user->id)
             ->get();
         return response()->json(["data"=>$data]);
     }

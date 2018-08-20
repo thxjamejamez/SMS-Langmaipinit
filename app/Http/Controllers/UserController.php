@@ -41,11 +41,17 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $chk = $request->validate([
+            'nickname' => 'required',
+            'username' => 'required|string|max:20|unique:users',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6'
+        ]);
         try{
             // dd($request['permission']);
             $userEloquent = new \App\User();
             $userEloquent->username = trim($request['username']);
-            $userEloquent->name = '';
+            $userEloquent->nickname = $request['nickname'];
             $userEloquent->password = \Hash::make($request['password']);
             $userEloquent->email = trim($request['email']);
             $userEloquent->status = 1;
@@ -53,7 +59,7 @@ class UserController extends Controller
 
             // if($request['permission']==6){
                 $custinfoEloquent = new CustomerInfo();
-                $custinfoEloquent->user_id = $userEloquent->id;
+                $custinfoEloquent->users_id = $userEloquent->id;
                 $custinfoEloquent->title_id = $request['title'];
                 $custinfoEloquent->first_name = $request['firstname'];
                 $custinfoEloquent->last_name = $request['lastname'];
@@ -135,7 +141,7 @@ class UserController extends Controller
         $emp = DB::table('users')
             ->join('user_permissions','user_permissions.user_id','=','users.id')
             ->join('group_permissions','user_permissions.permission_id','=','group_permissions.id')
-            ->join('employee_info', 'users.id', '=', 'employee_info.user_id')
+            ->join('employee_info', 'users.id', '=', 'employee_info.users_id')
             ->select([  'users.id',
                         'users.username', 
                         'users.email', 
@@ -146,7 +152,7 @@ class UserController extends Controller
         $cust = DB::table('users')
             ->join('user_permissions','user_permissions.user_id','=','users.id')
             ->join('group_permissions','user_permissions.permission_id','=','group_permissions.id')
-            ->join('customer_info', 'users.id', '=', 'customer_info.user_id')
+            ->join('customer_info', 'users.id', '=', 'customer_info.users_id')
             ->select([  'users.id',
                         'users.username', 
                         'users.email', 

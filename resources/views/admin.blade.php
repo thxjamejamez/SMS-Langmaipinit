@@ -151,7 +151,7 @@
           <img src="/admin/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ $user->name }}</a>
+          <a href="#" class="d-block">{{ $user->nickname }}</a>
         </div>
       </div>
 
@@ -241,9 +241,6 @@
   </footer>
 
   <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->

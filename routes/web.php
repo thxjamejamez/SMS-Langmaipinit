@@ -48,6 +48,10 @@ Route::any('/updatepdcust', 'RequireQuotationController@updatePdCust');
 Route::resource('quotation', 'QuotationController');
 Route::get('/getquotationlist', 'QuotationController@quotationlist');
 
+#Order
+Route::resource('requireorder', 'OrderController');
+Route::get('/getrequirorderlist', 'OrderController@myorder');
+
 
 
 Route::get('/home', 'HomeController@index')->name('home');

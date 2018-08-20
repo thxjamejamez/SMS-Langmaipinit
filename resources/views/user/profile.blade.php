@@ -11,6 +11,15 @@
 </style>
 @stop
 <div class="container-fluid">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <form action="/user" method="POST" accept-charset="utf-8">
     {{ csrf_field() }}
     <div class="card card-default">
@@ -26,6 +35,10 @@
                 <div class="form-group col-2">
                     <label for="password">รหัสผ่าน</label>
                     <input id="password" type="password" class="form-control" name="password" required>
+                </div>
+                <div class="form-group col-2">
+                    <label for="nickname">ชื่อเล่น</label>
+                    <input id="nickname" type="text" class="form-control" name="nickname" required>
                 </div>
                 <div class="form-group col-2">
                     <label>สิทธิ์ในการเข้าถึง</label>

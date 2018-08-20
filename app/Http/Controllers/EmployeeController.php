@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request,
     \App\EmployeeInfo,
     \App\UserPermission,
@@ -35,10 +35,17 @@ class EmployeeController extends Controller
 
     public function store(Request $request)
     {
+        $chk = $request->validate([
+                'nickname' => 'required',
+                'username' => 'required|string|max:20|unique:users',
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' => 'required|string|min:6'
+            ]);
+        
         try{
             $userEloquent = new \App\User();
             $userEloquent->username = trim($request['username']);
-            $userEloquent->name = '';
+            $userEloquent->nickname = $request['nickname'];
             $userEloquent->password = \Hash::make($request['password']);
             $userEloquent->email = trim($request['email']);
             $userEloquent->status = 1;
@@ -46,7 +53,7 @@ class EmployeeController extends Controller
     
             if($request['permission']!=6){
                 $empinfoEloquent = new EmployeeInfo();
-                $empinfoEloquent->user_id = $userEloquent->id;
+                $empinfoEloquent->users_id = $userEloquent->id;
                 $empinfoEloquent->title_id = $request['title'];
                 $empinfoEloquent->first_name = $request['firstname'];
                 $empinfoEloquent->last_name = $request['lastname'];
@@ -54,6 +61,7 @@ class EmployeeController extends Controller
                 $empinfoEloquent->email = $request['email'];
                 $empinfoEloquent->tel = $request['tel'];
                 $empinfoEloquent->salary = $request['salary'];
+                $empinfoEloquent->active = 1;
                 if(isset($request['birthdate'])){$empinfoEloquent->birthdate = date('Y-m-d', strtotime($request['birthdate']));}
                 if(isset($request['startdate'])){$empinfoEloquent->start_date = date('Y-m-d', strtotime($request['startdate']));}
                 if(isset($request['enddate'])){$empinfoEloquent->end_date = date('Y-m-d', strtotime($request['enddate']));}
@@ -64,7 +72,7 @@ class EmployeeController extends Controller
     
             $userrolesEloquent = new UserPermission();
             $userrolesEloquent->user_id = $userEloquent->id;
-            $userrolesEloquent->permission_id = $request['permission'];
+            $userrolesEloquent->permissions_id = $request['permission'];
             $userrolesEloquent->save();
             
             \Session::flash('massage','Updated');

@@ -27,7 +27,7 @@ img:hover {
                 <div class="row">
                     <div class="col-md-6">
                         <div class="card card-info">
-                            <div class="card-header">
+                            <div class="card-header bg-brown">
                                 <h3 class="card-title">รายละเอียดคำขอ</h3>
                             </div>
                             <div class="card-body">
@@ -46,7 +46,7 @@ img:hover {
 
                     <div class="col-md-6">
                         <div class="card card-primary">
-                            <div class="card-header">
+                            <div class="card-header bg-brown">
                                 <h3 class="card-title">ข้อมูลการเสนอราคา</h3>
                             </div>
                             <div class="card-body">
@@ -63,7 +63,7 @@ img:hover {
                                         <div class="row">
                                             <div class="form-group col-5">
                                                 <select class="form-control" name="product[]" disabled>
-                                                    <option value="{{ $dr->product_no }}">{{ $dr->product_name }}, {{ $dr->product_size }}</option>
+                                                    <option value="{{ $dr->product_no }}">({{ $dr->type_name }}) {{ $dr->product_name }}, {{ $dr->product_size }}</option>
                                                 </select>
                                             </div>
                                             <div class="form-group col-5">
@@ -87,17 +87,6 @@ img:hover {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                
-            </div>
-            <div class="card-footer">
-                <div class="row">
-                    <div class="col-1">
-                        <button type="submit" class="btn btn-block btn-outline-primary btn-sm">บันทึก</button>
-                    </div>
-                    <div class="col-1">
-                        <button type="reset" class="btn btn-block btn-outline-danger btn-sm">ยกเลิก</button>
                     </div>
                 </div>
             </div>

@@ -62,9 +62,9 @@ class EmployeeController extends Controller
                 $empinfoEloquent->tel = $request['tel'];
                 $empinfoEloquent->salary = $request['salary'];
                 $empinfoEloquent->active = 1;
-                if(isset($request['birthdate'])){$empinfoEloquent->birthdate = date('Y-m-d', strtotime($request['birthdate']));}
-                if(isset($request['startdate'])){$empinfoEloquent->start_date = date('Y-m-d', strtotime($request['startdate']));}
-                if(isset($request['enddate'])){$empinfoEloquent->end_date = date('Y-m-d', strtotime($request['enddate']));}
+                if($request['birthdate']){$empinfoEloquent->birthdate = date('Y-m-d', strtotime($request['birthdate']));}
+                if($request['startdate']){$empinfoEloquent->start_date = date('Y-m-d', strtotime($request['startdate']));}
+                if($request['enddate']){$empinfoEloquent->end_date = date('Y-m-d', strtotime($request['enddate']));}
                 $empinfoEloquent->province_id = $request['province'];
                 $empinfoEloquent->district_id = $request['district'];
                 $empinfoEloquent->save();
@@ -120,6 +120,6 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
 }

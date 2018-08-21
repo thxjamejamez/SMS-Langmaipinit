@@ -37,6 +37,7 @@ Route::get('/getproducttypelist', 'ProducttypeController@producttypelist');
 #Product
 Route::resource('product', 'ProductController');
 Route::get('/getproductlist', 'ProductController@productlist');
+Route::get('/myproduct', 'ProductController@myproduct');
 
 #Require Quotation
 Route::resource('requirequotation', 'RequireQuotationController');

@@ -21,10 +21,6 @@
                         <label for="file">อัพโหลดรูปภาพ</label>
                         <div class="input-group">
                             <input type="file" class="form-control-file" name="requofile">
-                        {{-- <div class="custom-file"> --}}
-                            {{-- <input type="file" class="custom-file-input" id="file" name="file" value="">
-                            <label class="custom-file-label" for="file"></label> --}}
-                        {{-- </div> --}}
                         </div>
                     </div>
                 </div>

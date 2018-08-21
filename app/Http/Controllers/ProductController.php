@@ -27,7 +27,6 @@ class ProductController extends Controller
     {
         $producttype = DB::Table('product_type')->where('active', 1)->get();
         return View('product.form', compact('producttype'));            
-        
     }
 
     /**
@@ -104,5 +103,9 @@ class ProductController extends Controller
             ->join('product_type', 'product.type_no', '=', 'product_type.type_no')
             ->get();
         return response()->json(["data"=>$product]);        
+    }
+
+    function myproduct(){
+        return view('');
     }
 }

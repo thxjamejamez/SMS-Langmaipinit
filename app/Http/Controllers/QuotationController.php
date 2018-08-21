@@ -61,7 +61,11 @@ class QuotationController extends Controller
         $detail = DB::table('require_quotation')
             ->where('require_no', $id)
             ->first();
-        $product = DB::table('product')->where('active', 1)->get();
+        $product = DB::table('product')
+            ->join('product_type', 'product.type_no', '=', 'product_type.type_no')
+            ->where('product.active', 1)
+            ->where('product_type.active', 1)
+            ->get();
         return view('admin_quotation.form', compact('detail', 'product', 'id'));
     }
 

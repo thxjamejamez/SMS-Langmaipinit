@@ -20,14 +20,14 @@ img:hover {
         <input type="hidden" name="_method" value="PUT">
         {{ csrf_field() }}
         <div class="card card-default">
-            <div class="card-header">
+            <div class="card-header ">
                 <h3 class="card-title">จัดการใบเสนอราคา</h3>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="card card-info">
-                            <div class="card-header">
+                            <div class="card-header bg-brown">
                                 <h3 class="card-title">รายละเอียดคำขอ</h3>
                             </div>
                             <div class="card-body">
@@ -46,7 +46,7 @@ img:hover {
 
                     <div class="col-md-6">
                         <div class="card card-primary">
-                            <div class="card-header">
+                            <div class="card-header bg-brown">
                                 <h3 class="card-title">ข้อมูลการเสนอราคา</h3>
                             </div>
                             <div class="card-body">
@@ -66,7 +66,7 @@ img:hover {
                                         <div class="form-group col-5">
                                             <select class="form-control" name="product[]">
                                                 @foreach($product as $products)
-                                                <option value="{{ $products->product_no }}">{{ $products->product_name }}, {{ $products->product_size }}</option>
+                                                <option value="{{ $products->product_no }}">({{ $products->type_name }}) {{ $products->product_name }}, {{ $products->product_size }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -118,7 +118,7 @@ img:hover {
                                         <div class="form-group col-5">
                                             <select class="form-control" name="product[]">
                                                 @foreach($product as $products)
-                                                <option value="{{ $products->product_no }}">{{ $products->product_name }}, {{ $products->product_size }}</option>
+                                                <option value="{{ $products->product_no }}">({{ $products->type_name }}) {{ $products->product_name }}, {{ $products->product_size }}</option>
                                                 @endforeach
                                             </select>
                                         </div>

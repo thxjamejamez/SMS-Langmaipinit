@@ -6,6 +6,8 @@
   <title>AdminLTE 3 | Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Font Thaisarabun -->
+  {{-- <link rel="stylesheet" href="/fonts/thsarabunnew.css" /> --}}
   <!-- Font Awesome -->
   <link rel="stylesheet" href="/plugins/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->

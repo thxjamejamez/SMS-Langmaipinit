@@ -17,7 +17,7 @@
                             <th>รหัสคำขอใบเสนอราคา</th>
                             <th>รหัสลูกค้า</th>
                             <th>สถานะคำขอ</th>
-                            <th></th>
+                            <th style="width: 10px;"></th>
                         </tr>
                     </thead>
                 </table>
@@ -41,11 +41,11 @@
                 },
             columns:    [
                             {data: 'require_no', name: 'require_no'},
-                            {data: 'cust_no', name: 'cust_no'},
+                            {data: 'users_id', name: 'users_id'},
                             {data: 'sts_name', name: 'sts_name'},
                             {data: 'require_no', render: function(data, type ,row, meta){
                                     if(type === 'display'){
-                                        data = '<a href=quotation/'+ data +'/edit><i class="fa fa-check-square-o"> จัดการใบเสนอราคา </a>';
+                                        data = '<a class="btn btn-block btn-info btn-sm" href=quotation/'+ data +'/edit><i class="fa fa-check-square-o"> จัดการใบเสนอราคา </a>';
                                     }
                                     return data;
                                 }

@@ -41,18 +41,21 @@ class RequireQuotationController extends Controller
         // $this->validate($request, [
         //     'requofile' => 'mimes:jpeg,png,JPG,gif,svg|max:8000',
         // ]);
-        $image = $request->file('requofile');
-        $fileName = time().'.'.$image->getClientOriginalExtension();
-        $image->move(public_path('/file_quotation'), $fileName);
-
+        if($request['requofile']){
+            $image = $request->file('requofile');
+            $fileName = time().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('/file_quotation'), $fileName);
+        }
+        
         $reQuoEloquent = new RequireQuotation();
         $reQuoEloquent->require_detail = $request['re_detail'];
-        $reQuoEloquent->file = $fileName;
-        $reQuoEloquent->cust_no = $user->id;
+        if(isset($fileName)){$reQuoEloquent->file = $fileName;}
+        $reQuoEloquent->users_id = $user->id;
         $reQuoEloquent->sts_id = 1;
         $reQuoEloquent->save();
 
-        return back()->with('success', 'Uploaded')->with('path', $fileName);
+        // return back()->with('success', 'Uploaded')->with('path', $fileName);
+        return \Redirect::to('requirequotation');
     }
 
     /**
@@ -80,6 +83,7 @@ class RequireQuotationController extends Controller
         $product = DB::table('product')->where('active', 1)->get();
         $detail_quotation = DB::table('quotation')
             ->join('product', 'quotation.product_no', '=', 'product.product_no')
+            ->join('product_type', 'product.type_no', '=', 'product_type.type_no')
             ->where('require_no', $id)
             ->get();
         return view('quotation.add_pd_cust', compact('detail', 'product', 'id', 'detail_quotation'));
@@ -112,7 +116,7 @@ class RequireQuotationController extends Controller
         $user = \Auth::user();
         $data = DB::Table('require_quotation')
             ->join('l_require_sts', 'require_quotation.sts_id', '=', 'l_require_sts.id')
-            ->where('cust_no', $user->id)
+            ->where('users_id', $user->id)
             ->get();
         return response()->json(["data"=>$data]);
     }
@@ -127,14 +131,14 @@ class RequireQuotationController extends Controller
                 ->update(['confirm_status'=>2]);
     
             ProductForCust::where('product_no', $pd['product_no'])
-                ->where('cust_no', $user->id)
+                ->where('users_id', $user->id)
                 ->delete();
     
             $pdforcustEloquent = new ProductForCust();
             $pdforcustEloquent->product_no = $pd['product_no'];
             $pdforcustEloquent->price = $pd['price'];
             $pdforcustEloquent->update_date = DB::raw('NOW()');
-            $pdforcustEloquent->cust_no = $user->id;
+            $pdforcustEloquent->users_id = $user->id;
             $pdforcustEloquent->save();
             
             return 'success';

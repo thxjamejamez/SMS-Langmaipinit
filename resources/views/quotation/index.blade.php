@@ -21,7 +21,7 @@
                         <tr>
                             <th>รหัสคำขอใบเสนอราคา</th>
                             <th>สถานะคำขอ</th>
-                            <th></th>
+                            <th style="width: 10px;"></th>
                         </tr>
                     </thead>
                 </table>
@@ -49,9 +49,9 @@
                             {data: 'require_no', render: function(data, type ,row, meta){
                                     if(type === 'display'){
                                         if(row.sts_id == 2){
-                                            data = '<a href=requirequotation/'+ data +'/edit><i class="fa fa-search"> เรียกดู</a>';
+                                            data = '<a class="btn btn-block btn-warning btn-sm" href=requirequotation/'+ data +'/edit><i class="fa fa-search"></i> เรียกดู</a>';
                                         }else{
-                                            data = '<i class="fa fa-search"> เรียกดู';
+                                            data = '<button class="btn btn-block btn-warning btn-sm" disabled><i class="fa fa-search"></i> เรียกดู</button>' ;
                                         }
                                     }
                                     return data;

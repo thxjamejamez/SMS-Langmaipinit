@@ -32,7 +32,6 @@
   <link rel="stylesheet" href="/admin/css/master.css">
   <link rel="stylesheet" href="/plugins/select2/select2.css">
   <link rel="stylesheet" href="/plugins/datatables/dataTables.bootstrap4.css">
-
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   @yield('css')
@@ -288,6 +287,9 @@
 <script src="/admin/js/adminlte.js"></script>
 <script src="/plugins/input-mask/jquery.inputmask.js"></script>
 <script src="/plugins/iCheck/icheck.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
+<script src="/js/accounting.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <!-- <script src="/admin/js/pages/dashboard.js"></script> -->
 <!-- AdminLTE for demo purposes -->

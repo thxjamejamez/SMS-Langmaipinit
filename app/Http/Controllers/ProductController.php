@@ -8,11 +8,6 @@ use Illuminate\Http\Request,
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         return View('product.index');            
@@ -106,6 +101,16 @@ class ProductController extends Controller
     }
 
     function myproduct(){
-        return view('');
+        return view('product.mypdindex');
+    }
+
+    function myproductlist(){
+        $user = \Auth::user();
+        $product = DB::table('product_for_cust')
+            ->join('product', 'product_for_cust.product_no', '=', 'product.product_no')
+            ->join('product_type', 'product.type_no', '=', 'product_type.type_no')
+            ->where('users_id', $user->id)
+            ->get();
+        return response()->json(["data"=>$product]);
     }
 }

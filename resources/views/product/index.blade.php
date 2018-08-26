@@ -9,27 +9,27 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">สินค้า</h3>
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">สินค้า</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="product-table" class="table table-hover table-bordered dt-responsive nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>รหัสสินค้า</th>
+                                <th>ประเภทสินค้า</th>
+                                <th>ชื่อสินค้า</th>
+                                <th>ขนาดสินค้า</th>
+                                <th>ราคาสินค้า</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <!-- /.card-body -->
             </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-                <table id="product-table" class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>รหัสสินค้า</th>
-                            <th>ประเภทสินค้า</th>
-                            <th>ชื่อสินค้า</th>
-                            <th>ขนาดสินค้า</th>
-                            <th>ราคาสินค้า</th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
-            <!-- /.card-body -->
-        </div>
         </div>
     </div>
 </div>

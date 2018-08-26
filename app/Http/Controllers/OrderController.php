@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Http\Request,
+    DB;
 
 class OrderController extends Controller
 {
@@ -23,7 +24,13 @@ class OrderController extends Controller
      */
     public function create()
     {
-        return view('order.create');        
+        $user = \Auth::user();
+        $product = DB::table('product_for_cust')
+            ->join('product', 'product_for_cust.product_no', '=', 'product.product_no')
+            ->join('product_type', 'product.type_no', '=', 'product_type.type_no')
+            ->where('users_id', $user->id)
+            ->get();
+        return view('order.create', compact('product'));        
     }
 
     /**

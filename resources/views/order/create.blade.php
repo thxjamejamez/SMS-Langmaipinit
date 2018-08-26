@@ -1,173 +1,104 @@
 @extends('admin')
 @section('content')
 @section('css')
-    <link rel="stylesheet" href="/plugins/draganddrop/main.css">
+    <link rel="stylesheet" href="/css/requireorder/app.css">
 @stop
-<div class="container-fluid">
- 
-    <div class="containerpd">
-    
-            <section id="header" style="margin-bottom: 50px;"><a href="http://www.jqueryscript.net/"><strong>Free jQuery Plugins, HTML5 and CSS3 Scripts</strong></a></section>
-        
-            <section id="product">
-                <ul class="clear">
-                    <li data-id="1">
-                        <a href="#">
-                            <img src="http://lorempixel.com/150/100/technics/1/" alt="">
-                            <h3>iPad 32gb retina screen</h3>
-                            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
-                        </a>
-                    </li>
-                    <li data-id="2">
-                        <a href="#">
-                            <img src="http://lorempixel.com/150/100/technics/2/" alt="">
-                            <h3>Turntable mixer</h3>
-                            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
-                        </a>
-                    </li>
-                    <li data-id="3">
-                        <a href="#">
-                            <img src="http://lorempixel.com/150/100/technics/3/" alt="">
-                            <h3>IBM 15" super-fast computer</h3>
-                            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
-                        </a>
-                    </li>
-                    <li data-id="4">
-                        <a href="#">
-                            <img src="http://lorempixel.com/150/100/technics/4/" alt="">
-                            <h3>Some crazy circuit</h3>
-                            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
-                        </a>
-                    </li>
-                    <li data-id="5">
-                        <a href="#">
-                            <img src="http://lorempixel.com/150/100/technics/5/" alt="">
-                            <h3>White earpieces</h3>
-                            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
-                        </a>
-                    </li>
-                    <li data-id="6">
-                        <a href="#">
-                            <img src="http://lorempixel.com/150/100/technics/6/" alt="">
-                            <h3>Headphones with free keyboard</h3>
-                            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
-                        </a>
-                    </li>
-                    <li data-id="7">
-                        <a href="#">
-                            <img src="http://lorempixel.com/150/100/technics/7/" alt="">
-                            <h3>iPhone 4S</h3>
-                            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
-                        </a>
-                    </li>
-                    <li data-id="8">
-                        <a href="#">
-                            <img src="http://lorempixel.com/150/100/technics/8/" alt="">
-                            <h3>Another crazy circuit or..</h3>
-                            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
-                        </a>
-                    </li>
-                </ul>
-          </section>
-        
-        
-            <aside id="sidebar">
-                <div class="basket">
-                    <div class="basket_list">
-                        <div class="head">
-                            <span class="name">Product name</span>
-                            <span class="count">Quantity</span>
+<div class="container-fluid" id="app">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fa fa-cart-arrow-down"></i>&nbsp;&nbsp;สินค้าที่สั่งซื้อ</h3>
+                </div>
+                <div class="card-body">
+                    <div class="card-body p-0">
+                        <table class="table table-condensed">
+                            <tr>
+                                <th style="width: 10px">#</th>
+                                <th>ประเภทสินค้า</th>
+                                <th>ชื่อสินค้า</th>
+                                <th>ขนาดสินค้า</th>
+                                <th class="text-right">ราคาต่อหน่วย</th>
+                                <th class="text-center">จำนวนที่สั่งซื้อ</th>
+                                <th class="text-right">ราคารวม</th>
+                                <th style="width: 10px"></th>
+                            </tr>
+                            <tr v-for="(obj, key) in form">
+                                <td>@{{ key+1 }}</td>
+                                <td>@{{ obj.type_name }}</td>
+                                <td>@{{ obj.product_name }}</td>
+                                <td>@{{ obj.product_size }}</td>
+                                <td class="text-right">@{{ obj.price | formatP }}</td>
+                                <td class="text-center"><input type="number" min="1" v-model.number="form[key].qty" @change="sumpd()" @click="sumpd()" class="text-center" style="width: 70px"></td>
+                                <td class="text-right">@{{ (obj.price*obj.qty) | formatP }}</td> 
+                                <td><div class="btn btn-block btn-danger btn-sm" @click="delinCart(obj)"><i class="fa fa-trash"></i></div></td>                      
+                            </tr>
+                            <tr style="background-color: #E0E0E0">
+                                <td colspan="6"><b>รวมทั้งสิ้น</b></td>
+                                <td class="text-right"><b>@{{ sum | formatP }}</b></td>
+                                <td><b>บาท</b></td>
+                            </tr>
+                        </table>
+                      </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fa fa-dropbox"></i>&nbsp;&nbsp;รายการสินค้า</h3>
+                </div>
+                <div class="card-body scroll-x">
+                    <div id="product" 
+                        v-for="(obj, key) in dt">
+                        <div class="boxx" v-on:click="addtoCart(obj)">
+                            <div class="pd">
+                                <i class="ion-cube"></i>
+                                (@{{ obj.type_name }}) @{{ obj.product_name }}, @{{ obj.product_size }}
+                            </div>
                         </div>
-                        <ul>
-                            <!--li>
-                                <span class="name">Samsung S3 asd asdasdaf dfsdghgfg dgfg</span>
-                                <input class="count" value="1" type="text">
-                                <button class="delete">&#10005;</button>
-                            </li-->
-                        </ul>
                     </div>
                 </div>
-                
-             
-        
-            </aside>
+            </div>
         </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fa fa-info-circle"></i>&nbsp;&nbsp;รายละเอียดการสั่งซื้อ</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label>หมายเหตุ</label>
+                            <textarea class="form-control" name="re_detail" rows="3" placeholder=""></textarea>
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="file">ไฟล์แนบ</label>
+                            <div class="input-group">
+                                <input type="file" class="form-control-file" name="requofile">
+                            </div>
+                        </div>
+                        <div class="form-group col-2">
+                            <label>วันที่ส่งสินค้า</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                </div>
+                                <input id="senddate" type="text" name="senddate" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-    
 @stop
-
-
 @section('script')
-{{-- <script src="/plugins/draganddrop/jquery-ui-1.9.0.custom.min.js"></script> --}}
+<script src="/js/requireorder/app.js?v=<?php echo filemtime('js/requireorder/app.js')?>"></script>
 <script type="text/javascript">
-$(function () {
 
-// jQuery UI Draggable
-$("#product li").draggable({
-
-    // brings the item back to its place when dragging is over
-    revert:true,
-
-    // once the dragging starts, we decrease the opactiy of other items
-    // Appending a class as we do that with CSS
-    drag:function () {
-        $(this).addClass("active");
-        $(this).closest("#product").addClass("active");
-    },
-
-    // removing the CSS classes once dragging is over.
-    stop:function () {
-        $(this).removeClass("active").closest("#product").removeClass("active");
-    }
-});
-
-// jQuery Ui Droppable
-$(".basket").droppable({
-
-    // The class that will be appended to the to-be-dropped-element (basket)
-    activeClass:"active",
-
-    // The class that will be appended once we are hovering the to-be-dropped-element (basket)
-    hoverClass:"hover",
-
-    // The acceptance of the item once it touches the to-be-dropped-element basket
-    // For different values http://api.jqueryui.com/droppable/#option-tolerance
-    tolerance:"touch",
-    drop:function (event, ui) {
-
-        var basket = $(this),
-                move = ui.draggable,
-                itemId = basket.find("ul li[data-id='" + move.attr("data-id") + "']");
-
-        // To increase the value by +1 if the same item is already in the basket
-        if (itemId.html() != null) {
-            itemId.find("input").val(parseInt(itemId.find("input").val()) + 1);
-        }
-        else {
-            // Add the dragged item to the basket
-            addBasket(basket, move);
-
-            // Updating the quantity by +1" rather than adding it to the basket
-            move.find("input").val(parseInt(move.find("input").val()) + 1);
-        }
-    }
-});
-
-// This function runs onc ean item is added to the basket
-function addBasket(basket, move) {
-    basket.find("ul").append('<li data-id="' + move.attr("data-id") + '">'
-            + '<span class="name">' + move.find("h3").html() + '</span>'
-            + '<input class="count" value="1" type="text">'
-            + '<button class="delete">&#10005;</button>');
-}
-
-
-// The function that is triggered once delete button is pressed
-$(".basket ul li button.delete").live("click", function () {
-    $(this).closest("li").remove();
-});
-
-});
 </script>
 @stop

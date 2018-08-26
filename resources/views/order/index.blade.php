@@ -5,18 +5,18 @@
 <div class="container-fluid col-12">
     <div class="row">
         <div class="form-group">
-            <a href="/requirequotation/create" style="margin-left: 20px;"><i class="fa fa-file-o"></i> เพิ่มคำขอใบเสนอราคา</a>
+            <a href="/requireorder/create" style="margin-left: 20px;"><i class="fa fa-file-o"></i> เพิ่มการสั่งซื้อ</a>
         </div>
     </div>
     <div class="row">
-        <div class="col-12">
+        <div class="col-sm-12">
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">คำขอใบเสนอราคา</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <table id="requotataion-table" class="table table-bordered table-hover">
+                <table id="requotataion-table" class="table table-hover table-bordered dt-responsive nowrap" style="width:100%">
                     <thead>
                         <tr>
                             <th>เลขที่การสั่งซื้อ</th>

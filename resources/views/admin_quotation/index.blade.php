@@ -4,14 +4,14 @@
 @stop
 <div class="container-fluid col-12">
     <div class="row">
-        <div class="col-12">
+        <div class="col-sm-12">
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">ใบเสนอราคา</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <table id="requotataion-table" class="table table-bordered table-hover">
+                <table id="requotataion-table" class="table table-hover table-bordered dt-responsive nowrap" style="width:100%">
                     <thead>
                         <tr>
                             <th>รหัสคำขอใบเสนอราคา</th>

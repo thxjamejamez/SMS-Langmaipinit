@@ -9,14 +9,14 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-12">
+        <div class="col-sm-12">
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">ประเภทสินค้า</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <table id="producttype-table" class="table table-bordered table-hover">
+                <table id="producttype-table" class="table table-hover table-bordered dt-responsive nowrap" style="width:100%">
                     <thead>
                         <tr>
                             <th>รหัสประเภทสินค้า</th>

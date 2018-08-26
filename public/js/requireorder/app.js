@@ -15,16 +15,7 @@ const app = new Vue({
         this.fetchdata();
         this.callfunction();
     },
-    // computed: {
-    //     sumpd: function(){
-    //         if(this.form.length){
-    //             this.sum = _.sumBy(this.form, function(o){
-    //                 return o.price * o.qty
-    //             })
-    //         }
-    //         return 0
-    //     }
-    // },
+
     methods: {
         callfunction: function(){
             $('#senddate').datepicker({

@@ -12,21 +12,20 @@
         <div class="col-sm-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">คำขอใบเสนอราคา</h3>
+                <h3 class="card-title">คำสั่งซื้อ</h3>
             </div>
-            <!-- /.card-header -->
             <div class="card-body">
-                <table id="requotataion-table" class="table table-hover table-bordered dt-responsive nowrap" style="width:100%">
+                <table id="reorder-table" class="table table-hover table-bordered dt-responsive nowrap" style="width:100%">
                     <thead>
                         <tr>
                             <th>เลขที่การสั่งซื้อ</th>
                             <th>วันที่สั่งซื้อ</th>
                             <th>สถานะการสั่งซื้อ</th>
+                            <th style="width: 10px"></th>
                         </tr>
                     </thead>
                 </table>
             </div>
-            <!-- /.card-body -->
         </div>
         </div>
     </div>
@@ -44,19 +43,25 @@
                     url: '{{ url("/getrequirorderlist") }}',
                 },
             columns:    [
-                            {data: 'require_no', name: 'require_no'},
-                            {data: 'sts_name', name: 'sts_name'},
-                            {data: 'require_no', render: function(data, type ,row, meta){
-                                    if(type === 'display'){
-                                        if(row.sts_id == 2){
-                                            data = '<a href=requirequotation/'+ data +'/edit><i class="fa fa-search"> เรียกดู</a>';
-                                        }else{
-                                            data = '<i class="fa fa-search"> เรียกดู';
-                                        }
-                                    }
-                                    return data;
+                            {data: 'order_no', render: function(data, type ,row, meta){
+                                if(type === 'display'){
+                                    data = 'PO'+numeral(data).format('000000');
                                 }
-                            },
+                                return data;
+                            }},
+                            {data: 'order_date', render: function(data,type,row,meta){
+                                if(type==='display'){
+                                    data = moment(data).locale('th').format('LL');
+                                }
+                                return data;
+                            }},
+                            {data: 'sts_name', name: 'sts_name'},
+                            {data: 'order_no', render: function(data, type ,row, meta){
+                                if(type === 'display'){
+                                    data = "<a class='btn btn-block btn-warning btn-sm' href='/requireorder/"+data+"/edit'><i class='fa fa-search' aria-hidden='true'></i> เรียกดู</a>";
+                                }
+                                return data;
+                            }},
                         ]
         });
     });

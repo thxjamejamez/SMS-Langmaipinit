@@ -53,7 +53,13 @@ Route::get('/getquotationlist', 'QuotationController@quotationlist');
 #Order
 Route::resource('requireorder', 'OrderController');
 Route::get('/getrequirorderlist', 'OrderController@myorder');
-
+Route::get('getorderlist', 'OrderController@getorderlist');
+Route::get('order', function(){
+    return view('order.adminindex');
+});
+Route::get('/getorderdetail/{orderid}/admin', 'OrderController@getorderdetail');
+Route::get('/changests/{order_no}/{sts_id}', 'OrderController@ChangeStatus');
+// Route::POST('/storeorder', 'OrderController@Store');
 
 
 Route::get('/home', 'HomeController@index')->name('home');

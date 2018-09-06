@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Standout</title>
+<title>Pinit 988 WOOD BOX LIMITED PARTNERSHIP</title>
 <meta name="description" content="">
 <meta name="author" content="">
 
@@ -45,16 +45,16 @@
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-      <a class="navbar-brand page-scroll" href="#page-top">Standout</a> </div>
+      <a class="navbar-brand page-scroll" href="#page-top">LOGO</a> </div>
     
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#about" class="page-scroll">About</a></li>
-        <li><a href="#services" class="page-scroll">Services</a></li>
-        <li><a href="#portfolio" class="page-scroll">Gallery</a></li>
-        <li><a href="#testimonials" class="page-scroll">Testimonials</a></li>
-        <li><a href="apanel" class="page-scroll">Admin</a></li>
+        <li><a href="#about" class="page-scroll">เกี่ยวกับเรา</a></li>
+        <li><a href="#services" class="page-scroll">สินค้าและบริการ</a></li>
+        <li><a href="#portfolio" class="page-scroll">ภาพตัวอย่างสินค้า</a></li>
+        <li><a href="#testimonials" class="page-scroll">ติดต่อเรา</a></li>
+        <li><a href="/apanel" class="page-scroll">เข้าสู่ระบบ</a></li>
       </ul>
     </div>
     <!-- /.navbar-collapse --> 
@@ -67,11 +67,10 @@
     <div class="overlay">
       <div class="container">
         <div class="row">
-          <div class="intro-text"> <span>Welcome to</span>
-            <h1>Standout</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipiscing. <br>
-              Duis sed dapibus leo nec ornare diam.</p>
-            <a href="#about" class="btn btn-custom btn-lg page-scroll">Learn More</a> </div>
+          <div class="intro-text"> <span>Welcome To</span>
+            <h1> PINIT988 WOOD BOX LIMITED PARTNERSHIP</h1>
+            <p>Open Daily 08:00 - 17:00</p>
+            <a href="#register" class="btn btn-custom btn-lg page-scroll" style="letter-spacing: 3px;">สมัครสมาชิก</a> </div>
         </div>
       </div>
     </div>
@@ -81,16 +80,18 @@
 <div id="about">
   <div class="container">
     <div class="section-title text-center center">
-      <h2>About Us</h2>
+      <h2>เกี่ยวกับเรา</h2>
       <hr>
     </div>
     <div class="row">
-      <div class="col-xs-12 col-md-6"> <img src="/forntpage/img/about.png" class="img-responsive" alt=""> </div>
+      <div class="col-xs-12 col-md-6">       
+        <img src="/forntpage/img/about.jpg" class="img-responsive" alt=""> 
+      </div>
       <div class="col-xs-12 col-md-6">
         <div class="about-text">
-          <h3>Lorem ipsum dolor sit amet!</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam. Sed commodo nibh ante facilisis bibendum dolor feugiat at. Duis sed dapibus leo nec ornare diam commodo nibh.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam. Sed commodo nibh ante facilisis bibendum dolor feugiat at. Duis sed dapibus leo nec ornare.</p>
+          <h3>PINIT988 WOOD BOX LIMITED PARTNERSHI</h3>
+          <p>หจก. ลังไม้พินิจ 988 ของเราเป็นผู้ผลิตบรรจุภัณฑ์ไม้มากกว่า 23 ปี ภายใต้ชื่อเดิม โรงงานลังไม้พินิจ  โดยรับผลิตลังไม้ พาเลทไม้ทุกขนิดตามความต้องการของลูกค้าสำหรับใช้เพื่อการส่งออกทั้งภายในและภายนอกประเทศ ซึ่งเป็นไปตามมาตรฐานและข้อกำหนดของ IPPC/ISPM15 ลูกค้าจึงมั่นใจได้ถึงคุณภาพและบริการที่ดีในราคาที่ย่อมเยาว์</p>
+          {{-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam. Sed commodo nibh ante facilisis bibendum dolor feugiat at. Duis sed dapibus leo nec ornare.</p> --}}
         </div>
       </div>
     </div>
@@ -100,26 +101,26 @@
 <div id="services" class="text-center">
   <div class="container">
     <div class="col-md-10 col-md-offset-1 section-title">
-      <h2>Our Services</h2>
+      <h2>สินค้าและบริการ</h2>
       <hr>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit duis sed dapibus leonec.</p>
+      <p>มีสินค้าและบริการให้เลือกใช้ตามความต้องการของลูกค้า</p>
     </div>
     <div class="row">
-      <div class="col-xs-6 col-md-3"> <i class="fa fa-comments-o"></i>
-        <h4>Lorem ipsum</h4>
-        <p>Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque etiam.</p>
+      <div class="col-xs-6 col-md-3"> <i class="fa fa-archive"></i>
+        <h4>งานไม้และพาเลท</h4>
+        <p>ผลิตตามแบบและขนาดที่ลูกค้าต้องการ ตามมาตรฐานของ IPPC</p>
       </div>
-      <div class="col-xs-6 col-md-3"> <i class="fa fa-bullhorn"></i>
-        <h4>Dolor sit amet</h4>
-        <p>Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque.</p>
+      <div class="col-xs-6 col-md-3"> <i class="fa fa-ship"></i>
+        <h4>บรรจุภัณฑ์สำหรับส่งออก</h4>
+        <p>บริการแพ็คเครื่องจักรเพื่อการส่งออกทั้งภายในและต่างประเทศ</p>
       </div>
-      <div class="col-xs-6 col-md-3"> <i class="fa fa-group"></i>
-        <h4>Tempus eleifend</h4>
-        <p>Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque etiam.</p>
+      <div class="col-xs-6 col-md-3"> <i class="fa fa-gavel"></i>
+        <h4>ไม้อัด</h4>
+        <p>ไส้ไม้, ไส้กระดาษ เกรด A, B, C มีทั้งแบบเต็มแผ่นและตัดชิ้นตามขนาดที่ลูกค้าต้องการ</p>
       </div>
       <div class="col-xs-6 col-md-3"> <i class="fa fa-magic"></i>
-        <h4>Pellentesque</h4>
-        <p>Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque.</p>
+        <h4>งาน DIY เฟอร์นิเจอร์ไม้จากพาเลท</h4>
+        <p>รับทำแบบตามความต้องการของลูกค้า หรือบริษัทต้องการ</p>
       </div>
     </div>
   </div>
@@ -128,18 +129,18 @@
 <div id="portfolio">
   <div class="container">
     <div class="section-title text-center center">
-      <h2>Gallery</h2>
+      <h2>ภาพตัวอย่างสินค้า</h2>
       <hr>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit duis sed dapibus leonec.</p>
+      {{-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit duis sed dapibus leonec.</p> --}}
     </div>
     <div class="categories">
       <ul class="cat">
         <li>
           <ol class="type">
-            <li><a href="#" data-filter="*" class="active">All</a></li>
-            <li><a href="#" data-filter=".lorem">Lorem Ipsum</a></li>
-            <li><a href="#" data-filter=".dolor">Dolor Sit</a></li>
-            <li><a href="#" data-filter=".adipiscing">Adipiscing Elit</a></li>
+            <li><a href="#" data-filter="*" class="active">ทั้งหมด</a></li>
+            <li><a href="#" data-filter=".lorem">ประเภทไม้</a></li>
+            <li><a href="#" data-filter=".dolor">รูปแบบสินค้า</a></li>
+            <li><a href="#" data-filter=".adipiscing">การจัดส่ง</a></li>
           </ol>
         </li>
       </ul>
@@ -149,110 +150,110 @@
       <div class="portfolio-items">
         <div class="col-sm-6 col-md-3 col-lg-3 lorem">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="/forntpage/img/portfolio/01-large.jpg" title="Project Title" data-lightbox-gallery="gallery1">
+            <div class="hover-bg"> <a href="/forntpage/img/portfolio/large (1).jpg" title="Project Title" data-lightbox-gallery="gallery1">
               <div class="hover-text">
                 <h4>Lorem Ipsum</h4>
               </div>
-              <img src="/forntpage/img/portfolio/01-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+              <img src="/forntpage/img/portfolio/large (1).jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
         <div class="col-sm-6 col-md-3 col-lg-3 adipiscing">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="/forntpage/img/portfolio/02-large.jpg" title="Project Title" data-lightbox-gallery="gallery1">
+            <div class="hover-bg"> <a href="/forntpage/img/portfolio/large (2).jpg" title="Project Title" data-lightbox-gallery="gallery1">
               <div class="hover-text">
                 <h4>Adipiscing Elit</h4>
               </div>
-              <img src="/forntpage/img/portfolio/02-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+              <img src="/forntpage/img/portfolio/large (2).jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
         <div class="col-sm-6 col-md-3 col-lg-3 lorem">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="/forntpage/img/portfolio/03-large.jpg" title="Project Title" data-lightbox-gallery="gallery1">
+            <div class="hover-bg"> <a href="/forntpage/img/portfolio/large (3).jpg" title="Project Title" data-lightbox-gallery="gallery1">
               <div class="hover-text">
                 <h4>Lorem Ipsum</h4>
               </div>
-              <img src="/forntpage/img/portfolio/03-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+              <img src="/forntpage/img/portfolio/large (3).jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
         <div class="col-sm-6 col-md-3 col-lg-3 lorem">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="/forntpage/img/portfolio/04-large.jpg" title="Project Title" data-lightbox-gallery="gallery1">
+            <div class="hover-bg"> <a href="/forntpage/img/portfolio/large (4).jpg" title="Project Title" data-lightbox-gallery="gallery1">
               <div class="hover-text">
                 <h4>Lorem Ipsum</h4>
               </div>
-              <img src="/forntpage/img/portfolio/04-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+              <img src="/forntpage/img/portfolio/large (4).jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
         <div class="col-sm-6 col-md-3 col-lg-3 adipiscing">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="/forntpage/img/portfolio/05-large.jpg" title="Project Title" data-lightbox-gallery="gallery1">
+            <div class="hover-bg"> <a href="/forntpage/img/portfolio/large (5).jpg" title="Project Title" data-lightbox-gallery="gallery1">
               <div class="hover-text">
                 <h4>Adipiscing Elit</h4>
               </div>
-              <img src="/forntpage/img/portfolio/05-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+              <img src="/forntpage/img/portfolio/large (5).jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
         <div class="col-sm-6 col-md-3 col-lg-3 dolor">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="/forntpage/img/portfolio/06-large.jpg" title="Project Title" data-lightbox-gallery="gallery1">
+            <div class="hover-bg"> <a href="/forntpage/img/portfolio/large (6).jpg" title="Project Title" data-lightbox-gallery="gallery1">
               <div class="hover-text">
                 <h4>Dolor Sit</h4>
               </div>
-              <img src="/forntpage/img/portfolio/06-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+              <img src="/forntpage/img/portfolio/large (6).jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
         <div class="col-sm-6 col-md-3 col-lg-3 dolor">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="/forntpage/img/portfolio/07-large.jpg" title="Project Title" data-lightbox-gallery="gallery1">
+            <div class="hover-bg"> <a href="/forntpage/img/portfolio/large (7).jpg" title="Project Title" data-lightbox-gallery="gallery1">
               <div class="hover-text">
                 <h4>Dolor Sit</h4>
               </div>
-              <img src="/forntpage/img/portfolio/07-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+              <img src="/forntpage/img/portfolio/large (7).jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
         <div class="col-sm-6 col-md-3 col-lg-3 lorem">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="/forntpage/img/portfolio/08-large.jpg" title="Project Title" data-lightbox-gallery="gallery1">
+            <div class="hover-bg"> <a href="/forntpage/img/portfolio/large (8).jpg" title="Project Title" data-lightbox-gallery="gallery1">
               <div class="hover-text">
                 <h4>Lorem Ipsum</h4>
               </div>
-              <img src="/forntpage/img/portfolio/08-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+              <img src="/forntpage/img/portfolio/large (8).jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
         <div class="col-sm-6 col-md-3 col-lg-3 adipiscing">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="/forntpage/img/portfolio/09-large.jpg" title="Project Title" data-lightbox-gallery="gallery1">
+            <div class="hover-bg"> <a href="/forntpage/img/portfolio/large (9).jpg" title="Project Title" data-lightbox-gallery="gallery1">
               <div class="hover-text">
                 <h4>Adipiscing Elit</h4>
               </div>
-              <img src="/forntpage/img/portfolio/09-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+              <img src="/forntpage/img/portfolio/large (9).jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
         <div class="col-sm-6 col-md-3 col-lg-3 dolor">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="/forntpage/img/portfolio/10-large.jpg" title="Project Title" data-lightbox-gallery="gallery1">
+            <div class="hover-bg"> <a href="/forntpage/img/portfolio/large (10).jpg" title="Project Title" data-lightbox-gallery="gallery1">
               <div class="hover-text">
                 <h4>Dolor Sit</h4>
               </div>
-              <img src="/forntpage/img/portfolio/10-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+              <img src="/forntpage/img/portfolio/large (10).jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
         <div class="col-sm-6 col-md-3 col-lg-3 dolor">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="/forntpage/img/portfolio/11-large.jpg" title="Project Title" data-lightbox-gallery="gallery1">
+            <div class="hover-bg"> <a href="/forntpage/img/portfolio/large (11).jpg" title="Project Title" data-lightbox-gallery="gallery1">
               <div class="hover-text">
                 <h4>Dolor Sit</h4>
               </div>
-              <img src="/forntpage/img/portfolio/11-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+              <img src="/forntpage/img/portfolio/large (11).jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
         <div class="col-sm-6 col-md-3 col-lg-3 lorem">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="/forntpage/img/portfolio/12-large.jpg" title="Project Title" data-lightbox-gallery="gallery1">
+            <div class="hover-bg"> <a href="/forntpage/img/portfolio/large (12).jpg" title="Project Title" data-lightbox-gallery="gallery1">
               <div class="hover-text">
                 <h4>Lorem Ipsum</h4>
               </div>
-              <img src="/forntpage/img/portfolio/12-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+              <img src="/forntpage/img/portfolio/large (12).jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
       </div>
@@ -264,28 +265,28 @@
   <div class="overlay">
     <div class="container">
       <div class="section-title center">
-        <h2>Some Stats</h2>
+        <h2>สถิติ</h2>
         <hr>
       </div>
       <div class="row">
         <div class="col-md-3 col-sm-3">
-          <div class="achievement-box"> <span class="count">260</span>
-            <h4>Customers</h4>
+          <div class="achievement-box"> <span class="count">83</span>
+            <h4>จำนวนพนักงาน</h4>
           </div>
         </div>
         <div class="col-md-3 col-sm-3">
-          <div class="achievement-box"> <span class="count">83</span>
-            <h4>Developers</h4>
+          <div class="achievement-box"> <span class="count">260</span>
+            <h4>จำนวนลูกค้า</h4>
           </div>
         </div>
         <div class="col-md-3 col-sm-3">
           <div class="achievement-box"> <span class="count">571</span>
-            <h4>Projects</h4>
+            <h4>จำนวนรูปแบบสินค้า</h4>
           </div>
         </div>
         <div class="col-md-3 col-sm-3">
-          <div class="achievement-box"> <span class="count">12</span>
-            <h4>Awards</h4>
+          <div class="achievement-box"> <span class="count">1200</span>
+            <h4>จำนวนรายการสั่งสินค้า</h4>
           </div>
         </div>
       </div>
@@ -293,7 +294,7 @@
   </div>
 </div>
 <!-- Testimonials Section -->
-<div id="testimonials" class="text-center">
+{{-- <div id="testimonials" class="text-center">
   <div class="container">
     <div class="section-title">
       <h2>Testimonials</h2>
@@ -318,37 +319,37 @@
       </div>
     </div>
   </div>
-</div>
+</div> --}}
 <!-- Contact Section -->
 <div id="contact" class="text-center">
   <div class="container">
     <div class="section-title center">
-      <h2>Get In Touch</h2>
+      <h2>ติดต่อเรา</h2>
       <hr>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit duis sed dapibus leonec.</p>
+      <p>ที่อยู่</p>
     </div>
     <div class="col-md-8 col-md-offset-2">
       <form name="sentMessage" id="contactForm" novalidate>
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <input type="text" id="name" class="form-control" placeholder="Name" required="required">
+              <input type="text" id="name" class="form-control" placeholder="ชื่อผู้ติดต่อ" required="required">
               <p class="help-block text-danger"></p>
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <input type="email" id="email" class="form-control" placeholder="Email" required="required">
+              <input type="email" id="email" class="form-control" placeholder="อีเมล์ติดต่อ" required="required">
               <p class="help-block text-danger"></p>
             </div>
           </div>
         </div>
         <div class="form-group">
-          <textarea name="message" id="message" class="form-control" rows="4" placeholder="Message" required></textarea>
+          <textarea name="message" id="message" class="form-control" rows="4" placeholder="ข้อความ" required></textarea>
           <p class="help-block text-danger"></p>
         </div>
         <div id="success"></div>
-        <button type="submit" class="btn btn-custom btn-lg">Send Message</button>
+        <button type="submit" class="btn btn-custom btn-lg">ส่งข้อความ</button>
       </form>
       <div class="social">
         <ul>

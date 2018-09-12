@@ -1,15 +1,19 @@
 @extends('admin')
 @section('content')
 @section('css')
-<style>
-.select2-container--default .select2-selection--single {
-    height: 38px;
-    padding: 9px 12px;
-    background-color: #fff;
-    border: 1px solid #aaa;
-    border-radius: 4px; }
-</style>
+    <link href="/plugins/dropzone/dropzone.min.css" rel="stylesheet" type="text/css" />
+    <style>
+        .select2-container--default .select2-selection--single {
+            height: 38px;
+            padding: 9px 12px;
+            background-color: #fff;
+            border: 1px solid #aaa;
+            border-radius: 4px; 
+        }
+    </style>
+
 @stop
+
 <div class="container-fluid">
     <form action="/producttype" method="POST" accept-charset="utf-8">
         {{ csrf_field() }}
@@ -37,6 +41,14 @@
             </div>
         </div>
     </form> 
+
+    <div ></div>
+
+    <form action="/file-upload" class="dropzone" id="jj">
+        <div class="fallback">
+          <input name="file" type="file" multiple />
+        </div>
+      </form>
 </div>
 
 
@@ -44,7 +56,11 @@
 
 
 @section('script')
+<script src="/plugins/dropzone/dropzone.min.js"></script>
 <script type="text/javascript">
-
+$( document ).ready(function() {
+    $("#jj").dropzone({ url: "/file/post" });
+});
+    
 </script>
 @stop

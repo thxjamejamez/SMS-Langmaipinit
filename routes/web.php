@@ -62,5 +62,10 @@ Route::get('/changests/{order_no}/{sts_id}', 'OrderController@ChangeStatus');
 // Route::POST('/storeorder', 'OrderController@Store');
 
 
+#work schedule
+Route::resource('workschedule', 'WorkScheduleController');
+Route::get('getorderforwork', 'WorkScheduleController@getData');
+
+
 Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();

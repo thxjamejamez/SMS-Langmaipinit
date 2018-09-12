@@ -31,6 +31,7 @@
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
   <link rel="stylesheet" href="/admin/css/master.css">
+  <link rel="stylesheet" href="/plugins/selectpicker/bootstrap-select.min.css">
   <link rel="stylesheet" href="/plugins/select2/select2.css">
   <link rel="stylesheet" href="/plugins/datatables/dataTables.bootstrap4.css">
   <!-- Google Font: Source Sans Pro -->
@@ -271,6 +272,7 @@
 <script src="/plugins/datatables/dataTables.bootstrap4.js"></script>
 {{-- select 2 --}}
 <script src="/plugins/select2/select2.full.min.js"></script>
+<script src="/plugins/selectpicker/bootstrap-select.min.js"></script>
 <!-- Sparkline -->
 <script src="/plugins/sparkline/jquery.sparkline.min.js"></script>
 <!-- jvectormap -->

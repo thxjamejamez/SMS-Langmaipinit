@@ -2,31 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use \App\UserPermission,
-    Illuminate\Foundation\Auth\ThrottlesLogins,
-    Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-use Auth,
+use Illuminate\Http\Request,
     DB;
 
-class adminController extends Controller
+class WorkScheduleController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        
-        $user = \Auth::user();
-        $chk = DB::table('require_quotation')
-            ->where('users_id', $user->id)
-            ->first();
-        // var_dump ($items);
-        return view('index.index', compact('chk'));
-        // return view('admin', compact('user','permission', 'items', 'ritems'));
-
+        $lworksts = DB::table('l_order_sts_for_work')->select(DB::raw('GROUP_CONCAT(id SEPARATOR \',\') as id'))->first();
+        $worksts = $lworksts->id;
+        $workstses = DB::table('l_order_sts_for_work')
+            ->where('active', 1)
+            ->get();
+        return view('workschedule.index', compact('worksts', 'workstses'));
     }
 
     /**
@@ -93,5 +86,15 @@ class adminController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    function getData() {
+        $order = DB::table('order')
+            // ->join('l_order_sts', 'order.status', '=', 'l_order_sts.id')
+            ->join('l_order_sts_for_work', 'order.status_forwork', '=', 'l_order_sts_for_work.id')
+            ->where('order.status_forwork', '>', 0)
+            ->get();
+
+        return response()->json(["data"=>$order]);
     }
 }

@@ -219,7 +219,7 @@
     function doproduct (id) {
         $.ajax({
             type: 'get',
-            url: '/getorderdetailsend/'+id
+            url: '/getworkdetail/'+id
         }).done(function(data){
             $('h5.senddate').empty();
             $('#pd tbody').empty();

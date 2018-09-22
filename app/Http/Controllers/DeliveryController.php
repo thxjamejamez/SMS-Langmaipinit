@@ -30,6 +30,7 @@ class DeliveryController extends Controller
 
     function getorderdetail($orderid){
         $order = DB::table('order')
+            ->join('customer_info', 'order.users_id', '=', 'customer_info.users_id')
             ->where('order_no', $orderid)
             ->first();
 

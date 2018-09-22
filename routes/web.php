@@ -65,6 +65,14 @@ Route::get('/changests/{order_no}/{sts_id}', 'OrderController@ChangeStatus');
 #work schedule
 Route::resource('workschedule', 'WorkScheduleController');
 Route::get('getorderforwork', 'WorkScheduleController@getData');
+Route::get('/getworkdetail/{orderid}', 'WorkScheduleController@getworkdetail');
+Route::any('/updateworksts', 'WorkScheduleController@updateworkpdsts');
+
+#delivery
+Route::get('delivery', 'DeliveryController@index');
+Route::get('getdoneorder', 'DeliveryController@getData');
+Route::get('/getorderdetailsend/{orderid}', 'DeliveryController@getorderdetail');
+
 
 
 Route::get('/home', 'HomeController@index')->name('home');

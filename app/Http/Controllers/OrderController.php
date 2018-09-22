@@ -167,6 +167,11 @@ class OrderController extends Controller
     function ChangeStatus ($order_no, $sts_id){
         $orderEloquent = Order::find($order_no);
         $orderEloquent->status = $sts_id;
+        if($sts_id == 2){
+            $orderEloquent->status_forwork = 1;
+        }else{
+            $orderEloquent->status_forwork = 0;
+        }
         $orderEloquent->save();
 
         return 'success';

@@ -7,26 +7,24 @@
         <div class="col-sm-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">ตารางการทำงาน</h3>
+                <h3 class="card-title">การจัดส่งสินค้า</h3>
             </div>
             <div class="card-body">
                 <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin:5px 0px 5px 0px;min-width: 200px;max-width: 220px;">
-                    <select class="selectpicker" data-live-search="true" multiple data-actions-box="true" id="worksts" name="worksts[]" onchange="getVal('#worksts','#sworksts');">
-                        @foreach($workstses as $w)
+                    <select class="selectpicker" data-live-search="true" multiple data-actions-box="true" id="ordersts" name="ordersts[]" onchange="getVal('#ordersts','#sordersts');">
+                        @foreach($orderstses as $w)
                         <option value="{{ $w->id }}" >{{ $w->sts_name }}</option>
                         @endforeach
                     </select>
-                    <input type="hidden" id="sworksts" name="sworksts" value="{{ $worksts }}">
+                    <input type="hidden" id="sordersts" name="sordersts" value="{{ $ordersts }}">
                 </div>
-                <table id="work-table" class="table table-hover table-bordered dt-responsive nowrap" style="width:100%">
+                <table id="deorder-table" class="table table-hover table-bordered dt-responsive nowrap" style="width:100%">
                     <thead>
                         <tr>
                             <th>เลขที่การสั่งซื้อ</th>
                             <th>วันที่สั่งซื้อ</th>
                             <th>วันที่ส่งสินค้า</th>
                             <th class="worksts-filter">สถานะการทำงาน</th>
-                            <th class="text-center">การประมวลผล</th>
-                            <th class="text-center">เปอร์เซ็นต์</th>
                             <th style="width: 10px"></th>
                         </tr>
                     </thead>
@@ -40,7 +38,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">รายการสินค้าที่ต้องทำ</h5>
+                    <h5 class="modal-title">ข้อมูลผู้สั่งซื้อ</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -88,11 +86,11 @@
 @section('script')
 <script type="text/javascript">
     $(document).ready(function () {
-        var usertable = $('#work-table').DataTable({
+        var usertable = $('#deorder-table').DataTable({
             processing: true,
             ajax: {
                     type: 'GET',
-                    url: '{{ url("/getorderforwork") }}',
+                    url: '{{ url("/getdoneorder") }}',
                 },
             columns:    [
                             {data: 'order_no', render: function(data, type ,row, meta){
@@ -114,47 +112,9 @@
                                 return data;
                             }},
                             {data: 'sts_name', name: 'sts_name'},
-                            {data: 'count_fpd', render: function(data, type, row, meta){
-                                if(type==='display'){
-                                    if(data){
-                                        percent = (data/row.count_pd) * 100                      
-                                    }else{
-                                        percent = 0
-                                    }
-                                    if(percent < 80){
-                                        data = `<div class="progress progress-xs progress-striped active">
-                                                    <div class="progress-bar bg-warning" style="width: `+percent+`%"></div>
-                                                </div>`
-                                    }else{
-                                        data = `<div class="progress progress-xs progress-striped active">
-                                                    <div class="progress-bar bg-success" style="width: `+percent+`%"></div>
-                                                </div>`
-                                    }
-                                }
-                                return data
-                            }},
-                            {data: 'count_fpd', render: function(data, type, row, meta){
-                                if(type==='display'){
-                                    if(data){
-                                        percent = (data/row.count_pd) * 100                      
-                                    }else{
-                                        percent = 0
-                                    }
-                                    if(percent < 80){
-                                        data = `<span class="badge bg-warning">`+percent+`%</span>`
-                                    }else{
-                                        data = `<span class="badge bg-success">`+percent+`%</span>`
-                                    } 
-                                }
-                                return data
-                            }},
                             {data: 'order_no', render: function(data, type ,row, meta){
                                 if(type === 'display'){
-                                    if(row.id <= 2){
-                                        data = "<a class='btn btn-block btn-info btn-sm' href='javascript:;' onclick='doproduct("+data+")' data-toggle='modal' data-target='.bd-example-modal-lg'><i class='fa fa-pencil-square-o' aria-hidden='true'></i> จัดการ</a>";
-                                    }else{
-                                        data = "<a class='btn btn-block btn-warning btn-sm' href='javascript:;' onclick='doproduct("+data+")' data-toggle='modal' data-target='.bd-example-modal-lg'><i class='fa fa-search' aria-hidden='true'></i> เรียกดู</a>";
-                                    }
+                                    data = "<a class='btn btn-block btn-warning btn-sm' href='javascript:;' onclick='orderdetail("+data+")' data-toggle='modal' data-target='.bd-example-modal-lg'><i class='fa fa-print' aria-hidden='true'></i> พิมพ์ใบส่งสินค้า</a>";
                                 }
                                 return data;
                             }},
@@ -162,27 +122,27 @@
             initComplete: function(){
                 this.api().columns('.worksts-filter').every( function() {
                     var column = this
-                    @if($worksts)
-                    var sworksts = '{{ $worksts }}';
-                    var scarray = sworksts.split(",");
-                    $('#worksts').selectpicker('val', scarray);
+                    @if($ordersts)
+                    var sordersts = '{{ $ordersts }}';
+                    var scarray = sordersts.split(",");
+                    $('#ordersts').selectpicker('val', scarray);
                     @else
-                    $('#worksts').selectpicker('selectAll');
+                    $('#ordersts').selectpicker('selectAll');
                     @endif
-                    $('#worksts').on('hide.bs.select', function(e){
-                        var Totaloption = $('#worksts').find('option').length;
-                        var TotaloptionSelected = $('#worksts').find('option:selected').length;
+                    $('#ordersts').on('hide.bs.select', function(e){
+                        var Totaloption = $('#ordersts').find('option').length;
+                        var TotaloptionSelected = $('#ordersts').find('option:selected').length;
                         var val ='';
-                        $('#worksts option:selected').each(function () {
+                        $('#ordersts option:selected').each(function () {
                         if (Totaloption != TotaloptionSelected){
-                            $('#worksts option:selected').each(function () {
+                            $('#ordersts option:selected').each(function () {
                                 if(val){
                                     val += '|';
                                 }
                                 val += '^' + $(this).text() + '$';
                             });
                         }
-                        $("#work-table").DataTable().search( '' )
+                        $("#deorder-table").DataTable().search( '' )
                                 .columns('.worksts-filter').search( '' )
                                 .draw();
                         column
@@ -193,7 +153,7 @@
                 })
             }
         });
-        $('#worksts').selectpicker({
+        $('#ordersts').selectpicker({
             selectedTextFormat: 'count > 2',
             countSelectedText: function (numSelected, numTotal) {
                 if (numSelected == 1) {
@@ -216,7 +176,7 @@
         }else{ $(obj).val($(sobj).val()); }
     }
 
-    function doproduct (id) {
+    function orderdetail (id) {
         $.ajax({
             type: 'get',
             url: '/getorderdetailsend/'+id
@@ -237,7 +197,7 @@
                     tr.append('<td>' + value.product_name + '</td>')
                     tr.append('<td class="text-center">' + value.product_size + '</td>')
                     tr.append('<td class="text-center">' + value.qty + '</td>')
-                    tr.append(`<td><select class="form-control" onchange="updatedata(this, `+data.order.order_no+`, `+value.product_no+`)">`+ option +`</select></td>`)
+                    tr.append('<td class="text-center">'+ value.sts_name +'</td>')
                     
                 });
             }   
@@ -262,7 +222,7 @@
             showConfirmButton: false,
             timer: 1000
             })
-            $('#work-table').DataTable().ajax.reload();
+            $('#deorder-table').DataTable().ajax.reload();
         })
     }
 </script>

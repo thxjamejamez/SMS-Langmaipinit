@@ -123,11 +123,11 @@
                                     }
                                     if(percent < 80){
                                         data = `<div class="progress progress-xs progress-striped active">
-                                                    <div class="progress-bar bg-warning" style="width: `+percent+`%"></div>
+                                                    <div class="progress-bar bg-warning" style="width: `+accounting.formatNumber(percent, 2)+`%"></div>
                                                 </div>`
                                     }else{
                                         data = `<div class="progress progress-xs progress-striped active">
-                                                    <div class="progress-bar bg-success" style="width: `+percent+`%"></div>
+                                                    <div class="progress-bar bg-success" style="width: `+accounting.formatNumber(percent, 2)+`%"></div>
                                                 </div>`
                                     }
                                 }
@@ -141,9 +141,9 @@
                                         percent = 0
                                     }
                                     if(percent < 80){
-                                        data = `<span class="badge bg-warning">`+percent+`%</span>`
+                                        data = `<span class="badge bg-warning">`+accounting.formatNumber(percent, 2)+`%</span>`
                                     }else{
-                                        data = `<span class="badge bg-success">`+percent+`%</span>`
+                                        data = `<span class="badge bg-success">`+accounting.formatNumber(percent, 2)+`%</span>`
                                     } 
                                 }
                                 return data
@@ -255,12 +255,16 @@
                 'sts': value
             }
         }).done(function(data){
-            swal({
-            position: 'top-end',
-            type: 'success',
-            title: 'เปลี่ยนสถานะสินค้าเรียบร้อยแล้ว',
-            showConfirmButton: false,
-            timer: 1000
+            const toast = swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+
+            toast({
+                type: 'success',
+                title: 'เปลี่ยนสถานะเรียบร้อยแล้ว'
             })
             $('#work-table').DataTable().ajax.reload();
         })

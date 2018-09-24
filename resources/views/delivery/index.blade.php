@@ -45,7 +45,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="callout callout-info">
+                        <h5 class="name"></h5>
+                        <h5 class="address"></h5>
                         <h5 class="senddate"></h5>
+
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
@@ -114,7 +117,7 @@
                             {data: 'sts_name', name: 'sts_name'},
                             {data: 'order_no', render: function(data, type ,row, meta){
                                 if(type === 'display'){
-                                    data = "<a class='btn btn-block btn-warning btn-sm' href='javascript:;' onclick='orderdetail("+data+")' data-toggle='modal' data-target='.bd-example-modal-lg'><i class='fa fa-print' aria-hidden='true'></i> พิมพ์ใบส่งสินค้า</a>";
+                                    data = "<a class='btn btn-block btn-warning btn-sm' href='javascript:;' onclick='orderdetail("+data+")' data-toggle='modal' data-target='.bd-example-modal-lg'><i class='fa fa-pencil' aria-hidden='true'></i> จัดการ</a>";
                                 }
                                 return data;
                             }},
@@ -181,8 +184,18 @@
             type: 'get',
             url: '/getorderdetailsend/'+id
         }).done(function(data){
+            $('h5.name').empty();
+            $('h5.address').empty();
             $('h5.senddate').empty();
             $('#pd tbody').empty();
+            $('.modal-footer').empty();
+            (data.order.company_name) ?
+                $('h5.name').append('<b>ชื่อบริษัท: </b>'+data.order.company_name):
+                $('h5.name').append('<b>ชื่อลูกค้า: </b>'+data.order.first_name+'  '+data.order.last_name);
+
+            (data.order.company_address) ?
+                $('h5.address').append('<b>ที่อยู่บริษัท: </b>'+data.order.company_address+' '+data.order.city_com+' '+data.order.pro_com):
+                $('h5.address').append('<b>ที่อยู่: </b>'+data.order.address+' '+data.order.city_cus+' '+data.order.pro_cus);
             $('h5.senddate').append('<b>กำหนดวันส่งสินค้า: </b>'+moment(data.order.send_date).locale('th').format('LL'));
             if(data.orderdetail.length > 0){
                 $.each(data.orderdetail, function( key, value ) {
@@ -198,32 +211,33 @@
                     tr.append('<td class="text-center">' + value.product_size + '</td>')
                     tr.append('<td class="text-center">' + value.qty + '</td>')
                     tr.append('<td class="text-center">'+ value.sts_name +'</td>')
-                    
                 });
-            }   
+            } 
+            $('.modal-footer').append('<a class="btn btn-block btn-primary btn-sm" style="margin-top: .5rem;" href="deliveryslip/'+data.order.order_no+'/pdf" ><i class="fa fa-print" aria-hidden="true"></i> พิมพ์ใบส่งสินค้า</a>');
+            (data.order.status == 5) ?
+                $('.modal-footer').append('<button class="btn btn-block btn-success btn-sm" onclick="changests(5, '+data.order.order_no+')" disabled><i class="fa fa-truck" aria-hidden="true"></i> ยืนยันการจัดส่งสินค้า</button>'):
+                $('.modal-footer').append('<button class="btn btn-block btn-success btn-sm" onclick="changests(5, '+data.order.order_no+')"><i class="fa fa-truck" aria-hidden="true"></i> ยืนยันการจัดส่งสินค้า</button>');
+  
         })
     }
 
-    function updatedata(vm, order_no, pd_no){
-        value = $(vm).val(); 
+  function changests ($sts_id, $order_no){
         $.ajax({
-            type: 'POST',
-            url: '/updateworksts',
-            data: {
-                'order_no': order_no,
-                'pd_no': pd_no,
-                'sts': value
+            url: '/changests/'+$order_no+'/'+$sts_id,
+            type: 'get'
+        }).done(function (data) {
+            if(data=='success'){
+                swal({
+                    type: 'success',
+                    title: 'บันทึกสำเร็จ',
+                    showConfirmButton: false,
+                    timer: 1000
+                });
+                $('.bd-example-modal-lg').modal('toggle');
+                $('#deorder-table').DataTable().ajax.reload();
             }
-        }).done(function(data){
-            swal({
-            position: 'top-end',
-            type: 'success',
-            title: 'เปลี่ยนสถานะสินค้าเรียบร้อยแล้ว',
-            showConfirmButton: false,
-            timer: 1000
-            })
-            $('#deorder-table').DataTable().ajax.reload();
-        })
+        }) 
     }
+
 </script>
 @stop

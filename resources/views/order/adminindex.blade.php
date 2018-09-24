@@ -157,15 +157,15 @@
             $('.modal-footer').empty();
             $('#file').empty();
             data.orderdetail.forEach((v, k) => {
-                sum += (v.product_price * v.qty);
+                sum += (v.price * v.qty);
                 $tr = $('table[name=orderdetail] tbody').append('<tr></tr>');
                 $tr.append('<td>'+(k+1)+'</td>');
                 $tr.append('<td>'+v.type_name+'</td>');
                 $tr.append('<td>'+v.product_name+'</td>');
                 $tr.append('<td>'+v.product_size+'</td>');
-                $tr.append('<td class="text-right">'+accounting.formatNumber(v.product_price, 2)+'</td>');
+                $tr.append('<td class="text-right">'+accounting.formatNumber(v.price, 2)+'</td>');
                 $tr.append('<td class="text-center">'+v.qty+'</td>');
-                $tr.append('<td class="text-right">'+accounting.formatNumber(v.product_price * v.qty, 2)+'</td>');
+                $tr.append('<td class="text-right">'+accounting.formatNumber(v.price * v.qty, 2)+'</td>');
             });
             $trfooter = $('table[name=orderdetail] tbody').append('<tr></tr>');
             $trfooter.append('<td colspan="5" style="background-color: #E0E0E0"><b>รวมทั้งสิ้น</b></td>');

@@ -72,7 +72,17 @@ Route::any('/updateworksts', 'WorkScheduleController@updateworkpdsts');
 Route::get('delivery', 'DeliveryController@index');
 Route::get('getdoneorder', 'DeliveryController@getData');
 Route::get('/getorderdetailsend/{orderid}', 'DeliveryController@getorderdetail');
+Route::get('deliveryslip/{orderid}/pdf', 'DeliveryController@Deliveryslip');
 
+#Material 
+    #Seller
+    Route::resource('materialseller', 'MaterialSellerController');
+
+    #type
+    Route::resource('materialtype', 'MaterialTypeController');
+    Route::get('getmaterialtype', 'MaterialTypeController@getdata');
+
+    
 
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -65,7 +65,7 @@ class OrderController extends Controller
             $orderdeEloquent->product_no = $pd->product_no;
             $orderdeEloquent->qty = $pd->qty;
             $orderdeEloquent->price = $pd->price;
-            $orderdeEloquent->status = 1;
+            $orderdeEloquent->pd_sts_id = 1;
             $orderdeEloquent->save();
         }
 

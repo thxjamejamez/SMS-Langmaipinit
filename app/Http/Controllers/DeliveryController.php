@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request,
-    DB;
+    DB,
+    PDF;
 
 class DeliveryController extends Controller
 {
@@ -31,7 +32,17 @@ class DeliveryController extends Controller
     function getorderdetail($orderid){
         $order = DB::table('order')
             ->join('customer_info', 'order.users_id', '=', 'customer_info.users_id')
+            ->leftjoin('l_city as citycus', 'customer_info.district_id', '=', 'citycus.city_id')
+            ->leftjoin('l_province as procus', 'customer_info.province_id', '=', 'procus.province_id')
+            ->leftjoin('l_city as citycom', 'customer_info.company_district', '=', 'citycom.city_id')
+            ->leftjoin('l_province as procom', 'customer_info.company_province', '=', 'procom.province_id')
             ->where('order_no', $orderid)
+            ->select('*'
+                    ,'citycus.city_name as city_cus'
+                    ,'procus.province_name as pro_cus'
+                    ,'citycom.city_name as city_com'
+                    ,'procom.province_name as pro_com'
+                    )
             ->first();
 
         $orderdetail = DB::table('order_detail')
@@ -47,4 +58,13 @@ class DeliveryController extends Controller
                                     'orderdetail'=> $orderdetail
                                 ]);
     }
+
+    function Deliveryslip () {
+        $data = [
+            'foo' => 'bar'
+        ];
+        $pdf = PDF::loadView('delivery.print.deliveryslip', $data);
+        return $pdf->stream('document.pdf');
+    }
+
 }

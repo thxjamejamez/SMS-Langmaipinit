@@ -53,7 +53,12 @@
                     url: '{{ url("/getuserlist") }}',
                 },
             columns:    [
-                            {data: 'id', name: 'id'},
+                            {data: 'id', render: function(data, type ,row, meta){
+                                if(type === 'display'){
+                                    data = 'U'+numeral(data).format('0000');
+                                }
+                                return data
+                            }},
                             {data: 'username', name: 'username'},
                             {data: 'first_name', name: 'first_name'},
                             {data: 'last_name', name: 'last_name'},

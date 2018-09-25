@@ -45,12 +45,26 @@
                     type: 'GET',
                     url: '{{ url("/getproductlist") }}',
                 },
+            columnDefs: [
+                            { className: "text-right", "targets": [4] }
+                        ],
             columns:    [
-                            {data: 'product_no', name: 'product_no'},
+                            {data: 'product_no', render: function(data, type ,row, meta){
+                                if(type === 'display'){
+                                    data = 'PD'+numeral(data).format('000000');
+                                }
+                                return data
+                            }},
                             {data: 'type_name', name: 'type_name'},
                             {data: 'product_name', name: 'product_name'},
                             {data: 'product_size', name: 'product_size'},
-                            {data: 'product_price', name: 'product_price'}
+                            {data: 'product_price', render: function(data, type ,row, meta){
+                                    if(type === 'display'){
+                                        data = accounting.formatNumber(data, 2);
+                                    }
+                                    return data;
+                                }
+                            },
                         ]
         });
     });

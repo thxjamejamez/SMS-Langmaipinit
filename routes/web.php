@@ -75,14 +75,16 @@ Route::get('/getorderdetailsend/{orderid}', 'DeliveryController@getorderdetail')
 Route::get('deliveryslip/{orderid}/pdf', 'DeliveryController@Deliveryslip');
 
 #Material 
-    #Seller
+    Route::resource('material', 'MaterialController');
+    Route::get('getmaterial', 'MaterialController@getdata');
+
+    #Supplier
     Route::resource('materialseller', 'MaterialSellerController');
+    Route::get('getsupplier', 'MaterialSellerController@getdata');
 
     #type
     Route::resource('materialtype', 'MaterialTypeController');
     Route::get('getmaterialtype', 'MaterialTypeController@getdata');
-
-    
 
 
 Route::get('/home', 'HomeController@index')->name('home');

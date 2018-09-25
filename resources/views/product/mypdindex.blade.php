@@ -35,7 +35,7 @@
     $(document).ready(function () {
         $(".text-dark").append('สินค้าของฉัน');
         var usertable = $('#product-table').DataTable({
-            "columnDefs": [
+            columnDefs: [
                             { className: "text-right", "targets": [4] }
                         ],
             processing: true,

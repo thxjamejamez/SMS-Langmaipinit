@@ -199,11 +199,6 @@
             $('h5.senddate').append('<b>กำหนดวันส่งสินค้า: </b>'+moment(data.order.send_date).locale('th').format('LL'));
             if(data.orderdetail.length > 0){
                 $.each(data.orderdetail, function( key, value ) {
-                    let option = ''
-                    $.each(data.pdsts, function ( k, v){
-                        selected = (v.id == value.pd_sts_id)? 'selected':'' 
-                        option += '<option value='+ v.id +' ' + selected + '>' +v.sts_name+'</option>'
-                    })
                     tr = $('#pd tbody').append('<tr></tr>')
                     tr.append('<td>' + (key + 1) + '</td>')
                     tr.append('<td>' + value.type_name + '</td>')

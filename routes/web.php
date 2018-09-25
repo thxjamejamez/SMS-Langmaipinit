@@ -86,6 +86,10 @@ Route::get('deliveryslip/{orderid}/pdf', 'DeliveryController@Deliveryslip');
     Route::resource('materialtype', 'MaterialTypeController');
     Route::get('getmaterialtype', 'MaterialTypeController@getdata');
 
+#Permissions
+Route::resource('permissions','PermissionController');
+Route::get('getpermissionslist', 'PermissionController@getlistdata');
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();

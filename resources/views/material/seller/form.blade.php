@@ -3,7 +3,6 @@
 @section('css')
 @stop
 <div class="container-fluid">
-
     <form action=@if(isset($editsupplier)) "/materialseller/{{$editsupplier->sup_no}}" @else "/materialseller" @endif method="POST" accept-charset="utf-8">
     @if(isset($editsupplier))
         <input name="_method" type="hidden" value="PUT">

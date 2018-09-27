@@ -86,6 +86,13 @@ Route::get('deliveryslip/{orderid}/pdf', 'DeliveryController@Deliveryslip');
     Route::resource('materialtype', 'MaterialTypeController');
     Route::get('getmaterialtype', 'MaterialTypeController@getdata');
 
+    #manage
+    Route::resource('managematerial', 'ManageMaterialController');
+    Route::get('getdetailforaddmt/{id}', 'ManageMaterialController@getdetailforaddmt');
+    Route::post('managematerialuse', 'ManageMaterialController@adduseMaterial');
+    Route::get('changestsordetm/{id}', 'ManageMaterialController@changestsordetm');
+    
+
 #Permissions
 Route::resource('permissions','PermissionController');
 Route::get('getpermissionslist', 'PermissionController@getlistdata');

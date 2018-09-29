@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request,
+    \App\User,
     \App\EmployeeInfo,
     \App\UserPermission,
     DB;
@@ -97,7 +98,14 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $edituser = User::where('id', $id)->first();
+        $editprofile = EmployeeInfo::where('users_id', $id)->first();
+        $editUserPermission = UserPermission::where('user_id', $id)->first();
+        $title = DB::Table('l_title')->get();
+        $district = DB::table('l_city')->get();
+        $province = DB::table('l_province')->get();
+        $group_permission = DB::table('group_permissions')->where('active', 1)->get();
+        return view('employee.profile', compact('edituser', 'editprofile', 'editUserPermission', 'title', 'district', 'province', 'group_permission'));
     }
 
     /**

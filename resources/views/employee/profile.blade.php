@@ -30,7 +30,7 @@
             <div class="row">
                 <div class="form-group col-2">
                     <label for="username">ชื่อผู้ใช้</label>
-                    <input id="username" type="text" class="form-control" name="username" required>
+                    <input id="username" type="text" class="form-control" name="username" required @if(isset($edituser->username)) value="{{$edituser->username}}" disabled @endif>
                 </div>
                 <div class="form-group col-2">
                     <label for="password">รหัสผ่าน</label>
@@ -38,13 +38,13 @@
                 </div>
                 <div class="form-group col-2">
                     <label for="nickname">ชื่อเล่น</label>
-                    <input id="nickname" type="text" class="form-control" name="nickname" required>
+                    <input id="nickname" type="text" class="form-control" name="nickname" required @if(isset($edituser->nickname)) value="{{$edituser->nickname}}" @endif>
                 </div>
                 <div class="form-group col-2">
                     <label>สิทธิ์ในการเข้าถึง</label>
                     <select id="permission" class="form-control" name="permission">
                         @foreach($group_permission as $group_permissions)
-                        <option value="{{ $group_permissions->id }}">{{ $group_permissions->permission_name }}</option>
+                        <option value="{{ $group_permissions->id }}" @if(isset($editUserPermission->permissions_id) && $group_permissions->id == $editUserPermission->permissions_id) selected @endif>{{ $group_permissions->permission_name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -63,30 +63,30 @@
                         <label>คำนำหน้านาม</label>
                         <select class="form-control" name="title">
                             @foreach($title as $titles)
-                            <option value="{{ $titles->title_id }}">{{ $titles->title_name }}</option>
+                            <option value="{{ $titles->title_id }}" @if(isset($editprofile->title_id) && $titles->title_id == $editprofile->title_id) selected @endif>{{ $titles->title_name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group col-3">
                         <label for="firstname">ชื่อ</label>
-                        <input id="firstname" type="text" class="form-control" name="firstname">
+                        <input id="firstname" type="text" class="form-control" name="firstname" @if(isset($editprofile->first_name)) value="{{$editprofile->first_name}}" @endif>
                     </div>
                     <div class="form-group col-3">
                         <label for="firstname">นามสกุล</label>
-                        <input type="text" class="form-control" name="lastname">
+                        <input type="text" class="form-control" name="lastname" @if(isset($editprofile->last_name)) value="{{$editprofile->last_name}}" @endif>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-5">
                         <label>ที่อยู่</label>
-                        <textarea class="form-control" rows="1" name="address"></textarea>
+                        <textarea class="form-control" rows="1" name="address"> @if(isset($editprofile->address)) {{$editprofile->address}} @endif </textarea>
                     </div>
 
                     <div class="form-group col-3">
                         <label>จังหวัด</label>
                         <select id="province" name="province" class="form-control select2" style="width: 100%;" onchange="setprovice(this.value, '#district')">
                             @foreach($province as $provinces)
-                            <option value="{{ $provinces->province_id }}">{{ $provinces->province_name }}</option>
+                            <option value="{{ $provinces->province_id }}" @if(isset($editprofile->province_id) && $provinces->province_id == $editprofile->province_id) selected @endif>{{ $provinces->province_name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -94,7 +94,7 @@
                         <label>อำเภอ</label>
                         <select id="district" name="district" class="form-control select2" style="width: 100%;">
                             @foreach($district as $districts)
-                            <option value="{{ $districts->city_id }}" province="{{ $districts->province_id }}">{{ $districts->city_name }}</option>
+                            <option value="{{ $districts->city_id }}" province="{{ $districts->province_id }}" @if(isset($editprofile->district_id) && $districts->city_id == $editprofile->district_id) selected @endif>{{ $districts->city_name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -106,7 +106,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-phone"></i></span>
                             </div>
-                            <input type="text" name="tel" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
+                            <input type="text" name="tel" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask @if(isset($editprofile->tel)) value="{{$editprofile->tel}}" @endif>
                         </div>
                     </div>
                     <div class="form-group col-3">
@@ -115,7 +115,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-envelope"></i></span>
                             </div>
-                            <input type="email" name="email" class="form-control" placeholder="example@hotmail.com" required>
+                            <input type="email" name="email" class="form-control" placeholder="example@hotmail.com" required @if(isset($editprofile->email)) value="{{$editprofile->email}}" @endif>
                         </div>
                     </div>
                     <div class="form-group col-2">
@@ -181,12 +181,15 @@
 @section('script')
 <script type="text/javascript">
     $(document).ready(function () {
+        console.log(new Date().parseDate('dd-mm-yyyy'));
+        
         $('.select2').select2()
         $(".text-dark").append('ข้อมูลผู้ใช้');
         $('[data-mask]').inputmask()
         $('#birthday').datepicker({
-            format: 'dd-mm-yyyy',
-            autoclose: true
+            // format: 'dd-mm-yyyy',
+            autoclose: true,
+            endDate : moment()
         });
         $('#startdate').datepicker({
             format: 'dd-mm-yyyy',

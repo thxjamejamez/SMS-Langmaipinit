@@ -113,6 +113,11 @@ class UserController extends Controller
     {
         $edituser = User::where('id', $id)->first();
         $editprofile = CustomerInfo::where('users_id', $id)->first();
+        $title = DB::Table('l_title')->get();
+        $district = DB::table('l_city')->get();
+        $province = DB::table('l_province')->get();
+        $group_permission = DB::table('group_permissions')->where('active', 1)->get();
+        return view('user.profile', compact('edituser', 'editprofile', 'title', 'district', 'province', 'group_permission'));
     }
 
     /**

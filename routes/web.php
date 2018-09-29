@@ -97,6 +97,12 @@ Route::get('deliveryslip/{orderid}/pdf', 'DeliveryController@Deliveryslip');
 Route::resource('permissions','PermissionController');
 Route::get('getpermissionslist', 'PermissionController@getlistdata');
 
+#invoice
+Route::resource('createinvoice', 'CreInvoiceController');
+Route::get('getuserforcreInvoice', 'CreInvoiceController@userhaveInvoice');
+Route::get('createIV/{id}', 'CreInvoiceController@createIV');
+Route::get('getlistForIv/{id}', 'CreInvoiceController@getlistForIv');
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();

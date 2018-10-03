@@ -34,7 +34,7 @@
             processing: true,
             ajax: {
                     type: 'GET',
-                    url: '/getlistForIv',
+                    url: '/getuserforcreInvoice',
                 },
             columns:    [
                             {data: 'users_id', render: function(data, type ,row, meta){

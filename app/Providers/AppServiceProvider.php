@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider,
+    \App\Navigation,
     \App\UserPermission;
 
 class AppServiceProvider extends ServiceProvider
@@ -20,8 +21,8 @@ class AppServiceProvider extends ServiceProvider
             if(isset($user->id)){
                 $user = \Auth::user();
                 $permission = UserPermission::with(['user','permission','page'])->where('user_id',$user->id)->first();
-                $items = \App\Navigation::tree_left();
-                $ritems = \App\Navigation::tree_right();
+                $items = Navigation::tree_left();
+                $ritems = Navigation::tree_right();
                 $view->with(compact('user','permission','items','ritems'));
 
             }

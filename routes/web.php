@@ -102,6 +102,14 @@ Route::resource('createinvoice', 'CreInvoiceController');
 Route::get('getuserforcreInvoice', 'CreInvoiceController@userhaveInvoice');
 Route::get('createIV/{id}', 'CreInvoiceController@createIV');
 Route::get('getlistForIv/{id}', 'CreInvoiceController@getlistForIv');
+Route::post('saveIv', 'CreInvoiceController@saveIV');
+Route::get('admininvoice', 'CreInvoiceController@admininvoice');
+Route::get('invoicedetail/{id}', 'CreInvoiceController@invoicedetail');
+Route::get('/detail/print/{id}', 'CreInvoiceController@printinvoicedetail');
+#my Invoice
+Route::get('/myinvoice', 'CreInvoiceController@myinvoiceindex');
+Route::get('/getmyinvoice', 'CreInvoiceController@getmyinvoice');
+
 
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -10,11 +10,11 @@ class PagePermission extends Model
 
     public function page()
     {
-        return $this->hasMany('App\Navigation','id','menu_id');
+        return $this->hasMany('\App\Navigation','id','menu_id');
     }
 
     public function permission()
     {
-        return $this->hasOne('App\Permission','id','permission_id');
+        return $this->hasOne('\App\Permission','id','permission_id');
     }
 }

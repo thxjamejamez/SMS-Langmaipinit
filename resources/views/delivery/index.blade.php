@@ -48,7 +48,6 @@
                         <h5 class="name"></h5>
                         <h5 class="address"></h5>
                         <h5 class="senddate"></h5>
-
                     </div>
                     <div class="row">
                         <div class="col-lg-12">

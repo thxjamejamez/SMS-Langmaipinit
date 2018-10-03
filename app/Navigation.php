@@ -51,7 +51,7 @@ class Navigation extends Model
 
     public function pagepermission()
     {
-        return $this->hasMany('App\PagePermission','permission_id','menu_id');
+        return $this->hasMany('\App\PagePermission','permission_id','menu_id');
     }
 
 }

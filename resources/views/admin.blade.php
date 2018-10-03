@@ -22,7 +22,7 @@
   <!-- jvectormap -->
   <link rel="stylesheet" href="/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
   <!-- Date Picker -->
-  <link rel="stylesheet" href="/plugins/datepicker/datepicker3.css">
+
   <link rel="stylesheet" href="/plugins/iCheck/all.css">
   <link rel="stylesheet" href="/plugins/sweetalert/sweetalert2.css">
   <link rel="stylesheet" href="/plugins/sweetalert/animate.css">
@@ -286,6 +286,7 @@
 <script src="/plugins/daterangepicker/daterangepicker.js"></script>
 <!-- datepicker -->
 <script src="/plugins/datepicker/bootstrap-datepicker.js"></script>
+{{-- <script src="/plugins/datetimepicker/js/bootstrap-datetimepicker.js"></script> --}}
 <!-- Bootstrap WYSIHTML5 -->
 <script src="/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 <!-- Slimscroll -->

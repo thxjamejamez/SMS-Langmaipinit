@@ -1,6 +1,7 @@
 @extends('admin')
 @section('content')
 @section('css')
+    <link rel="stylesheet" href="/plugins/datepicker/datepicker3.css">
     <link rel="stylesheet" href="/css/requireorder/app.css">
 @stop
 <div class="container-fluid" id="app">

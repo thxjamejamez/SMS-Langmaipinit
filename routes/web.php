@@ -109,6 +109,7 @@ Route::get('/detail/print/{id}', 'CreInvoiceController@printinvoicedetail');
 #my Invoice
 Route::get('/myinvoice', 'CreInvoiceController@myinvoiceindex');
 Route::get('/getmyinvoice', 'CreInvoiceController@getmyinvoice');
+Route::post('/updateslip', 'CreInvoiceController@updateslip');
 
 
 

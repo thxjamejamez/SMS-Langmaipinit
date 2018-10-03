@@ -163,4 +163,13 @@ class CreInvoiceController extends Controller
 
             return response()->json(['data' => $invlist]);
     }
+
+    function updateslip(Request $request) {
+        if($request->file('file')){
+            $image = $request->file('file');
+            $fileName = time().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('/slip_file'), $fileName);
+        }
+
+    }
 }

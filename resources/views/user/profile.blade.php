@@ -1,6 +1,8 @@
 @extends('admin')
 @section('content')
 @section('css')
+<link rel="stylesheet" href="/plugins/datepicker/datepicker3.css">
+
 <style>
 .select2-container--default .select2-selection--single {
     height: 38px;

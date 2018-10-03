@@ -9,6 +9,8 @@
     border: 1px solid #aaa;
     border-radius: 4px; }
 </style>
+  <link rel="stylesheet" href="/plugins/datepicker/datepicker3.css">
+
 @stop
 <div class="container-fluid">
     @if ($errors->any())
@@ -181,7 +183,7 @@
 @section('script')
 <script type="text/javascript">
     $(document).ready(function () {
-        console.log(new Date().parseDate('dd-mm-yyyy'));
+        // console.log(new Date().parseDate('dd-mm-yyyy'));
         
         $('.select2').select2()
         $(".text-dark").append('ข้อมูลผู้ใช้');
@@ -189,7 +191,7 @@
         $('#birthday').datepicker({
             // format: 'dd-mm-yyyy',
             autoclose: true,
-            endDate : moment()
+            // endDate : moment()
         });
         $('#startdate').datepicker({
             format: 'dd-mm-yyyy',

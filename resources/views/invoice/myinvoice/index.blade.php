@@ -1,7 +1,8 @@
 @extends('admin')
 @section('content')
 @section('css')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="/plugins/datetimepicker/css/bootstrap-datetimepicker.min.css">
+
 @stop
 <div class="container-fluid col-12">
     <div class="row">
@@ -49,19 +50,21 @@
                 <div class="form-group">
                     <label for="file">ไฟล์แนบ</label>
                     <div class="input-group">
-                        <input type="file" class="form-control-file" name="payfile">
+                        <input id="payfile" type="file" class="form-control-file" name="payfile">
                     </div>
                 </div>
                 <div class="form-group">
                     <label>วัน - เวลาที่โอนเงิน</label>
                     <div class="form-group">
-                            <div class='input-group date' id='datetimepicker1'>
+                        <input type="text" class="form-control" id="datetimepicker1">
+
+                            {{-- <div class='input-group date' id='datetimepicker1'>
                                 <input type='text' class="form-control" />
-                                <span class="input-group-addon">s55
+                                <span class="input-group-addon">
                                     <span class="fa fa-calendar"></span>
                                 </span>
-                            </div>
-                        </div>
+                            </div> --}}
+                    </div>
                     {{-- <div class="input-group">
                         <div class="input-group-prepend input-append date" id="datetimepicker1">
                             <span class="input-group-text"><i class="fa fa-calendar"></i></span>
@@ -71,8 +74,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                
             </div>
             </div>
         </div>
@@ -81,11 +83,14 @@
 </div>
 @stop
 @section('script')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<script src="/plugins/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#datetimepicker1').datetimepicker();
+        $('#datetimepicker1').datetimepicker({
+            locale: moment.locale(),
+
+        });
 
         var usertable = $('#myinvoice-table').DataTable({
             processing: true,
@@ -174,6 +179,41 @@
 
 function payfor (id) {
     $('#pay').modal('show')
+    $('.modal-footer').empty();
+    $('.modal-footer').append(`<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="save(`+id+`)">Save changes</button>`)
+}
+
+// function previewFiles() {
+
+// }
+
+function save(id){
+    var file_data = $("#payfile").prop("files")[0];
+    var form_data = new FormData();
+    form_data.append("file", file_data)
+    form_data.append("invoice_id", id)
+    form_data.append("pay_datetime", $('#datetimepicker1').val())
+    $.ajax({ 
+                url: '/updateslip',  
+                method: 'POST', 
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: form_data,
+                success: function(data){
+                    if(data.status=='success'){
+                        swal({
+                        type: 'success',
+                        title: 'บันทึกสำเร็จ',
+                        showConfirmButton: false,
+                        timer: 1000
+                        });
+                        window.location.href = "/requireorder/"+data.id+"/edit"
+                    }
+                }
+            })
+    
 }
 
 

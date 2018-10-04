@@ -18,6 +18,7 @@
                                     <th>กำหนดจ่าย</th>
                                     <th>สถานะใบวางบิล</th>
                                     <th style="width: 10px"></th>
+                                    <th style="width: 10px"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -27,6 +28,7 @@
                                         <td>{{ $iv->invoice_date }}</td>
                                         <td>{{ $iv->due_date }}</td>
                                         <td>{{ $iv->sts_name }}</td>
+                                        <td>{{ $iv->invoice_no }}</td>
                                         <td>{{ $iv->invoice_no }}</td>
                                     </tr>
                                 @endforeach    
@@ -38,11 +40,11 @@
         </div>
 
         {{-- modal --}}
-        {{-- <div class="modal fade bd-example-modal-lg" id="detail_modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal fade bd-example-modal-lg" id="pay_detail" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">รายละเอียดใบวางบิล</h5>
+                        <h5 class="modal-title">ข้อมูลการชำระเงิน</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -59,7 +61,7 @@
                     </div>
                 </div>
             </div>
-        </div> --}}
+        </div>
 </div>
 @stop
 @section('script')
@@ -98,7 +100,16 @@
                 "targets": 4,
                 "render": function (data, type ,row) {
                     if(type === 'display'){
-                        data = "<a class='btn btn-block btn-warning btn-sm' href='/invoicedetail/"+data+"'><i class='fa fa-search' aria-hidden='true'></i> รายละเอียด</a>"
+                        data = "<a class='btn btn-block btn-primary btn-sm' href='/invoicedetail/"+data+"'><i class='fa fa-search' aria-hidden='true'></i> รายละเอียด</a>"
+                    }
+                    return data;
+                },
+            },
+            {
+                "targets": 5,
+                "render": function (data, type ,row) {
+                    if(type === 'display'){
+                        data = "<a class='btn btn-block btn-warning btn-sm' href='javascript:;'><i class='fa fa-search' aria-hidden='true'></i> ตรวจสอบ</a>"
                     }
                     return data;
                 },

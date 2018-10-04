@@ -171,5 +171,12 @@ class CreInvoiceController extends Controller
             $image->move(public_path('/slip_file'), $fileName);
         }
 
+        $inv = Invoice::find($request['invoice_no']);
+        if(isset($fileName)){$inv->pay_file = $fileName;}
+        $inv->pay_datetime = $request['pay_datetime'];
+        $inv->invoice_sts = 2;
+        $inv->save();
+
+        return 'success';
     }
 }

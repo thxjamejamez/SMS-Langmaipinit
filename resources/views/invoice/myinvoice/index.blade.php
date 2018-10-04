@@ -120,7 +120,11 @@
                             }},
                             {data: 'invoice_no', render: function(data, type ,row, meta){
                                 if(type === 'display'){
-                                    data = "<a class='btn btn-block btn-warning btn-sm' href='javascript:;' onclick='payfor("+data+")'><i class='fa fa-money' aria-hidden='true'></i> แจ้งการชำระเงิน</a>"
+                                    if(row.id === 2 || row.id === 3){
+                                        data = "<a class='btn btn-block btn-warning btn-sm disabled' href='javascript:;' onclick='payfor("+data+")'><i class='fa fa-money' aria-hidden='true'></i> แจ้งการชำระเงิน</a>"
+                                    }else{
+                                        data = "<a class='btn btn-block btn-warning btn-sm' href='javascript:;' onclick='payfor("+data+")'><i class='fa fa-money' aria-hidden='true'></i> แจ้งการชำระเงิน</a>"
+                                    }
                                 }
                                 return data;
                             }},
@@ -184,15 +188,11 @@ function payfor (id) {
                 <button type="button" class="btn btn-primary" onclick="save(`+id+`)">Save changes</button>`)
 }
 
-// function previewFiles() {
-
-// }
-
 function save(id){
     var file_data = $("#payfile").prop("files")[0];
     var form_data = new FormData();
     form_data.append("file", file_data)
-    form_data.append("invoice_id", id)
+    form_data.append("invoice_no", id)
     form_data.append("pay_datetime", $('#datetimepicker1').val())
     $.ajax({ 
                 url: '/updateslip',  
@@ -202,18 +202,17 @@ function save(id){
                 processData: false,
                 data: form_data,
                 success: function(data){
-                    if(data.status=='success'){
+                    if(data=='success'){
                         swal({
                         type: 'success',
                         title: 'บันทึกสำเร็จ',
                         showConfirmButton: false,
                         timer: 1000
                         });
-                        window.location.href = "/requireorder/"+data.id+"/edit"
+                        $('#myinvoice-table').DataTable().ajax.reload();
                     }
                 }
             })
-    
 }
 
 

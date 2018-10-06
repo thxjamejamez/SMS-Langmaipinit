@@ -1,6 +1,19 @@
 @extends('admin')
 @section('content')
 @section('css')
+<style>
+    img {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    width: 150px;
+}
+
+img:hover {
+    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+}
+
+</style>
 @stop
 <div class="container-fluid col-12">
         <div class="row">
@@ -40,8 +53,8 @@
         </div>
 
         {{-- modal --}}
-        <div class="modal fade bd-example-modal-lg" id="pay_detail" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
+        <div class="modal fade bd-example-modal-sm" id="pay_detail" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">ข้อมูลการชำระเงิน</h5>
@@ -50,10 +63,13 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div class="callout callout-warning">
-                            <h5 class="name"></h5>
-                            <h5 class="address"></h5>
-                            <h5 class="invoicedate"></h5>
+                        <div class="img-payfile text-center">
+                        </div>
+                        <div class="form-group">
+                            <label>วัน - เวลาที่โอนเงิน</label>
+                            <div class="form-group">
+                                <input type="text" class="form-control pay-date" disabled>
+                            </div>
                         </div>
                     </div>
 
@@ -109,13 +125,54 @@
                 "targets": 5,
                 "render": function (data, type ,row) {
                     if(type === 'display'){
-                        data = "<a class='btn btn-block btn-warning btn-sm' href='javascript:;'><i class='fa fa-search' aria-hidden='true'></i> ตรวจสอบ</a>"
+                        if(row[3] == 'รอการตรวจสอบการจ่ายเงิน'){
+                            data = "<a class='btn btn-block btn-warning btn-sm' href='javascript:;' onclick='detail_pay("+data+")'><i class='fa fa-money' aria-hidden=true></i> ตรวจสอบ</a>"
+                        }else{
+                            data = "<a class='btn btn-block btn-warning btn-sm disabled' href='javascript:;' onclick='detail_pay("+data+")'><i class='fa fa-money' aria-hidden=true></i> ตรวจสอบ</a>"
+                        }
                     }
                     return data;
                 },
             }
         ]
     });
+
+    function detail_pay (id) {
+        $('#pay_detail').modal('show');
+        $.ajax({
+            type: 'get',
+            url: '/getdetailpay/'+id
+        }).done(function(data){
+            $('.pay-date').val('')
+            $('.img-payfile').empty();
+            $('.modal-footer').empty();
+            if(data.pay_file) {
+                $('.img-payfile').append(`<a href="/slip_file/`+data.pay_file+`" target="_blank">
+                    <img src="/slip_file/`+data.pay_file+`">
+                </a>`) 
+            }
+            $('.pay-date').val(data.pay_datetime)
+            $('.modal-footer').append(`<button type="button" class="btn btn-block btn-success btn-sm" style="margin-top: .5rem;" onclick="update(`+data.invoice_no+`, 3)">การชำระเงินถูกต้อง</button>
+                <button type="button" class="btn btn-block btn-danger btn-sm" onclick="update(`+data.invoice_no+`, 4)">การชำระเงินไม่ถูกต้อง</button>`)
+        }) 
+    }
+
+    function update (invoice_no, sts) {
+        $.ajax({
+            type: 'get',
+            url: '/updatepay/'+invoice_no+'/'+sts
+        }).done(function(data){
+            if(data=='success'){
+                swal({
+                type: 'success',
+                title: 'บันทึกสำเร็จ',
+                showConfirmButton: false,
+                timer: 1000
+                });
+                window.location.reload();
+            }
+        })
+    }
 
 </script>
 @stop

@@ -57,24 +57,10 @@
                     <label>วัน - เวลาที่โอนเงิน</label>
                     <div class="form-group">
                         <input type="text" class="form-control" id="datetimepicker1">
-
-                            {{-- <div class='input-group date' id='datetimepicker1'>
-                                <input type='text' class="form-control" />
-                                <span class="input-group-addon">
-                                    <span class="fa fa-calendar"></span>
-                                </span>
-                            </div> --}}
                     </div>
-                    {{-- <div class="input-group">
-                        <div class="input-group-prepend input-append date" id="datetimepicker1">
-                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                        </div>
-                        <input data-format="dd/MM/yyyy hh:mm:ss" type="text" id="paydate" name="paydate" class="form-control"></input>
-                    </div> --}}
                 </div>
             </div>
             <div class="modal-footer">
-                
             </div>
             </div>
         </div>
@@ -181,39 +167,40 @@
     });
 
 
-function payfor (id) {
-    $('#pay').modal('show')
-    $('.modal-footer').empty();
-    $('.modal-footer').append(`<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="save(`+id+`)">Save changes</button>`)
-}
+    function payfor (id) {
+        $('#pay').modal('show')
+        $('.modal-footer').empty();
+        $('.modal-footer').append(`<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="save(`+id+`)">Save changes</button>`)
+    }
 
-function save(id){
-    var file_data = $("#payfile").prop("files")[0];
-    var form_data = new FormData();
-    form_data.append("file", file_data)
-    form_data.append("invoice_no", id)
-    form_data.append("pay_datetime", $('#datetimepicker1').val())
-    $.ajax({ 
-                url: '/updateslip',  
-                method: 'POST', 
-                cache: false,
-                contentType: false,
-                processData: false,
-                data: form_data,
-                success: function(data){
-                    if(data=='success'){
-                        swal({
-                        type: 'success',
-                        title: 'บันทึกสำเร็จ',
-                        showConfirmButton: false,
-                        timer: 1000
-                        });
-                        $('#myinvoice-table').DataTable().ajax.reload();
+    function save(id){
+        var file_data = $("#payfile").prop("files")[0];
+        var form_data = new FormData();
+        form_data.append("file", file_data)
+        form_data.append("invoice_no", id)
+        form_data.append("pay_datetime", $('#datetimepicker1').val())
+        $.ajax({ 
+                    url: '/updateslip',  
+                    method: 'POST', 
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: form_data,
+                    success: function(data){
+                        if(data=='success'){
+                            swal({
+                            type: 'success',
+                            title: 'บันทึกสำเร็จ',
+                            showConfirmButton: false,
+                            timer: 1000
+                            });
+                            $('#pay').modal('hide')
+                            $('#myinvoice-table').DataTable().ajax.reload();
+                        }
                     }
-                }
-            })
-}
+                })
+    }
 
 
 

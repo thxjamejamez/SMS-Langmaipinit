@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class PagePermission extends Model
 {
     protected $table = 'permission_pages';
+    public $timestamps = false;
 
     public function page()
     {

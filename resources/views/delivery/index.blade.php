@@ -207,7 +207,7 @@
                     tr.append('<td class="text-center">'+ value.sts_name +'</td>')
                 });
             } 
-            $('.modal-footer').append('<a class="btn btn-block btn-primary btn-sm" style="margin-top: .5rem;" href="deliveryslip/'+data.order.order_no+'/pdf" ><i class="fa fa-print" aria-hidden="true"></i> พิมพ์ใบส่งสินค้า</a>');
+            $('.modal-footer').append('<a class="btn btn-block btn-primary btn-sm" style="margin-top: .5rem;" href="deliveryslip/'+data.order.order_no+'/pdf" target="_blank" ><i class="fa fa-print" aria-hidden="true"></i> พิมพ์ใบส่งสินค้า</a>');
             (data.order.status == 5) ?
                 $('.modal-footer').append('<button class="btn btn-block btn-success btn-sm" onclick="changests(5, '+data.order.order_no+')" disabled><i class="fa fa-truck" aria-hidden="true"></i> ยืนยันการจัดส่งสินค้า</button>'):
                 $('.modal-footer').append('<button class="btn btn-block btn-success btn-sm" onclick="changests(5, '+data.order.order_no+')"><i class="fa fa-truck" aria-hidden="true"></i> ยืนยันการจัดส่งสินค้า</button>');

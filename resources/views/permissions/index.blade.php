@@ -22,7 +22,6 @@
                         <tr>
                             <th>สิทธิ์ในการเข้าถึง</th>
                             <th style="width: 10px"></th>
-                            <th style="width: 10px"></th>
                         </tr>
                     </thead>
                 </table>

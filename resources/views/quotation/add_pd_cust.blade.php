@@ -124,10 +124,6 @@ img:hover {
        });
         
     }
-   
-    // $(document).on('click','.remove', function(){
-    //     $(this).closest('.row').remove();
-    // });
 
 </script>
 @stop

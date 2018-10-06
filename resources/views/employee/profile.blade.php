@@ -9,7 +9,7 @@
     border: 1px solid #aaa;
     border-radius: 4px; }
 </style>
-  <link rel="stylesheet" href="/plugins/datepicker/datepicker3.css">
+<link rel="stylesheet" href="/plugins/datepicker/datepicker3.css">
 
 @stop
 <div class="container-fluid">
@@ -22,7 +22,12 @@
             </ul>
         </div>
     @endif
-    <form action="/employee" method="POST" accept-charset="utf-8">
+    @if(isset($edituser))
+        <form role="form" style="margin:15px" action="/employee/{{ $edituser->id }}" method="post" accept-charset="utf-8">
+            <input type="hidden" name="_method" value="PUT">
+    @else
+        <form action="/employee" method="POST" accept-charset="utf-8">
+    @endif
     {{ csrf_field() }}
     <div class="card card-default">
         <div class="card-header">
@@ -32,11 +37,11 @@
             <div class="row">
                 <div class="form-group col-2">
                     <label for="username">ชื่อผู้ใช้</label>
-                    <input id="username" type="text" class="form-control" name="username" required @if(isset($edituser->username)) value="{{$edituser->username}}" disabled @endif>
+                    <input id="username" type="text" class="form-control" name="username" required @if(isset($edituser->username)) value="{{$edituser->username}}" @endif>
                 </div>
                 <div class="form-group col-2">
                     <label for="password">รหัสผ่าน</label>
-                    <input id="password" type="password" class="form-control" name="password" required>
+                    <input id="password" type="password" class="form-control" name="password" @if(!isset($edituser->username)) required @endif>
                 </div>
                 <div class="form-group col-2">
                     <label for="nickname">ชื่อเล่น</label>
@@ -46,7 +51,7 @@
                     <label>สิทธิ์ในการเข้าถึง</label>
                     <select id="permission" class="form-control" name="permission">
                         @foreach($group_permission as $group_permissions)
-                        <option value="{{ $group_permissions->id }}" @if(isset($editUserPermission->permissions_id) && $group_permissions->id == $editUserPermission->permissions_id) selected @endif>{{ $group_permissions->permission_name }}</option>
+                        <option value="{{ $group_permissions->id }}" @if(isset($editUserPermission->permission_id) && $group_permissions->id == $editUserPermission->permission_id) selected @endif>{{ $group_permissions->permission_name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -126,7 +131,7 @@
                             <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                             </div>
-                            <input id="birthday" type="text" name="birthdate" class="form-control">
+                            <input id="birthday" type="text" name="birthdate" class="form-control" @if(isset($editprofile->birthdate)) value="{{  date("d-m-Y", strtotime($editprofile->birthdate)) }}" @endif>
                         </div>
                     </div>
                     <div class="form-group col-2">
@@ -135,8 +140,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">$</span>
                             </div>
-                            <input type="text" class="form-control" name="salary">
-                            <div class="input-group-append">
+                            <input type="text" class="form-control" name="salary" @if(isset($editprofile->salary)) value="{{ $editprofile->salary }}" @endif @if($pmedit->permission_id != 5) readonly @endif>
+                            <div class="input-group-append text-right">
                                 <span class="input-group-text">.00</span>
                             </div>
                         </div>
@@ -149,7 +154,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                             </div>
-                            <input id="startdate" type="text" name="startdate" class="form-control">
+                            <input id="startdate" type="text" name="startdate" class="form-control" @if(isset($editprofile->start_date)) value="{{  date("d-m-Y", strtotime($editprofile->start_date)) }}" @endif >
                         </div>
                     </div>
                     <div class="form-group col-2">
@@ -158,7 +163,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                             </div>
-                            <input id="enddate" type="text" name="enddate" class="form-control">
+                            <input id="enddate" type="text" name="enddate" class="form-control" @if(isset($editprofile->end_date)) value="{{  date("d-m-Y", strtotime($editprofile->end_date)) }}" @endif>
                         </div>
                     </div>
                 </div>
@@ -169,7 +174,7 @@
                         <button type="submit" class="btn btn-block btn-outline-primary btn-sm">บันทึก</button>
                     </div>
                     <div class="col-1">
-                        <button type="reset" class="btn btn-block btn-outline-danger btn-sm">ยกเลิก</button>
+                        <button type="reset" class="btn btn-block btn-outline-danger btn-sm" onclick="window.history.back()">ยกเลิก</button>
                     </div>
                 </div>
             </div>
@@ -183,15 +188,13 @@
 @section('script')
 <script type="text/javascript">
     $(document).ready(function () {
-        // console.log(new Date().parseDate('dd-mm-yyyy'));
         
         $('.select2').select2()
         $(".text-dark").append('ข้อมูลผู้ใช้');
         $('[data-mask]').inputmask()
         $('#birthday').datepicker({
-            // format: 'dd-mm-yyyy',
+            format: 'dd-mm-yyyy',
             autoclose: true,
-            // endDate : moment()
         });
         $('#startdate').datepicker({
             format: 'dd-mm-yyyy',

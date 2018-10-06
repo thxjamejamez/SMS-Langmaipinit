@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request,
     \App\Permission,
     \App\Navigation,
+    \App\PagePermission,
     DB;
 
 class PermissionController extends Controller
@@ -76,7 +77,36 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $permissionEloquent = Permission::find($id);
+            $permissionEloquent->permission_name = trim($request['permission_name']);
+            $permissionEloquent->save();
+            $oldperpage = DB::table('permission_pages')->select('menu_id')
+                ->where('permission_id', $id)
+                ->get();
+            $old_menuid = array();
+            foreach( $oldperpage as $oldpage ){
+                array_push($old_menuid,$oldpage->menu_id);
+            }
+            for($i=0;$i<count($request['menu_id']);$i++){
+                if(in_array($request['menu_id'][$i], $old_menuid)){
+                    PagePermission::where('permission_id', $id)
+                                ->where('menu_id', $request['menu_id'][$i])
+                                ->update([ 'view' => $request['view'][$i] ] );
+                }else{
+                    $permissionMenuEloquent = new PagePermission();
+                    $permissionMenuEloquent->permission_id = $permissionEloquent->id;
+                    $permissionMenuEloquent->menu_id = $request['menu_id'][$i];
+                    $permissionMenuEloquent->view = $request['view'][$i];
+                    $permissionMenuEloquent->save();
+                }
+            }
+            \Session::flash('massage','Updated');
+            return \Redirect::to('permissions');
+        } catch (Exception $e){
+            \Session::flash('massage','Not Success !!');
+            return \Redirect::to('permissions');
+        }
     }
 
     /**

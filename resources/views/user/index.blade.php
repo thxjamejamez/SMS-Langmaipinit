@@ -66,7 +66,7 @@
                             {data: 'permission_name', name: 'permission_name'},
                             {data: 'id', render: function(data, type ,row, meta){
                                     if(type === 'display'){
-                                        if(row.permissions_id < 6){
+                                        if(row.permission_id < 6){
                                             data = '<a href=employee/'+ data +'/edit class="btn btn-block btn-info btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i> แก้ไข</a>';
                                         }else{
                                             data = '<a href=user/'+ data +'/edit class="btn btn-block btn-info btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i> แก้ไข</a>';

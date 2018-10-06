@@ -179,4 +179,28 @@ class CreInvoiceController extends Controller
 
         return 'success';
     }
+
+    function getdetailpay ($id) {
+        $detail = Invoice::find($id);
+        return response()->json($detail);
+    }
+
+    function updatepay($invoice_no, $sts) {
+        $inv = Invoice::find($invoice_no);
+        if($sts == 4) {
+            if(!isset($inv->pay_file)){
+                unlink('slip_file/'.$inv->pay_file);
+            }
+            $inv->invoice_sts = $sts;
+            $inv->pay_file = '';
+            $inv->pay_datetime = '';
+            $inv->save();
+            
+        }else {
+            $inv->received_date = DB::raw('NOW()');
+            $inv->invoice_sts = $sts;
+            $inv->save();
+        }
+        return 'success';
+    }
 }

@@ -24,6 +24,8 @@
                                 <th>ชื่อสินค้า</th>
                                 <th>ขนาดสินค้า</th>
                                 <th>ราคาสินค้า</th>
+                                <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                     </table>
@@ -59,12 +61,23 @@
                             {data: 'product_name', name: 'product_name'},
                             {data: 'product_size', name: 'product_size'},
                             {data: 'product_price', render: function(data, type ,row, meta){
-                                    if(type === 'display'){
-                                        data = accounting.formatNumber(data, 2);
-                                    }
-                                    return data;
+                                if(type === 'display'){
+                                    data = accounting.formatNumber(data, 2);
                                 }
-                            },
+                                return data;
+                            }},
+                            {data: 'product_no', render: function(data, type ,row, meta){
+                                if(type === 'display'){
+                                    data = accounting.formatNumber(data, 2);
+                                }
+                                return data;
+                            }},
+                            {data: 'product_no', render: function(data, type ,row, meta){
+                                if(type === 'display'){
+                                    data = accounting.formatNumber(data, 2);
+                                }
+                                return data;
+                            }},
                         ]
         });
     });

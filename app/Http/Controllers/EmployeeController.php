@@ -99,7 +99,7 @@ class EmployeeController extends Controller
             $userEloquent = User::find($id);
             $userEloquent->username = trim($request['username']);
             $userEloquent->nickname = $request['nickname'];
-            if(!isset($request['password'])){ $userEloquent->password = \Hash::make($request['password']); }
+            if(isset($request['password'])){ $userEloquent->password = \Hash::make($request['password']); }
             $userEloquent->email = trim($request['email']);
             $userEloquent->status = 1;
             $userEloquent->save();
@@ -127,10 +127,10 @@ class EmployeeController extends Controller
                 ->update(['permission_id' => $request['permission']]);
             
             \Session::flash('massage','Updated');
-            return \Redirect::to('user');
+            return \Redirect::back();
         } catch (Exception $e){
             \Session::flash('massage','Not Success !!');
-            return \Redirect::to('user');
+            return \Redirect::back();            
         }
 
     }

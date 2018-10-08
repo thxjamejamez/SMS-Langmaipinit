@@ -37,8 +37,15 @@ class ProducttypeController extends Controller
     public function store(Request $request)
     {
         try{
+            if($request['pdtypefile']){
+                $image = $request->file('pdtypefile');
+                $fileName = time().'.'.$image->getClientOriginalExtension();
+                $image->move(public_path('/file_producttype'), $fileName);
+            }
+
             $productTypeEloquent = new ProductType();
             $productTypeEloquent->type_name = $request['producttype_name'];
+            if(isset($fileName)){$productTypeEloquent->type_file = $fileName;}
             $productTypeEloquent->active = 1;
             $productTypeEloquent->save();
             \Session::flash('massage','Inserted');
@@ -68,7 +75,11 @@ class ProducttypeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $pdtype = DB::Table('product_type')
+            ->where('product_type.type_no', $id)
+            ->first();
+
+        return view('producttype.form', compact('pdtype'));
     }
 
     /**
@@ -80,7 +91,24 @@ class ProducttypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try{
+            if($request['pdtypefile']){
+                $image = $request->file('pdtypefile');
+                $fileName = time().'.'.$image->getClientOriginalExtension();
+                $image->move(public_path('/file_producttype'), $fileName);
+            }
+
+            $pdtype = ProductType::find($id);
+            $pdtype->type_name = $request['producttype_name'];
+            if(isset($fileName)){$pdtype->type_file = $fileName;}
+            $pdtype->save();
+
+            \Session::flash('massage','Updated');
+            return \Redirect::to('producttype');
+        } catch (Exception $e){
+            \Session::flash('massage','Not Success !!');
+            return \Redirect::to('producttype');
+        }
     }
 
     /**
@@ -91,13 +119,29 @@ class ProducttypeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $pdtype = ProductType::find($id);
+        if(isset($pdtype->file_type)){
+            unlink('file_producttype/'.$pdtype->type_file);
+        }
+        ProductType::destroy($id);
+        return 'success';
+
     }
 
     function producttypelist() {
         $data = DB::Table('product_type')
             ->get();
         return response()->json(["data"=>$data]);
+
+    }
+
+    function delpictype($type_no) {
+        $pdtype = ProductType::find($type_no);
+        unlink('file_producttype/'.$pdtype->type_file);
+        $pdtype->type_file = '';
+        $pdtype->save();
+            
+        return 'success';
 
     }
 }

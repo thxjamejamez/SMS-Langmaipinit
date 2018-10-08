@@ -107,7 +107,7 @@ class CreInvoiceController extends Controller
                     )
             ->first();
 
-        $sub = '(SELECT SUM(price * qty) FROM order_detail WHERE order_detail.order_no = order.order_no) AS sum';
+        $sub = '(SELECT IFNULL(SUM(price * qty), 0) FROM order_detail WHERE order_detail.order_no = order.order_no) AS sum';
         $invdetail = InvoiceDetail::join('order', 'invoice_detail.order_no', '=', 'order.order_no')
             ->where('invoice_detail.invoice_no', $id)
             ->select('order.order_no'

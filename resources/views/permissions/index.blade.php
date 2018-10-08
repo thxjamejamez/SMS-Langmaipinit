@@ -5,11 +5,6 @@
 @stop
 <div class="container-fluid col-12">
     <div class="row">
-        {{-- <div class="form-group">
-            <a href="/employee/create" style="margin-left: 20px;"><i class="fa fa-user-plus"></i> เพิ่มผู้ใช้ (พนักงาน)</a>
-        </div> --}}
-    </div>
-    <div class="row">
         <div class="col-sm-12">
         <div class="card">
             <div class="card-header">

@@ -95,7 +95,7 @@
                 <div class="card-footer">
                     <div class="row">
                         <div class="col-1">
-                            <button @click="onSave()" class="btn btn-block btn-outline-primary btn-sm">บันทึก</button>
+                            <button @click="onSave()" :disabled="form.length == 0 || senddate.length == 0" class="btn btn-block btn-outline-primary btn-sm">บันทึก</button>
                         </div>
                         <div class="col-1">
                             <button type="reset" class="btn btn-block btn-outline-danger btn-sm">ยกเลิก</button>

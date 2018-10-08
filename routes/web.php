@@ -26,13 +26,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('apanel', 'adminController@index');
     route::get('/logout', 'Auth\LoginController@logout');
 });
+#User
 Route::resource('employee', 'EmployeeController');
 Route::resource('user', 'UserController');
 Route::get('/getuserlist', 'UserController@userlist');
+Route::get('/profile', 'UserController@profiledetail');
 
 #Product Type
 Route::resource('producttype', 'ProducttypeController');
 Route::get('/getproducttypelist', 'ProducttypeController@producttypelist');
+Route::get('/delpictype/{id}', 'ProducttypeController@delpictype');
 
 #Product
 Route::resource('product', 'ProductController');
@@ -77,7 +80,10 @@ Route::get('deliveryslip/{orderid}/pdf', 'DeliveryController@Deliveryslip');
 #Material 
     Route::resource('material', 'MaterialController');
     Route::get('getmaterial', 'MaterialController@getdata');
-
+    Route::get('buymaterial', function () {
+        return view('material.buymaterial');
+    });
+    Route::get('/getbuymateriallist', 'MaterialController@getbuymateriallist');
     #Supplier
     Route::resource('materialseller', 'MaterialSellerController');
     Route::get('getsupplier', 'MaterialSellerController@getdata');
@@ -113,6 +119,13 @@ Route::post('/updateslip', 'CreInvoiceController@updateslip');
 Route::get('/getdetailpay/{id}', 'CreInvoiceController@getdetailpay');
 Route::get('/updatepay/{id}/{sts}', 'CreInvoiceController@updatepay');
 
+#report
+Route::get('salesummary', 'SaleSummaryController@index');
+Route::get('salesummaryget', 'SaleSummaryController@getdata');
+Route::get('salary', function () {
+    return view('report.salary');
+});
+Route::get('getsalary', 'SaleSummaryController@getsalary');
 
 
 

@@ -27,13 +27,16 @@
   <link rel="stylesheet" href="/plugins/sweetalert/sweetalert2.css">
   <link rel="stylesheet" href="/plugins/sweetalert/animate.css">
   <!-- Daterange picker -->
-  <link rel="stylesheet" href="/plugins/daterangepicker/daterangepicker-bs3.css">
+  {{-- <link rel="stylesheet" href="/plugins/daterangepicker/daterangepicker-bs3.css"> --}}
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
   <link rel="stylesheet" href="/admin/css/master.css">
   <link rel="stylesheet" href="/plugins/selectpicker/bootstrap-select.min.css">
   <link rel="stylesheet" href="/plugins/select2/select2.css">
   <link rel="stylesheet" href="/plugins/datatables/dataTables.bootstrap4.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css">
+
+
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   @yield('css')
@@ -270,6 +273,10 @@
 <script src="/plugins/morris/morris.min.js"></script>
 <script src="/plugins/datatables/jquery.dataTables.js"></script>
 <script src="/plugins/datatables/dataTables.bootstrap4.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+
+
 {{-- select 2 --}}
 <script src="/plugins/select2/select2.full.min.js"></script>
 <script src="/plugins/selectpicker/bootstrap-select.min.js"></script>
@@ -283,7 +290,7 @@
 <!-- daterangepicker -->
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script> --}}
 <script src="/plugins/moment/moment.min.js"></script>
-<script src="/plugins/daterangepicker/daterangepicker.js"></script>
+{{-- <script src="/plugins/daterangepicker/daterangepicker.js"></script> --}}
 <!-- datepicker -->
 <script src="/plugins/datepicker/bootstrap-datepicker.js"></script>
 {{-- <script src="/plugins/datetimepicker/js/bootstrap-datetimepicker.js"></script> --}}

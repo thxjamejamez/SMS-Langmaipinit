@@ -25,7 +25,6 @@
                             <th>วันที่สั่งซื้อ</th>
                             <th>วันที่ส่งสินค้า</th>
                             <th class="worksts-filter">สถานะการทำงาน</th>
-                            <th class="text-center">การประมวลผล</th>
                             <th class="text-center">เปอร์เซ็นต์</th>
                             <th style="width: 10px"></th>
                         </tr>
@@ -122,25 +121,6 @@
                                         percent = 0
                                     }
                                     if(percent < 80){
-                                        data = `<div class="progress progress-xs progress-striped active">
-                                                    <div class="progress-bar bg-warning" style="width: `+accounting.formatNumber(percent, 2)+`%"></div>
-                                                </div>`
-                                    }else{
-                                        data = `<div class="progress progress-xs progress-striped active">
-                                                    <div class="progress-bar bg-success" style="width: `+accounting.formatNumber(percent, 2)+`%"></div>
-                                                </div>`
-                                    }
-                                }
-                                return data
-                            }},
-                            {data: 'count_fpd', render: function(data, type, row, meta){
-                                if(type==='display'){
-                                    if(data){
-                                        percent = (data/row.count_pd) * 100                      
-                                    }else{
-                                        percent = 0
-                                    }
-                                    if(percent < 80){
                                         data = `<span class="badge bg-warning">`+accounting.formatNumber(percent, 2)+`%</span>`
                                     }else{
                                         data = `<span class="badge bg-success">`+accounting.formatNumber(percent, 2)+`%</span>`
@@ -220,7 +200,7 @@
         $.ajax({
             type: 'get',
             url: '/getworkdetail/'+id
-        }).done(function(data){
+        }).done(function(data){            
             $('h5.senddate').empty();
             $('#pd tbody').empty();
             $('h5.senddate').append('<b>กำหนดวันส่งสินค้า: </b>'+moment(data.order.send_date).locale('th').format('LL'));

@@ -73,15 +73,13 @@
                                         }
                                     }
                                     return data;
-                                }
-                            },
+                                }},
                             {data: 'id', render: function(data, type ,row, meta){
-                                    if(type === 'display'){
-                                         data = '<button class="btn btn-block btn-danger btn-sm" onclick="del_user('+data+', '+row.permissions_id+')"><i class="fa fa-trash" aria-hidden="true"></i> ลบ</button>';
-                                    }
-                                    return data;
+                                if(type === 'display'){
+                                        data = '<button class="btn btn-block btn-danger btn-sm" onclick="del_user('+data+', '+row.permission_id+')"><i class="fa fa-trash" aria-hidden="true"></i> ลบ</button>';
                                 }
-                            },
+                                return data;
+                            }},
                         ],
         });
     });

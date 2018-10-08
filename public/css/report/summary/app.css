@@ -1,0 +1,54 @@
+.rows > * {
+    position: relative;
+    overflow: hidden;
+    color: #495060;
+    background-color: #FFF;
+  }
+  
+  .rows {
+    max-width: 500px;;
+    /* margin: auto; */
+    margin-left: auto;
+    padding: 15px;
+    background-color: #fff;
+    box-shadow: 0 5px 10px hsla(0, 0%, 0%, .012);
+  }
+  
+  .rows .xs-h3 {
+    font-weight: 100;
+    margin: 0 0 10px;
+    padding: 0 0 10px;
+    border-bottom: solid 1px #f1f2f5;
+  }
+  .txt-up { text-transform: uppercase }
+  
+  .md-tbody > * {
+    padding: 0 12px;
+    display: table-cell;
+    vertical-align: middle;
+  }
+  
+  .pay_method {
+    width: 300px;
+    padding-left: 150px;
+  }
+  .payment_amount{
+    width: 300px;
+    text-align: right;
+  }
+  
+  .rows_sum{
+    padding-top: 5px;
+    border-top: solid 1px #f1f2f5;
+    background-color: #cecece;
+  }
+  
+  .daterangepicker .daterangepicker_input input[type=text]{
+    padding-left: 39px;
+  }
+  .daterangepicker .daterangepicker_input i {
+    padding: 16px;
+    position: absolute;
+  }
+  .pointer{cursor: pointer;}
+  

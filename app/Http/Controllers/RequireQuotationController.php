@@ -38,9 +38,6 @@ class RequireQuotationController extends Controller
     public function store(Request $request)
     {
         $user = \Auth::user();
-        // $this->validate($request, [
-        //     'requofile' => 'mimes:jpeg,png,JPG,gif,svg|max:8000',
-        // ]);
         if($request['requofile']){
             $image = $request->file('requofile');
             $fileName = time().'.'.$image->getClientOriginalExtension();

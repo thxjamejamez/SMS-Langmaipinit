@@ -50,7 +50,6 @@ class UserController extends Controller
             'password' => 'required|string|min:6'
         ]);
         try{
-            // dd($request['birthdate']);
             $userEloquent = new \App\User();
             $userEloquent->username = trim($request['username']);
             $userEloquent->nickname = $request['nickname'];
@@ -70,12 +69,12 @@ class UserController extends Controller
             if($request['birthdate']){$custinfoEloquent->birthdate = date('Y-m-d', strtotime($request['birthdate']));}
             $custinfoEloquent->province_id = $request['province'];
             $custinfoEloquent->district_id = $request['district'];
+            $custinfoEloquent->company_credit = $request['creditcompany'];
             if($request['company']){
                 $custinfoEloquent->company_name = $request['companyname'];
-                $custinfoEloquent->company_credit = $request['creditcompany'];
                 $custinfoEloquent->company_address = $request['address_company'];
-                $custinfoEloquent->company_district = $request['province_company'];
-                $custinfoEloquent->company_province = $request['district_company'];
+                $custinfoEloquent->company_district = $request['district_company'];
+                $custinfoEloquent->company_province = $request['province_company'];
             }
             $custinfoEloquent->save();
 
@@ -100,7 +99,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -111,13 +110,15 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        $user = \Auth::user();
+        $pmedit = DB::table('user_permissions')->where('user_id', $user->id)->first();
         $edituser = User::where('id', $id)->first();
         $editprofile = CustomerInfo::where('users_id', $id)->first();
         $title = DB::Table('l_title')->get();
         $district = DB::table('l_city')->get();
         $province = DB::table('l_province')->get();
         $group_permission = DB::table('group_permissions')->where('active', 1)->get();
-        return view('user.profile', compact('edituser', 'editprofile', 'title', 'district', 'province', 'group_permission'));
+        return view('user.profile', compact('edituser', 'editprofile', 'pmedit', 'title', 'district', 'province', 'group_permission'));
     }
 
     /**
@@ -129,7 +130,45 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try{
+            $userEloquent = User::find($id);
+            $userEloquent->username = trim($request['username']);
+            $userEloquent->nickname = $request['nickname'];
+            if(isset($request['password'])){ $userEloquent->password = \Hash::make($request['password']); }
+            $userEloquent->email = trim($request['email']);
+            $userEloquent->status = 1;
+            $userEloquent->save();
+
+            $custinfoEloquent = CustomerInfo::where('users_id', $id)->first();
+            $custinfoEloquent->title_id = $request['title'];
+            $custinfoEloquent->first_name = $request['firstname'];
+            $custinfoEloquent->last_name = $request['lastname'];
+            $custinfoEloquent->address = $request['address'];
+            $custinfoEloquent->active = 1;
+            $custinfoEloquent->tel = $request['tel'];
+            if($request['birthdate']){$custinfoEloquent->birthdate = date('Y-m-d', strtotime($request['birthdate']));}
+            $custinfoEloquent->province_id = $request['province'];
+            $custinfoEloquent->district_id = $request['district'];
+            $custinfoEloquent->company_credit = $request['creditcompany'];
+            if($request['company']){
+                $custinfoEloquent->company_name = $request['companyname'];
+                $custinfoEloquent->company_address = $request['address_company'];
+                $custinfoEloquent->company_district = $request['district_company'];
+                $custinfoEloquent->company_province = $request['province_company'];
+            }else{
+                $custinfoEloquent->company_name =  NULL;
+                $custinfoEloquent->company_address = NULL;
+                $custinfoEloquent->company_district = NULL;
+                $custinfoEloquent->company_province = NULL;
+            }
+            $custinfoEloquent->save();
+
+            \Session::flash('massage','Updated');
+            return \Redirect::back();
+        } catch (Exception $e){
+            \Session::flash('massage','Not Success !!');
+            return \Redirect::back();
+        }
     }
 
     /**
@@ -183,5 +222,29 @@ class UserController extends Controller
             ]);
         $users = $emp->union($cust)->get();
         return response()->json(["data"=>$users]);
+    }
+
+    function profiledetail() {
+        $user = \Auth::user();
+        $pmedit = DB::table('user_permissions')->where('user_id', $user->id)->first();
+        if($pmedit->permission_id == 6){
+            $edituser = User::where('id', $user->id)->first();
+            $editprofile = CustomerInfo::where('users_id', $user->id)->first();
+            $title = DB::Table('l_title')->get();
+            $district = DB::table('l_city')->get();
+            $province = DB::table('l_province')->get();
+            $group_permission = DB::table('group_permissions')->where('active', 1)->get();
+            return view('user.profile', compact('edituser', 'editprofile', 'pmedit', 'title', 'district', 'province', 'group_permission'));    
+        }else{
+            $edituser = User::where('id', $user->id)->first();
+            $editprofile = EmployeeInfo::where('users_id', $user->id)->first();
+            $editUserPermission = UserPermission::where('user_id', $user->id)->first();
+            $title = DB::Table('l_title')->get();
+            $district = DB::table('l_city')->get();
+            $province = DB::table('l_province')->get();
+            $group_permission = DB::table('group_permissions')->where('active', 1)->get();
+            return view('employee.profile', compact('edituser', 'pmedit', 'editprofile', 'editUserPermission', 'title', 'district', 'province', 'group_permission'));    
+        }
+
     }
 }

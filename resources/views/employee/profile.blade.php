@@ -174,7 +174,7 @@
                         <button type="submit" class="btn btn-block btn-outline-primary btn-sm">บันทึก</button>
                     </div>
                     <div class="col-1">
-                        <button type="reset" class="btn btn-block btn-outline-danger btn-sm" onclick="window.history.back()">ยกเลิก</button>
+                        <a class="btn btn-block btn-outline-danger btn-sm" href="/apanel">ยกเลิก</a>
                     </div>
                 </div>
             </div>

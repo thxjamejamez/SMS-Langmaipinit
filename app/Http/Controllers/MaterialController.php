@@ -113,5 +113,15 @@ class MaterialController extends Controller
         return response()->json(['data' => $data]);
     }
 
+    function getbuymateriallist () {
+        $buymaterial = DB::table('material_purchase')
+            ->join('material', 'material_purchase.material_no', '=', 'material.material_no')
+            ->join('material_type', 'material.type_no', '=', 'material_type.type_no')
+            ->join('supplier', 'material_purchase.sup_no', '=', 'supplier.sup_no')
+            ->join('users', 'material_purchase.users_id', '=', 'users.id')
+            ->get();
+        return response()->json(['data' => $buymaterial]);
+    }
+
     
 }

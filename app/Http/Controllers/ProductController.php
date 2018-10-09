@@ -67,7 +67,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $producttype = DB::Table('product_type')->where('active', 1)->get();
+        $editproduct = Product::where('product_no', $id)->first();
+        return view('product.form', compact('editproduct', 'producttype'));
     }
 
     /**
@@ -79,7 +81,20 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try{
+            $productEloquent = Product::find($id);
+            $productEloquent->type_no = $request['product_type'];
+            $productEloquent->product_name = $request['product_name'];
+            $productEloquent->product_size = $request['product_size'];
+            $productEloquent->product_price = $request['product_price'];
+            $productEloquent->active = 1;
+            $productEloquent->save();
+            \Session::flash('massage','Updated');
+            return \Redirect::to('product');
+        } catch (Exception $e){
+            \Session::flash('massage','Not Success !!');
+            return \Redirect::to('product');
+        }
     }
 
     /**
@@ -90,7 +105,9 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Product::destroy($id);
+        return 'success';
+        
     }
 
     function productlist() {

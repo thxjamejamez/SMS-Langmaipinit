@@ -13,7 +13,7 @@
                 <div class="row">
                     <div class="form-group col-10">
                         <label>รายละเอียด</label>
-                        <textarea class="form-control" name="re_detail" rows="3" placeholder=""></textarea>
+                        <textarea class="form-control" name="re_detail" rows="3" placeholder="" required></textarea>
                     </div>
                 </div>
                 <div class="row">
@@ -25,15 +25,28 @@
                     </div>
                 </div>
                 @if(count($errors) > 0)
-                            <div class="alert alert-danger">
-                                Upload Validation Error <br><br>
-                                <ul>
-                                    @foreach($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                            @endif
+                <div class="alert alert-danger">
+                    Upload Validation Error <br><br>
+                    <ul>
+                        @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>เลือกประเภทสินค้าที่ต้องการ</label>
+                            <select class="form-control select2" id="re_type" multiple="multiple"
+                                    style="width: 100%;" name="re_type[]">
+                                @foreach ($type as $t)
+                                    <option value={{ $t->type_no }} > {{ $t->type_name }} </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="card-footer">
                 <div class="row">
@@ -53,6 +66,7 @@
 @section('script')
 <script type="text/javascript">
     $(document).ready(function () {
+        $('.select2').select2()
         $(".text-dark").append('คำขอใบเสนอราคา');
     });
 

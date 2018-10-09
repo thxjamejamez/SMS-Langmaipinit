@@ -1,6 +1,7 @@
 @extends('admin')
 @section('content')
 @section('css')
+<link rel="stylesheet" href="/plugins/datepicker/datepicker3.css">
 @stop
 <div class="container-fluid col-12">
     <div class="row">
@@ -10,12 +11,17 @@
                 <h3 class="card-title">รายการคำสั่งซื้อ</h3>
             </div>
             <div class="card-body">
+                <select class="selectpicker" data-live-search="true" multiple data-actions-box="true" id="orsts" name="orsts[]">
+                    @foreach($orstses as $r)
+                    <option value="{{ $r->id }}" >{{ $r->sts_name }}</option>
+                    @endforeach
+                </select>
                 <table id="reorder-table" class="table table-hover table-bordered dt-responsive nowrap" style="width:100%">
                     <thead>
                         <tr>
                             <th>เลขที่การสั่งซื้อ</th>
                             <th>วันที่สั่งซื้อ</th>
-                            <th>สถานะการสั่งซื้อ</th>
+                            <th class="ordersts-filter">สถานะการสั่งซื้อ</th>
                             <th style="width: 10px"></th>
                         </tr>
                     </thead>
@@ -26,7 +32,7 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal fade bd-example-modal-lg" id="detail" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -38,7 +44,8 @@
                 <div class="modal-body">
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        <h6><i class="icon fa fa-ban"></i> รายการคำสั่งซื้อนี้ไม่ได้รับการอนุมัติ</h6>
+                        <h6 class="reason_show"></h6>
+                        
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
@@ -104,6 +111,29 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="reason" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">เหตุผล</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group type">
+                        <label>เนื่องจาก</label>
+                        <select class="form-control" id="reason_type"></select>
+                    </div>
+                    <div class="form-group change_date">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @stop
 
@@ -142,7 +172,40 @@
                                 }
                                 return data;
                             }},
-                        ]
+                        ],
+                initComplete: function(){
+                this.api().columns('.ordersts-filter').every( function() {
+                    var column = this
+                    @if($orsts)
+                    var srests = '{{ $orsts }}';
+                    var scarray = srests.split(",");
+                    $('#orsts').selectpicker('val', scarray);
+                    @else
+                    $('#orsts').selectpicker('selectAll');
+                    @endif
+                    $('#orsts').on('hide.bs.select', function(e){
+                        var Totaloption = $('#orsts').find('option').length;
+                        var TotaloptionSelected = $('#orsts').find('option:selected').length;
+                        var val ='';
+                        $('#orsts option:selected').each(function () {
+                        if (Totaloption != TotaloptionSelected){
+                            $('#orsts option:selected').each(function () {
+                                if(val){
+                                    val += '|';
+                                }
+                                val += '^' + $(this).text() + '$';
+                            });
+                        }
+                        $("#reorder-table").DataTable().search( '' )
+                                .columns('.ordersts-filter').search( '' )
+                                .draw();
+                        column
+                            .search( val ? val : '', true, false )
+                            .draw();
+                        });
+                    });
+                })
+            }
         });
     });
 
@@ -152,13 +215,13 @@
             url: '/getorderdetail/'+$order_id+'/admin'
         }).done(function(data){
             let sum = 0;
-            $('table[name=orderdetail] tbody').empty();
-            $('textarea[name=re_detail]').empty();
-            $('.modal-footer').empty();
-            $('#file').empty();
+            $('#detail table[name=orderdetail] tbody').empty();
+            $('#detail textarea[name=re_detail]').empty();
+            $('#detail .modal-footer').empty();
+            $('#detail #file').empty();
             data.orderdetail.forEach((v, k) => {
                 sum += (v.price * v.qty);
-                $tr = $('table[name=orderdetail] tbody').append('<tr></tr>');
+                $tr = $('#detail table[name=orderdetail] tbody').append('<tr></tr>');
                 $tr.append('<td>'+(k+1)+'</td>');
                 $tr.append('<td>'+v.type_name+'</td>');
                 $tr.append('<td>'+v.product_name+'</td>');
@@ -167,31 +230,34 @@
                 $tr.append('<td class="text-center">'+v.qty+'</td>');
                 $tr.append('<td class="text-right">'+accounting.formatNumber(v.price * v.qty, 2)+'</td>');
             });
-            $trfooter = $('table[name=orderdetail] tbody').append('<tr></tr>');
+            $trfooter = $('#detail table[name=orderdetail] tbody').append('<tr></tr>');
             $trfooter.append('<td colspan="5" style="background-color: #E0E0E0"><b>รวมทั้งสิ้น</b></td>');
             $trfooter.append('<td class="text-right" style="background-color: #E0E0E0"><b>'+accounting.formatNumber(sum, 2)+'</b></td>');  
             $trfooter.append('<td class="text-right" style="background-color: #E0E0E0"><b>บาท</b></td>');   
 
-            $('textarea[name=re_detail]').append(data.order.remark);
-            $('#senddate').val(moment(data.order.send_date).locale('th').format('LL'));
+            $('#detail textarea[name=re_detail]').append(data.order.remark);
+            $('#detail #senddate').val(moment(data.order.send_date).locale('th').format('LL'));
             if(data.order.file){
-                $file = $('#file').append('<label>ไฟล์แนบ</label><div class="input-group"><div class="input-group-prepend"></div></div>');
+                $file = $('#detail #file').append('<label>ไฟล์แนบ</label><div class="input-group"><div class="input-group-prepend"></div></div>');
                 $file.append('<a href="/file_order/'+data.order.file+'" target="_blank" class="btn btn-block btn-info btn-sm"><i class="fa fa-file" aria-hidden="true"></i> เรียกดู</a>');
             }
             if(data.order.status != 1){
-                $('.modal-footer').append('<button type="button" class="btn btn-block btn-success btn-sm" style="margin-top: .5rem;" onclick="changests(2, '+data.order.order_no+')" disabled>อนุมัติ</button>');
-                $('.modal-footer').append('<button type="button" class="btn btn-block btn-danger btn-sm" onclick="changests(6, '+data.order.order_no+')" disabled>ไม่อนุมัติ</button>');
-                $('.modal-footer').append('<button type="button" class="btn btn-block btn-secondary btn-sm" data-dismiss="modal">ปิด</button>');      
+                $('#detail .modal-footer').append('<button type="button" class="btn btn-block btn-success btn-sm" style="margin-top: .5rem;" onclick="changests(2, '+data.order.order_no+')" disabled>อนุมัติ</button>');
+                $('#detail .modal-footer').append('<button type="button" class="btn btn-block btn-danger btn-sm" onclick="openreason('+data.order.order_no+')" disabled>ไม่อนุมัติ</button>');
+                $('#detail .modal-footer').append('<button type="button" class="btn btn-block btn-secondary btn-sm" data-dismiss="modal">ปิด</button>');      
             }else{
-                $('.modal-footer').append('<button type="button" class="btn btn-block btn-success btn-sm" style="margin-top: .5rem;" onclick="changests(2, '+data.order.order_no+')">อนุมัติ</button>');
-                $('.modal-footer').append('<button type="button" class="btn btn-block btn-danger btn-sm" onclick="changests(6, '+data.order.order_no+')">ไม่อนุมัติ</button>');
-                $('.modal-footer').append('<button type="button" class="btn btn-block btn-secondary btn-sm" data-dismiss="modal">ปิด</button>');      
+                $('#detail .modal-footer').append('<button type="button" class="btn btn-block btn-success btn-sm" style="margin-top: .5rem;" onclick="changests(2, '+data.order.order_no+')">อนุมัติ</button>');
+                $('#detail .modal-footer').append('<button type="button" class="btn btn-block btn-danger btn-sm" onclick="openreason('+data.order.order_no+')">ไม่อนุมัติ</button>');
+                $('#detail .modal-footer').append('<button type="button" class="btn btn-block btn-secondary btn-sm" data-dismiss="modal">ปิด</button>');      
             }
 
             if(data.order.status == 6){
-                $('.modal-body .alert-danger').show();
+                $('#detail .modal-body .alert-danger .reason_show').empty()
+                $('#detail .modal-body .alert-danger .reason_show').append(`<i class="icon fa fa-ban"></i> รายการคำสั่งซื้อนี้ไม่ได้รับการอนุมัติ 
+                    <br>เนื่องจาก: `+data.order.reason_name+``)
+                $('#detail .modal-body .alert-danger').show();
             }else{
-                $('.modal-body .alert-danger').hide();
+                $('#detail .modal-body .alert-danger').hide();
             }
         });
     }
@@ -211,9 +277,95 @@
                 $('.bd-example-modal-lg').modal('toggle');
                 $('#reorder-table').DataTable().ajax.reload();
             }
+        }) 
+    }
+
+    function openreason (id) {
+        $('#reason').modal('show')
+        $('.change_date').empty()
+        $('#reason .modal-footer').empty()
+        $.ajax({
+            type: 'get',
+            url: '/reason'
+        }).done(function (data){
+            let option = '<option value=0>--- เลือก ---</option>'
+            $.each(data, function (k, v){
+                option += '<option value='+ v.id +'>' +v.reason_name+'</option>'
+            })
+            $('#reason_type').empty()
+            $('#reason_type').append(option)   
         })
+
+        $('#reason .modal-footer').append(`<button type="button" style="margin-top: .5rem;" class="btn btn-block btn-danger btn-sm" onclick="savereason(`+id+`)">บันทึก</button>
+        <button type="button" class="btn btn-block btn-secondary btn-sm" data-dismiss="modal">ปิด</button>`)
+    }
+
+    $('#reason_type').on('change', function (){
+        if($(this).val() == 2){
+            $('.change_date').append(`<label>กำหนดส่งสินค้าที่ต้องการ</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                    </div>
+                    <input id="changedate" type="text" name="changedate" class="form-control" required>
+                </div>
+            `)
+            $('#changedate').datepicker({
+                format: 'dd-mm-yyyy',
+                autoclose: true,
+            });
+        }else{
+            $('.change_date').empty()
+        }
+    })
+
+    function savereason(id) {
+        if($('#reason_type').val() == 0){
+            swal({
+                type: 'error',
+                title: 'ผิดพลาด!',
+                text: 'กรุณาเลือกเหตุผล'
+            })
+        }else if (($('#reason_type').val() == 2) && ($('#changedate').val() == '')) {
+            swal({
+                type: 'error',
+                title: 'ผิดพลาด!',
+                text: 'กรุณากรอกวันที่ที่ต้องการจัดส่ง'
+            })
+        }else{
+            let changedate = ''
+            let reason_type = $('#reason_type').val()
+            if($('#changedate').val()){
+                changedate = $('#changedate').val()
+            }
+            $.ajax({
+                type: 'post',
+                url: '/savereason',
+                data: {
+                    order_no: id,
+                    order_sts: 6,
+                    reason_type: reason_type,
+                    changedate: changedate
+                }
+            }).done(function (data) {
+                if(data == 'success'){
+                    swal({
+                        position: 'top-end',
+                        type: 'success',
+                        title: 'บันทึกข้อมูลสำเร็จ',
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                    $('#reason').modal('hide')
+                    $('#detail').modal('hide')
+                    $('#reorder-table').DataTable().ajax.reload();
+
+                }
+            })
+        }
         
     }
+
 
 </script>
 @stop

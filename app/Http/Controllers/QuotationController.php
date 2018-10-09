@@ -15,7 +15,13 @@ class QuotationController extends Controller
      */
     public function index()
     {
-        return view('admin_quotation.index');
+        $lrests = DB::table('l_require_sts')
+            ->select(DB::raw('GROUP_CONCAT(id SEPARATOR \',\') as id'))->first();
+        $rests = $lrests->id;
+        $restses = DB::table('l_require_sts')
+            ->where('active', 1)
+            ->get();
+        return view('admin_quotation.index', compact('rests', 'restses'));
     }
 
     /**
@@ -47,7 +53,22 @@ class QuotationController extends Controller
      */
     public function show($id)
     {
-        //
+        $detail = DB::table('require_quotation')
+        ->where('require_no', $id)
+        ->first();
+    $de_retype = DB::table('re_typeproduct')
+        ->join('product_type', 're_typeproduct.type_no', '=', 'product_type.type_no')
+        ->where('re_typeproduct.quotation_no', $id)
+        ->select(DB::raw('GROUP_CONCAT(type_name) as type_name'))->first();
+
+    $product = DB::table('product')->where('active', 1)->get();
+    $detail_quotation = DB::table('quotation')
+        ->join('product', 'quotation.product_no', '=', 'product.product_no')
+        ->join('product_type', 'product.type_no', '=', 'product_type.type_no')
+        ->where('require_no', $id)
+        ->get();
+    return view('admin_quotation.show', compact('detail', 'product', 'id', 'detail_quotation', 'de_retype'));
+
     }
 
     /**
@@ -58,15 +79,32 @@ class QuotationController extends Controller
      */
     public function edit($id)
     {
+        $retype = DB::table('re_typeproduct')->where('re_typeproduct.quotation_no', $id)->select(DB::raw('GROUP_CONCAT(type_no) as type_no'))->first();
+        $bytype = explode(",",$retype->type_no);
+
         $detail = DB::table('require_quotation')
             ->where('require_no', $id)
             ->first();
+        $pdcust = DB::table('product_for_cust')->where('product_for_cust.users_id', $detail->users_id)->select(DB::raw('GROUP_CONCAT(product_no) as product_no'))->first();
+        $notpdcust = explode(",",$pdcust->product_no);
+
+        $de_retype = DB::table('re_typeproduct')
+            ->join('product_type', 're_typeproduct.type_no', '=', 'product_type.type_no')
+            ->where('re_typeproduct.quotation_no', $id)
+            ->select(DB::raw('GROUP_CONCAT(type_name) as type_name'))->first();
+
         $product = DB::table('product')
             ->join('product_type', 'product.type_no', '=', 'product_type.type_no')
+            ->when(!in_array(0 , $bytype), function ($product) use($bytype){
+                $product->whereIn('product.type_no', $bytype);
+            })
+            ->when(isset($notpdcust), function ($product) use($notpdcust){
+                $product->whereNotIn('product.product_no', $notpdcust);
+            })
             ->where('product.active', 1)
             ->where('product_type.active', 1)
             ->get();
-        return view('admin_quotation.form', compact('detail', 'product', 'id'));
+        return view('admin_quotation.form', compact('detail', 'product', 'id', 'de_retype'));
     }
 
     /**

@@ -3,6 +3,9 @@
 @section('css')
 @stop
 <div class="container-fluid col-12">
+    @if(Session::has('massage'))
+        <input class="alert" type="hidden" value="{{ Session::get('massage') }}">
+    @endif
     <div class="row">
         <div class="form-group">
             <a href="/product/create" style="margin-left: 20px;"><i class="fa fa-cart-plus"></i> เพิ่มสินค้า</a>
@@ -40,6 +43,23 @@
 @section('script')
 <script type="text/javascript">
     $(document).ready(function () {
+        if($('.alert').val() == 'Inserted'){
+            swal({
+                position: 'top-end',
+                type: 'success',
+                title: 'บันทึกข้อมูลสำเร็จ',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        }else if($('.alert').val() == 'Updated'){
+            swal({
+                position: 'top-end',
+                type: 'success',
+                title: 'เปลี่ยนแปลงข้อมูลสำเร็จ',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        }
         $(".text-dark").append('สินค้า');
         var usertable = $('#product-table').DataTable({
             processing: true,
@@ -68,19 +88,60 @@
                             }},
                             {data: 'product_no', render: function(data, type ,row, meta){
                                 if(type === 'display'){
-                                    data = accounting.formatNumber(data, 2);
+                                    data = "<a class='btn btn-block btn-primary btn-sm' href='/product/"+data+"/edit'><i class='fa fa-pencil' aria-hidden='true'></i> แก้ไข</a>";
                                 }
                                 return data;
                             }},
                             {data: 'product_no', render: function(data, type ,row, meta){
                                 if(type === 'display'){
-                                    data = accounting.formatNumber(data, 2);
+                                    data = '<button class="btn btn-block btn-danger btn-sm" onclick="del('+data+')"><i class="fa fa-trash" aria-hidden="true"></i> ลบ</button>';
                                 }
                                 return data;
                             }},
                         ]
         });
     });
+
+    function del (type_no){
+        const swalWithBootstrapButtons = swal.mixin({
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger',
+            buttonsStyling: false,
+            })
+        swalWithBootstrapButtons({
+            title: 'แน่ใจหรือ?',
+            text: "คุณต้องการลบข้อมูลประเภทสินค้า",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'ใช่',
+            cancelButtonText: 'ไม่ใช่',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/product/'+type_no
+                }).done(function (data){
+                    if(data == 'success'){
+                        swalWithBootstrapButtons(
+                            'ลบประเภทสินค้าเรียบร้อยแล้ว',
+                            '',
+                            'success'
+                        )
+                        $('#product-table').DataTable().ajax.reload();
+                    }
+                })
+            } else if (
+                result.dismiss === swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons(
+                'ยกเลิก',
+                'ยกเลิกการลบประเภทสินค้าแล้ว',
+                'error'
+                )
+            }
+        })
+    }
 
 </script>
 @stop

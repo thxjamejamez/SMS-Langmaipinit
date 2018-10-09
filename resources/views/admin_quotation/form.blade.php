@@ -31,15 +31,27 @@ img:hover {
                                 <h3 class="card-title">รายละเอียดคำขอ</h3>
                             </div>
                             <div class="card-body">
-                                <div class="form-group">
-                                    <label>ข้อมูลคำขอ</label>
-                                    <textarea class="form-control" rows="3" placeholder="Enter ..." disabled="">{{ $detail->require_detail }}</textarea>
+                                <div class="rows">
+                                    <div class="form-group">
+                                        <label>ข้อมูลคำขอ</label>
+                                        <textarea class="form-control" rows="3" placeholder="Enter ..." disabled="">{{ $detail->require_detail }}</textarea>
+                                    </div>
                                 </div>
+                                <div class="rows">
                                 @if($detail->file)
                                     <a href="/file_quotation/{{ $detail->file }}" target="_blank">
                                         <img src="/file_quotation/{{ $detail->file }}">
                                     </a>
                                 @endif
+                                </div>
+                                <div class="rows">
+                                @if($de_retype->type_name)
+                                    <div class="form-group">
+                                        <label>ประเภทสินค้าที่ต้องการ</label>
+                                        <input type="text" class="form-control" value="{{$de_retype->type_name}}" disabled>
+                                    </div>
+                                @endif
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -64,7 +76,7 @@ img:hover {
                                 <div class="detail">
                                     <div class="row">
                                         <div class="form-group col-5">
-                                            <select class="form-control" name="product[]">
+                                            <select class="form-control pd" name="product[]">
                                                 @foreach($product as $products)
                                                 <option value="{{ $products->product_no }}">({{ $products->type_name }}) {{ $products->product_name }}, {{ $products->product_size }}</option>
                                                 @endforeach
@@ -75,7 +87,7 @@ img:hover {
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">$</span>
                                                 </div>
-                                                <input type="text" class="form-control" name="product_price[]" required>
+                                                <input type="text" class="form-control price" name="product_price[]" required>
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">.00</span>
                                                 </div>
@@ -116,7 +128,7 @@ img:hover {
     $('#addproduct').on('click', function(){
         $('div.detail:last').append(`<div class="row">
                                         <div class="form-group col-5">
-                                            <select class="form-control" name="product[]">
+                                            <select class="form-control pd" name="product[]">
                                                 @foreach($product as $products)
                                                 <option value="{{ $products->product_no }}">({{ $products->type_name }}) {{ $products->product_name }}, {{ $products->product_size }}</option>
                                                 @endforeach
@@ -127,7 +139,7 @@ img:hover {
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">$</span>
                                                 </div>
-                                                <input type="text" class="form-control" name="product_price[]" required>
+                                                <input type="text" class="form-control price" name="product_price[]" required>
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">.00</span>
                                                 </div>
@@ -144,6 +156,16 @@ img:hover {
     $(document).on('click','.remove', function(){
         $(this).closest('.row').remove();
     });
+
+    $(document).on('change', '.pd', function (){
+        $vm = this
+        $.ajax({
+            type: 'get',
+            url: '/pdfindprice/'+ $(this).val()
+        }).done(function (data){
+            $($vm).closest('.row').find('.price').val(data.product_price)
+        })
+    })
 
 </script>
 @stop

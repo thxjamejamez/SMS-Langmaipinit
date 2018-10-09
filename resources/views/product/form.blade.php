@@ -11,7 +11,12 @@
 </style>
 @stop
 <div class="container-fluid">
-    <form action="/product" method="POST" accept-charset="utf-8">
+    @if(isset($editproduct))
+        <form action="/product/{{$editproduct->product_no}}" method="POST" accept-charset="utf-8">
+            <input type="hidden" name="_method" value="PUT">   
+    @else
+        <form action="/product" method="POST" accept-charset="utf-8">
+    @endif
         {{ csrf_field() }}
         <div class="card card-default">
             <div class="card-header">
@@ -21,13 +26,13 @@
                 <div class="row">
                     <div class="form-group col-2">
                         <label for="product_name">ชื่อสินค้า</label>
-                        <input id="product_name" type="text" class="form-control" name="product_name" required>
+                        <input id="product_name" type="text" class="form-control" name="product_name" required @if(isset($editproduct->product_name)) value="{{$editproduct->product_name}} @endif">
                     </div>
                     <div class="form-group col-2">
                         <label>ประเภทสินค้า</label>
                         <select class="form-control" name="product_type">
                             @foreach($producttype as $producttypes)
-                            <option value="{{ $producttypes->type_no }}">{{ $producttypes->type_name }}</option>
+                            <option value="{{ $producttypes->type_no }}" @if(isset($editproduct->type_no) && ($producttypes->type_no == $editproduct->type_no)) selected @endif>{{ $producttypes->type_name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -35,15 +40,15 @@
                 <div class="row">
                     <div class="form-group col-3">
                         <label for="product_size">ขนาดสินค้า</label>
-                        <input id="product_size" type="text" class="form-control" name="product_size" placeholder="XXX*XXXX*XXX">
+                    <input id="product_size" type="text" class="form-control" name="product_size" placeholder="XXX*XXXX*XXX" @if(isset($editproduct->product_size)) value="{{$editproduct->product_size}}" @endif>
                     </div>
-                     <div class="form-group col-2">
+                    <div class="form-group col-2">
                         <label>ราคาสินค้า</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">$</span>
                             </div>
-                            <input type="text" class="form-control" name="product_price">
+                        <input type="text" class="form-control" name="product_price" @if(isset($editproduct->product_price)) value="{{$editproduct->product_price}}" @endif>
                             <div class="input-group-append">
                                 <span class="input-group-text">.00</span>
                             </div>

@@ -88,9 +88,6 @@ img:hover {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group col-1">
-                                                <button id="chk-{{ $dr->product_no }}" class="btn btn-block btn-success btn-sm" onclick="update_priceforcust({{ $id }}, {{ $dr->product_no }}, {{ $dr->price }})" @if($dr->confirm_status == 2) disabled @endif><i class="fa fa-check"></i></button>
-                                            </div>
                                         </div>
                                     @endforeach
                                     
@@ -110,30 +107,6 @@ img:hover {
     $(document).ready(function () {
         $(".text-dark").append('ข้อมูลใบเสนอราคา');
     });
-    function update_priceforcust(re_id ,id_pd, price) {
-       $.ajax({
-           url: '{{ url("/updatepdcust") }}',
-           type: "POST",
-           headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-           data: {  'product_no': id_pd,
-                    'price': price,
-                    'require_no': re_id
-                },
-            success: function(data){
-                if(data=='success'){
-                    swal({
-                    type: 'success',
-                    title: 'Your work has been saved',
-                    showConfirmButton: false,
-                    timer: 1000
-                    });
-
-                    $('#chk-'+id_pd).prop( "disabled", true );
-                }
-            }
-       });
-        
-    }
 
 </script>
 @stop

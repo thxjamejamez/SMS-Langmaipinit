@@ -44,7 +44,12 @@
                     url: '{{ url("/getmyproductlist") }}',
                 },
             columns:    [
-                            {data: 'product_no', name: 'product_no'},
+                            {data: 'product_no', render: function(data, type ,row, meta){
+                                if(type === 'display'){
+                                    data = 'P'+numeral(data).format('000000');
+                                }
+                                return data;
+                            }},
                             {data: 'type_name', name: 'type_name'},
                             {data: 'product_name', name: 'product_name'},
                             {data: 'product_size', name: 'product_size'},

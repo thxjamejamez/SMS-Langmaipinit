@@ -16,7 +16,13 @@ class RequireQuotationController extends Controller
      */
     public function index()
     {
-        return View('quotation.index');            
+        $lrests = DB::table('l_require_sts')
+            ->select(DB::raw('GROUP_CONCAT(id SEPARATOR \',\') as id'))->first();
+        $rests = $lrests->id;
+        $restses = DB::table('l_require_sts')
+            ->where('active', 1)
+            ->get();
+        return View('quotation.index', compact('rests', 'restses'));            
     }
 
     /**
@@ -26,7 +32,10 @@ class RequireQuotationController extends Controller
      */
     public function create()
     {
-        return View('quotation.require');        
+        $type = DB::table('product_type')
+            ->where('active', 1)
+            ->get();
+        return View('quotation.require', compact('type'));        
     }
 
     /**
@@ -51,7 +60,14 @@ class RequireQuotationController extends Controller
         $reQuoEloquent->sts_id = 1;
         $reQuoEloquent->save();
 
-        // return back()->with('success', 'Uploaded')->with('path', $fileName);
+        if(isset($request['re_type'])){
+            foreach($request['re_type'] as $type){
+                DB::table('re_typeproduct')
+                    ->insert(['quotation_no' => $reQuoEloquent->require_no
+                            ,'type_no' => $type
+                            ]);
+            }
+        }
         return \Redirect::to('requirequotation');
     }
 
@@ -63,7 +79,7 @@ class RequireQuotationController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -77,13 +93,18 @@ class RequireQuotationController extends Controller
         $detail = DB::table('require_quotation')
             ->where('require_no', $id)
             ->first();
+        $de_retype = DB::table('re_typeproduct')
+            ->join('product_type', 're_typeproduct.type_no', '=', 'product_type.type_no')
+            ->where('re_typeproduct.quotation_no', $id)
+            ->select(DB::raw('GROUP_CONCAT(type_name) as type_name'))->first();
+
         $product = DB::table('product')->where('active', 1)->get();
         $detail_quotation = DB::table('quotation')
             ->join('product', 'quotation.product_no', '=', 'product.product_no')
             ->join('product_type', 'product.type_no', '=', 'product_type.type_no')
             ->where('require_no', $id)
             ->get();
-        return view('quotation.add_pd_cust', compact('detail', 'product', 'id', 'detail_quotation'));
+        return view('quotation.add_pd_cust', compact('detail', 'product', 'id', 'detail_quotation', 'de_retype'));
     }
 
     /**
@@ -106,7 +127,8 @@ class RequireQuotationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        RequireQuotation::destroy($id);
+        return 'success';
     }
 
     function requotationlist () {
@@ -142,6 +164,13 @@ class RequireQuotationController extends Controller
         } catch (Exception $e){
             return 'fail';
         }
+    }
 
+    function pdfindprice ($pd_id) {
+        $pdprice = DB::table('product')
+            ->where('product.product_no', $pd_id)
+            ->select('product.product_price')
+            ->first();
+        return response()->json($pdprice);
     }
 }

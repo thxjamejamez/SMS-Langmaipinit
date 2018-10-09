@@ -3,9 +3,44 @@
 @section('css')
     {{-- <link rel="stylesheet" href="/css/requireorder/app.css"> --}}
 @stop
+<?php
+        $allsum = 0;
+        function DateThai($strDate,$format = false)
+            {
+                $D = date('N', strtotime($strDate));
+                $strYear = date("Y",strtotime($strDate))+543;
+                $strMonth= date("n",strtotime($strDate));
+                $strDay= date("d",strtotime($strDate));
+                $strDayFull = Array("","จันทร์","อังคาร","พุธ","พฤหัสบดี","ศุกร์","เสาร์","อาทิตย์");
+                $strHour= date("H",strtotime($strDate));
+                $strMinute= date("i",strtotime($strDate));
+                $strSeconds= date("s",strtotime($strDate));
+                $strMonthCut = Array("","ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค.");
+                $strMonthThai=$strMonthCut[$strMonth];
+                $strDayThai=$strDayFull[$D];
+                if($format == 'd/M'){
+                    return "$strDay/$strMonthThai";
+                }else if($format == 'D, d M Y'){
+                    return "$strDayThai, $strDay $strMonthThai $strYear";
+                }else{
+                    return "$strDay $strMonthThai $strYear";
+                }
+            }
+    ?>
 <div class="container-fluid" id="app">
     <div class="row">
         <div class="col-lg-12">
+            @if($order->status == 6)
+                <div class="callout callout-danger">
+                    <h5>ไม่อนุมัติ</h5>
+                    <hr>
+                    @if(isset($order->reason_id))<p><b>เนื่องจาก:</b> {{$order->reason_name}}@endif</p>
+                    @if(isset($order->change_senddate) && $order->change_senddate != '0000-00-00')
+                        <p><b>สามารถส่งสินค้าได้ในวันที่:</b> {{DateThai(Date($order->change_senddate), 'd M Y')}}</p>
+                        <p><b>**หมายเหตุ: </b> หากต้องการ</p>                    
+                    @endif
+                </div>
+            @endif
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title"><i class="fa fa-cart-arrow-down"></i>&nbsp;&nbsp;สินค้าที่สั่งซื้อ</h3>

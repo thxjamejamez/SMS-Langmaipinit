@@ -46,6 +46,7 @@ Route::get('/getmyproductlist', 'ProductController@myproductlist');
 #Require Quotation
 Route::resource('requirequotation', 'RequireQuotationController');
 Route::get('/getrequirequotationlist', 'RequireQuotationController@requotationlist');
+Route::get('/pdfindprice/{id}', 'RequireQuotationController@pdfindprice');
 // Add product for cust when confirm
 Route::any('/updatepdcust', 'RequireQuotationController@updatePdCust');
 
@@ -58,10 +59,18 @@ Route::resource('requireorder', 'OrderController');
 Route::get('/getrequirorderlist', 'OrderController@myorder');
 Route::get('getorderlist', 'OrderController@getorderlist');
 Route::get('order', function(){
-    return view('order.adminindex');
+        $lworksts = DB::table('l_order_sts')
+            ->select(DB::raw('GROUP_CONCAT(id SEPARATOR \',\') as id'))->first();
+        $orsts = $lworksts->id;
+        $orstses = DB::table('l_order_sts')
+            ->where('active', 1)
+            ->get();
+    return view('order.adminindex', compact('orsts', 'orstses'));
 });
 Route::get('/getorderdetail/{orderid}/admin', 'OrderController@getorderdetail');
 Route::get('/changests/{order_no}/{sts_id}', 'OrderController@ChangeStatus');
+Route::get('/reason', 'OrderController@reason');
+Route::POST('/savereason', 'OrderController@savereason');
 // Route::POST('/storeorder', 'OrderController@Store');
 
 

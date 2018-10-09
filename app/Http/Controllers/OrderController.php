@@ -16,7 +16,13 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return view('order.index');
+        $lworksts = DB::table('l_order_sts')
+            ->select(DB::raw('GROUP_CONCAT(id SEPARATOR \',\') as id'))->first();
+        $orsts = $lworksts->id;
+        $orstses = DB::table('l_order_sts')
+            ->where('active', 1)
+            ->get();
+        return view('order.index', compact('orsts', 'orstses'));
     }
 
     /**
@@ -95,6 +101,7 @@ class OrderController extends Controller
     public function edit($id)
     {
         $order = DB::table('order')
+            ->leftjoin('l_cancel_reason', 'order.reason_id', '=', 'l_cancel_reason.id')
             ->where('order_no', $id)
             ->first();
 
@@ -149,6 +156,7 @@ class OrderController extends Controller
 
     function getorderdetail($orderid){
         $order = DB::table('order')
+            ->leftjoin('l_cancel_reason', 'order.reason_id', '=', 'l_cancel_reason.id')
             ->where('order_no', $orderid)
             ->first();
 
@@ -174,6 +182,22 @@ class OrderController extends Controller
         }
         $orderEloquent->save();
 
+        return 'success';
+    }
+
+    function reason () {
+        $reason = DB::table('l_cancel_reason')->get();
+        return response()->json($reason);
+    }
+
+    function savereason (Request $request) {
+        $orderupdate = Order::find($request['order_no']);
+        $orderupdate->status = $request['order_sts'];
+        $orderupdate->reason_id = $request['reason_type'];
+        if($request['reason_type'] == 2){
+            $orderupdate->change_senddate = date('Y-m-d', strtotime($request['changedate']));
+        }
+        $orderupdate->save();
         return 'success';
     }
 }

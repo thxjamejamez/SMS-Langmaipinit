@@ -101,6 +101,7 @@ class OrderController extends Controller
     public function edit($id)
     {
         $order = DB::table('order')
+            ->join('l_order_sts', 'order.status', '=', 'l_order_sts.id')
             ->leftjoin('l_cancel_reason', 'order.reason_id', '=', 'l_cancel_reason.id')
             ->where('order_no', $id)
             ->first();
@@ -156,6 +157,7 @@ class OrderController extends Controller
 
     function getorderdetail($orderid){
         $order = DB::table('order')
+            ->join('l_order_sts', 'order.status', '=', 'l_order_sts.id')
             ->leftjoin('l_cancel_reason', 'order.reason_id', '=', 'l_cancel_reason.id')
             ->where('order_no', $orderid)
             ->first();
@@ -199,5 +201,22 @@ class OrderController extends Controller
         }
         $orderupdate->save();
         return 'success';
+    }
+
+    function changestsnotpass($order_no, $sts) {
+        if($sts == 1){
+            $orderupdate = Order::find($order_no);
+            $orderupdate->status = 1;
+            $orderupdate->send_date = $orderupdate->change_senddate;
+            $orderupdate->save();
+            return 'success';
+        }else {
+            $orderupdate = Order::find($order_no);
+            $orderupdate->change_senddate = NULL;
+            $orderupdate->save();
+            return 'success';
+
+        }
+
     }
 }

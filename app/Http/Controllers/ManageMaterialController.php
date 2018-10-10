@@ -16,7 +16,9 @@ class ManageMaterialController extends Controller
      */
     public function index()
     {
-        return view('material.manage.index');
+        $user = \Auth::user();
+        $pmedit = DB::table('user_permissions')->where('user_id', $user->id)->first();
+        return view('material.manage.index', compact('pmedit'));
     }
 
     /**

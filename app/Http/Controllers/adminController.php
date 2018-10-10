@@ -21,10 +21,13 @@ class adminController extends Controller
         
         $user = \Auth::user();
         $chk = DB::table('require_quotation')
-            ->where('users_id', $user->id)
+            ->where('require_quotation.users_id', $user->id)
+            ->first();
+        $chkpm = DB::table('user_permissions')
+            ->where('user_permissions.user_id', $user->id)
             ->first();
         // var_dump ($items);
-        return view('index.index', compact('chk'));
+        return view('index.index', compact('chk','chkpm'));
         // return view('admin', compact('user','permission', 'items', 'ritems'));
 
     }

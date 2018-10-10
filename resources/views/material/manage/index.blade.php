@@ -90,11 +90,13 @@
 @section('script')
 <script  type="text/javascript">
     $(document).ready(function () {
+        var pmid = '{{$pmedit->permission_id}}'
+        
         var materialtable = $('#materialmn-table').DataTable({
             processing: true,
             ajax: {
                     type: 'GET',
-                    url: '{{ url("/getmaterial") }}',
+                    url: '/getmaterial',
                 },
             columns:    [
                             {data: 'material_no', render: function(data, type ,row, meta){
@@ -111,13 +113,13 @@
                             {data: 'material_name', name: 'material_name'},
                             {data: 'type_name', name: 'type_name'},
                             {data: 'balance', name: 'balance'},
-                            {data: 'material_no', render: function(data, type ,row, meta){
+                            {sClass: "hide_column", data: 'material_no', render: function(data, type ,row, meta){
                                 if(type === 'display'){
                                     data = "<a class='btn btn-block btn-success btn-sm' href='javascript:;' onclick='add("+data+")' data-target='.bd-example-modal-lg'><i class='fa fa-plus' aria-hidden='true'></i> เพิ่มวัตถุดิบ</a>";
                                 }
                                 return data
                             }},
-                            {data: 'material_no', render: function(data, type ,row, meta){
+                            {sClass: "hide_column", data: 'material_no', render: function(data, type ,row, meta){
                                 if(type === 'display'){
                                     if(row.balance == 0){
                                         data = ""
@@ -127,7 +129,7 @@
                                 }
                                 return data
                             }},
-                            {data: 'material_no', render: function(data, type ,row, meta){
+                            {sClass: "hide_column", data: 'material_no', render: function(data, type ,row, meta){
                                 if(type === 'display'){
                                     if(row.sts_ordering == 1){
                                         data = "<a class='btn btn-block btn-danger btn-sm disabled' href='javascript:;' onclick='changests_ordering("+data+")'><i class='fa fa-exclamation' aria-hidden='true'></i> แจ้งสั่งซื้อ</a>";
@@ -138,6 +140,14 @@
                                 return data
                             }},
                         ],
+                initComplete: function () {
+                    if(pmid == 4){
+                        materialtable.column(4).visible(false);
+                    }else if(pmid == 3){
+                        materialtable.column(5).visible(false);
+                        materialtable.column(6).visible(false);
+                    }
+                }
         });
     });
 

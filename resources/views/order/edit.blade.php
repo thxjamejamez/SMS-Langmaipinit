@@ -1,7 +1,6 @@
 @extends('admin')
 @section('content')
 @section('css')
-    {{-- <link rel="stylesheet" href="/css/requireorder/app.css"> --}}
 @stop
 <?php
         $allsum = 0;
@@ -32,13 +31,25 @@
         <div class="col-lg-12">
             @if($order->status == 6)
                 <div class="callout callout-danger">
-                    <h5>ไม่อนุมัติ</h5>
+                    <h5><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ไม่อนุมัติ</h5>
                     <hr>
                     @if(isset($order->reason_id))<p><b>เนื่องจาก:</b> {{$order->reason_name}}@endif</p>
                     @if(isset($order->change_senddate) && $order->change_senddate != '0000-00-00')
                         <p><b>สามารถส่งสินค้าได้ในวันที่:</b> {{DateThai(Date($order->change_senddate), 'd M Y')}}</p>
-                        <p><b>**หมายเหตุ: </b> หากต้องการ</p>                    
+                        <div class="row">
+                            <div class="col-1">
+                                <button class="btn btn-block btn-success btn-sm" onclick="changests({{$order->order_no}}, 1)"><i class="fa fa-check" aria-hidden="true"></i></button>
+                            </div>
+                            <div class="col-1">
+                                <button class="btn btn-block btn-danger btn-sm" onclick="changests({{$order->order_no}}, 6)"><i class="fa fa-times" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
                     @endif
+                </div>
+            @elseif($order->status < 6)
+                <div class="callout callout-info">
+                    <h5><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> สถานะการสั่งซื้อ</h5>
+                    <p>{{$order->sts_name}}</p>
                 </div>
             @endif
             <div class="card">
@@ -110,21 +121,97 @@
                     @endif
                     </div>
                 </div>
-                {{-- <div class="card-footer">
-                    <div class="row">
-                        <div class="col-1">
-                            <button @click="onSave()" class="btn btn-block btn-outline-primary btn-sm">บันทึก</button>
-                        </div>
-                        <div class="col-1">
-                            <button type="reset" class="btn btn-block btn-outline-danger btn-sm">ยกเลิก</button>
-                        </div>
-                    </div>
-                </div> --}}
             </div>
         </div>
     </div>
 </div>
 @stop
 @section('script')
-{{-- <script src="/js/requireorder/app.js?v=<?php echo filemtime('js/requireorder/app.js')?>"></script> --}}
+<script type="text/javascript">
+function changests(order_no, sts){
+    if(sts == 1){
+        const swalWithBootstrapButtons = swal.mixin({
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger',
+            buttonsStyling: false,
+        })
+
+        swalWithBootstrapButtons({
+            title: 'คุณแน่ใจหรือ?',
+            text: "คุณต้องการเปลี่ยนวันส่งสินค้า!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'ใช่',
+            cancelButtonText: 'ไม่ใช่',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    type: 'get',
+                    url: '/changestsnotpass/'+order_no+'/'+sts
+                }).done(function (data){
+                    if(data == 'success'){
+                        swalWithBootstrapButtons(
+                        'เปลี่ยนวันที่ส่งสินค้าเรียบร้อยแล้ว!',
+                        'กรุณารอการตอบรับคำสั่งซื้ออีกครั้ง',
+                        'success'
+                        )
+                    window.location.reload()
+                    }
+                }) 
+            } else if (
+                // Read more about handling dismissals
+                result.dismiss === swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons(
+                'ยกเลิก',
+                'ยกเลิกการเปลี่ยนแปลงวันที่ส่งสินค้าเรียบร้อยแล้ว',
+                'error'
+                )
+            }
+        })
+    }else {
+        const swalWithBootstrapButtons = swal.mixin({
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger',
+            buttonsStyling: false,
+        })
+
+        swalWithBootstrapButtons({
+            title: 'คุณแน่ใจหรือ?',
+            text: "หากคุณตกลง คำสั่งซื้อนี้จะไม่การอนุมัติ!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'ใช่',
+            cancelButtonText: 'ไม่ใช่',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    type: 'get',
+                    url: '/changestsnotpass/'+order_no+'/'+sts
+                }).done(function (data){
+                    swalWithBootstrapButtons(
+                    'เปลี่ยนสถานะสำเร็จ!',
+                    'คำสั่งซื้อนี้ไม่ถูกอนุมัติ',
+                    'success'
+                    )
+                    window.location.reload()
+                })
+            } else if (
+                // Read more about handling dismissals
+                result.dismiss === swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons(
+                'ยกเลิก',
+                'ยกเลิกการเปลี่ยนแปลงเรียบร้อยแล้ว',
+                'error'
+                )
+            }
+        })
+    }
+    
+}
+
+</script>
 @stop

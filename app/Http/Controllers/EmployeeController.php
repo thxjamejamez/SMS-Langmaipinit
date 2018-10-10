@@ -60,7 +60,7 @@ class EmployeeController extends Controller
     
             $userrolesEloquent = new UserPermission();
             $userrolesEloquent->user_id = $userEloquent->id;
-            $userrolesEloquent->permissions_id = $request['permission'];
+            $userrolesEloquent->permission_id = $request['permission'];
             $userrolesEloquent->save();
             
             \Session::flash('massage','Updated');

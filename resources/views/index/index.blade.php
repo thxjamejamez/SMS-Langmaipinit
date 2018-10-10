@@ -3,10 +3,23 @@
   <link href="/plugins/Smartwidzard4/css/smart_wizard.css" rel="stylesheet" type="text/css" />
   <link href="/plugins/Smartwidzard4/css/smart_wizard_theme_dots.css" rel="stylesheet" type="text/css" />
   <link href="/plugins/Smartwidzard4/css/smart_wizard_theme_arrows.css" rel="stylesheet" type="text/css" />
+  <style>
+        img {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 5px;
+        width: 150px;
+    }
+    
+    img:hover {
+        box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+    }
+    
+    </style>
 @stop
 @section('content')
 
-<div class="modal fade bd-example-modal-lg" @if(!$chk) id="exampleModal" @endif tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg" @if(!$chk && $chkpm->permission_id == 6) id="exampleModal" @endif tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -28,19 +41,28 @@
                         <div>
                             <div id="step-1" class="">
                                 <h3 class="border-bottom border-gray pb-2">สร้างคำขอเสนอราคา</h3>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                วิธีสร้างคำขอใบเสนอราคานั้น เริ่มต้นจากการไปที่เมนู "ใบเสนอราคา" -> "ร้องขอใบเสนอราคา" ลูกค้าจะสามารถดูข้อมูลคำขอใบเสนอราคาได้หากเคยยื่นคำขอใบเสนอราคาไปแล้ว  หากยังไม่มีข้อมูลใบเสนอราคา ให้ทำการคลิกที่ปุ่ม "เพิ่มคำขอใบเสนอราคา" จากนั้น กรอกรายละเอียดให้ครบถ้วน  หากท่านไม่ทราบประเภทสินค้าที่ต้องการ กรุณาเลือก อื่นๆ จากนั้นรอการตอบรับจากพนักงาน
                             </div>
                             <div id="step-2" class="">
-                                <h3 class="border-bottom border-gray pb-2">Step 2 Content</h3>
-                                <div>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. </div>
+                                <h3 class="border-bottom border-gray pb-2">รอการตอบรับคำขอและตกลงราคา</h3>
+                                <div>
+                                    <center>
+                                    <a href="/help/requo1.JPG" target="_blank">
+                                        <img src="/help/requo1.JPG">
+                                    </a>
+                                    <a href="/help/requo2.JPG" target="_blank">
+                                        <img src="/help/requo2.JPG">
+                                    </a>
+                                    <a href="/help/requo3.JPG" target="_blank">
+                                        <img src="/help/requo3.JPG">
+                                    </a>
+                                    </center>
+                                    <p>หากได้รับการตอบรับแล้วจะสามารถเรียกดูข้อมูลการเสนอราคาของคำร้องขอใบเสนอราคาได้ เมื่อคุณตกลงราคาสินค้าที่ได้มา กรุณาคลิกที่เครื่องหมาย <i class="fa fa-check"></i> สินค้าจะถูกเพิ่มไปยัง "สินค้าของฉัน" ทันที จากนั้นคุณจะสามารถสั่งซื้อสินค้าได้ตามความต้องการของคุณ</p>
+
+                                </div>
                             </div>
                             <div id="step-3" class="">
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                
                             </div>
                             <div id="step-4" class="">
                                 <h3 class="border-bottom border-gray pb-2">Step 4 Content</h3>
@@ -61,49 +83,6 @@
             
             
                 </div>
-              {{-- <div class="container">
-                <div class="row form-group">
-                      <div class="col-xs-12">
-                          <ul class="nav nav-pills nav-justified thumbnail setup-panel">
-                              <li class="active"><a href="#step-1">
-                                  <h4 class="list-group-item-heading">Step 1</h4>
-                                  <p class="list-group-item-text">First step description</p>
-                              </a></li>
-                              <li class="disabled"><a href="#step-2">
-                                  <h4 class="list-group-item-heading">Step 2</h4>
-                                  <p class="list-group-item-text">Second step description</p>
-                              </a></li>
-                              <li class="disabled"><a href="#step-3">
-                                  <h4 class="list-group-item-heading">Step 3</h4>
-                                  <p class="list-group-item-text">Third step description</p>
-                              </a></li>
-                          </ul>
-                      </div>
-                </div>
-                  <div class="row setup-content" id="step-1">
-                      <div class="col-xs-12">
-                          <div class="col-md-12 well text-center">
-                              <h1> STEP 1</h1>
-                              <button id="activate-step-2" class="btn btn-primary btn-lg">Activate Step 2</button>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="row setup-content" id="step-2">
-                      <div class="col-xs-12">
-                          <div class="col-md-12 well">
-                              <h1 class="text-center"> STEP 2</h1>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="row setup-content" id="step-3">
-                      <div class="col-xs-12">
-                          <div class="col-md-12 well">
-                              <h1 class="text-center"> STEP 3</h1>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-            </div> --}}
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
@@ -129,20 +108,20 @@
                    $("#next-btn").removeClass('disabled');
                }
             });
-            var btnFinish = $('<button></button>').text('Finish')
-                                             .addClass('btn btn-info')
-                                             .on('click', function(){ alert('Finish Clicked'); });
-            var btnCancel = $('<button></button>').text('Cancel')
-                                             .addClass('btn btn-danger')
-                                             .on('click', function(){ $('#smartwizard').smartWizard("reset"); });
-                                             $('#smartwizard').smartWizard({
+            // var btnFinish = $('<button></button>').text('Finish')
+            //                                  .addClass('btn btn-info')
+            //                                  .on('click', function(){ alert('Finish Clicked'); });
+            // var btnCancel = $('<button></button>').text('Cancel')
+            //                                  .addClass('btn btn-danger')
+            //                                  .on('click', function(){ $('#smartwizard').smartWizard("reset"); });
+            $('#smartwizard').smartWizard({
                     selected: 0,
                     theme: 'dots',
                     transitionEffect:'fade',
                     showStepURLhash: true,
                     toolbarSettings: {
                                       toolbarButtonPosition: 'end',
-                                      toolbarExtraButtons: [btnFinish, btnCancel]
+                                    //   toolbarExtraButtons: [btnFinish, btnCancel]
                                     }
             });
             $("#reset-btn").on("click", function() {

@@ -71,6 +71,7 @@ Route::get('/getorderdetail/{orderid}/admin', 'OrderController@getorderdetail');
 Route::get('/changests/{order_no}/{sts_id}', 'OrderController@ChangeStatus');
 Route::get('/reason', 'OrderController@reason');
 Route::POST('/savereason', 'OrderController@savereason');
+Route::get('/changestsnotpass/{order_no}/{sts}', 'OrderController@changestsnotpass');
 // Route::POST('/storeorder', 'OrderController@Store');
 
 

@@ -33,7 +33,7 @@
                 <div class="callout callout-danger">
                     <h5><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ไม่อนุมัติ</h5>
                     <hr>
-                    @if(isset($order->reason_id))<p><b>เนื่องจาก:</b> {{$order->reason_name}}@endif</p>
+                    @if(isset($order->reason_id))<p><b>เนื่องจาก:</b> @if(isset($order->text_reason)) {{$order->text_reason}} @else {{$order->reason_name}} @endif @endif</p>
                     @if(isset($order->change_senddate) && $order->change_senddate != '0000-00-00')
                         <p><b>สามารถส่งสินค้าได้ในวันที่:</b> {{DateThai(Date($order->change_senddate), 'd M Y')}}</p>
                         <div class="row">

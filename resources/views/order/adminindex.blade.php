@@ -123,10 +123,22 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group type">
-                        <label>เนื่องจาก</label>
-                        <select class="form-control" id="reason_type"></select>
+                        <label>
+                            <input type="radio" name="rs" class="minimal-red" value=1>
+                             ข้อมูลคำสั่งซื้อไม่ถูกต้อง
+                        </label>
+                        <label>
+                            <input type="radio" name="rs" class="minimal-red" value=2>
+                             ไม่สามารถผลิตได้ตามคำสั่งซื้อ
+                        </label>
+                        <label>
+                            <input type="radio" name="rs" class="minimal-red" value=3>
+                             อื่น ๆ
+                        </label>
+                        {{-- <label>เนื่องจาก</label> --}}
+                        {{-- <select class="form-control" id="reason_type"></select> --}}
                     </div>
-                    <div class="form-group change_date">
+                    <div class="form-group inputtype">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -140,6 +152,7 @@
 @section('script')
 <script type="text/javascript">
     $(document).ready(function () {
+        
         var usertable = $('#reorder-table').DataTable({
             processing: true,
             ajax: {
@@ -300,43 +313,61 @@
         <button type="button" class="btn btn-block btn-secondary btn-sm" data-dismiss="modal">ปิด</button>`)
     }
 
-    $('#reason_type').on('change', function (){
+    $('input[name=rs]').on('change', function (){
         if($(this).val() == 2){
-            $('.change_date').append(`<label>กำหนดส่งสินค้าที่ต้องการ</label>
+            $('.inputtype').empty()
+            $('.inputtype').append(`<label>กำหนดส่งสินค้าที่ต้องการ</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                     </div>
-                    <input id="changedate" type="text" name="changedate" class="form-control" required>
+                    <input id="changedate" type="text" name="changedate" class="form-control">
                 </div>
             `)
             $('#changedate').datepicker({
                 format: 'dd-mm-yyyy',
                 autoclose: true,
             });
+        }else if($(this).val() == 3){
+            $('.inputtype').empty()
+            $('.inputtype').append(`<label>หมายเหตุ</label>
+                <div class="input-group">
+                    <input id="textreason" type="text" name="reason" class="form-control">
+                </div>
+            `)
         }else{
-            $('.change_date').empty()
+            $('.inputtype').empty()
         }
     })
 
     function savereason(id) {
-        if($('#reason_type').val() == 0){
+        if($('input[name=rs]:checked').val() == null){
             swal({
                 type: 'error',
                 title: 'ผิดพลาด!',
                 text: 'กรุณาเลือกเหตุผล'
             })
-        }else if (($('#reason_type').val() == 2) && ($('#changedate').val() == '')) {
+        }else if (($('input[name=rs]:checked').val() == 2) && ($('#changedate').val() == '')) {
             swal({
                 type: 'error',
                 title: 'ผิดพลาด!',
                 text: 'กรุณากรอกวันที่ที่ต้องการจัดส่ง'
             })
+        }else if (($('input[name=rs]:checked').val() == 3) && ($('#textreason').val() == '')){
+            swal({
+                type: 'error',
+                title: 'ผิดพลาด!',
+                text: 'กรุณากรอกเหตุผล'
+            })
         }else{
             let changedate = ''
-            let reason_type = $('#reason_type').val()
+            let reason = ''
+            let reason_type = $('input[name=rs]:checked').val()
             if($('#changedate').val()){
                 changedate = $('#changedate').val()
+            }
+            if($('#textreason').val()){
+                reason = $('#textreason').val()
             }
             $.ajax({
                 type: 'post',
@@ -345,7 +376,8 @@
                     order_no: id,
                     order_sts: 6,
                     reason_type: reason_type,
-                    changedate: changedate
+                    changedate: changedate,
+                    reason: reason
                 }
             }).done(function (data) {
                 if(data == 'success'){

@@ -198,6 +198,8 @@ class OrderController extends Controller
         $orderupdate->reason_id = $request['reason_type'];
         if($request['reason_type'] == 2){
             $orderupdate->change_senddate = date('Y-m-d', strtotime($request['changedate']));
+        }else if($request['reason_type'] == 3){
+            $orderupdate->text_reason = $request['reason'];
         }
         $orderupdate->save();
         return 'success';

@@ -82,11 +82,11 @@ function DateThai($strDate,$format = false)
                 </address>
               @else
               <address>
-                  <strong>John Doe2</strong><br>
-                  795 Folsom Ave, Suite 600<br>
-                  San Francisco, CA 94107<br>
-                  Phone: (555) 539-1037<br>
-                  Email: john.doe@example.com
+                  <strong>{{$invinfo->title_name}}{{$invinfo->first_name}}  {{$invinfo->last_name}}</strong><br>
+                  {{$invinfo->address}}<br>
+                  อ.{{$invinfo->city_cus}} จ.{{$invinfo->pro_cus}}<br>
+                  โทร: {{$invinfo->tel}}<br>
+                  อีเมลล์: {{$invinfo->email}}
                 </address>
               @endif
             </div>

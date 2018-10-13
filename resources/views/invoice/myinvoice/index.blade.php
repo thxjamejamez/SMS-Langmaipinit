@@ -47,11 +47,17 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="form-group">
-                    <label for="file">ไฟล์แนบ</label>
-                    <div class="input-group">
-                        <input id="payfile" type="file" class="form-control-file" name="payfile">
-                    </div>
+                <div class="form-group type">
+                    <label>
+                        <input type="radio" name="ivchoose" value=1>
+                        อัพโหลดไฟล์
+                    </label>
+                    <label style="padding-left: 26px;">
+                        <input type="radio" name="ivchoose" value=2>
+                        กรอกข้อมูล
+                    </label>
+                </div>
+                <div class="form-group inputtype">
                 </div>
                 <div class="form-group">
                     <label>วัน - เวลาที่โอนเงิน</label>
@@ -93,7 +99,7 @@
                             }},
                             {data: 'due_date', render: function(data,type,row,meta){
                                 if(type==='display'){
-                                    data = moment(data).locale('th').format('LL');
+                                    data = moment(data).format('DD-MM-YYYY');
                                 }
                                 return data;
                             }},
@@ -175,12 +181,39 @@
     }
 
     function save(id){
-        var file_data = $("#payfile").prop("files")[0];
-        var form_data = new FormData();
-        form_data.append("file", file_data)
-        form_data.append("invoice_no", id)
-        form_data.append("pay_datetime", $('#datetimepicker1').val())
-        $.ajax({ 
+        chk_text = $("#textmoney").val()
+        if($('input[name=ivchoose]:checked').val() == null){
+            swal({
+                type: 'error',
+                title: 'ผิดพลาด...',
+                text: 'กรุณาเลือกวิธีการเพิ่มข้อมูลชำระเงิน',
+            })
+        }else{
+            if(($('input[name=ivchoose]:checked').val() == 1) && (($("#payfile").val() == '') || $('#datetimepicker1').val() == '')){
+                swal({
+                    type: 'error',
+                    title: 'ผิดพลาด...',
+                    text: 'กรุณากรอกข้อมูลให้ครบถ้วน',
+                })
+            }else if(($('input[name=ivchoose]:checked').val() == 2) && (($("#textmoney").val() == '') || $('#datetimepicker1').val() == '')){
+                swal({
+                    type: 'error',
+                    title: 'ผิดพลาด...',
+                    text: 'กรุณากรอกข้อมูลให้ครบถ้วน',
+                })
+            }else {
+                var form_data = new FormData()
+                var file_data = ''
+                if($('input[name=ivchoose]:checked').val() == 1){
+                    file_data = $("#payfile").prop("files")[0];
+                    form_data.append("file", file_data)
+                }else if($('input[name=ivchoose]:checked').val() == 2){
+                    form_data.append("textmoney", $("#textmoney").val())
+                }
+                form_data.append("invoice_no", id)
+                form_data.append("typeupload", $('input[name=ivchoose]:checked').val())
+                form_data.append("pay_datetime", $('#datetimepicker1').val())
+                $.ajax({ 
                     url: '/updateslip',  
                     method: 'POST', 
                     cache: false,
@@ -200,7 +233,40 @@
                         }
                     }
                 })
+            }
+            
+        }
     }
+
+    $('input[name=ivchoose]').on('change', function (){
+        if($(this).val() == 1){
+            $('.inputtype').empty()
+            $('.inputtype').append(`<label for="file">ไฟล์แนบ</label>
+                    <div class="input-group">
+                        <input id="payfile" type="file" class="form-control-file" name="payfile">
+                    </div>
+            `)
+            $('#changedate').datepicker({
+                format: 'dd-mm-yyyy',
+                autoclose: true,
+            });
+        }else if($(this).val() == 2){
+            $('.inputtype').empty()
+            $('.inputtype').append(`<label>จำนวนเงิน</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <input id="textmoney" type="text" name="textmoney" class="form-control">
+                    <div class="input-group-append text-right">
+                        <span class="input-group-text">.00</span>
+                    </div>
+                </div>
+            `)
+        }else{
+            $('.inputtype').empty()
+        }
+    })
 
 
 

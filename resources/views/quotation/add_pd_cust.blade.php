@@ -38,9 +38,11 @@ img:hover {
                                     </div>
                                     <div class="rows">
                                     @if($detail->file)
-                                        <a href="/file_quotation/{{ $detail->file }}" target="_blank">
-                                            <img src="/file_quotation/{{ $detail->file }}">
+                                    <div class="form-group">
+                                        <a href="/file_quotation/{{ $detail->file }}" class="btn btn-block btn-info btn-sm" target="_blank">
+                                            <i class="fa fa-file-text" aria-hidden="true"></i> ไฟล์แนบ
                                         </a>
+                                    </div>
                                     @endif
                                     </div>
                                     <div class="rows">
@@ -93,8 +95,6 @@ img:hover {
                                             </div>
                                         </div>
                                     @endforeach
-                                    
-
                                 </div>
                             </div>
                         </div>

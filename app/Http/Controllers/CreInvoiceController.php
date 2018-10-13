@@ -96,6 +96,7 @@ class CreInvoiceController extends Controller
             ->leftjoin('l_province as procus', 'customer_info.province_id', '=', 'procus.province_id')
             ->leftjoin('l_city as citycom', 'customer_info.company_district', '=', 'citycom.city_id')
             ->leftjoin('l_province as procom', 'customer_info.company_province', '=', 'procom.province_id')
+            ->join('l_title', 'customer_info.title_id', '=' ,'l_title.title_id')
             ->leftjoin('users', 'customer_info.users_id', '=', 'users.id')
             ->join('l_invoice_sts', 'invoice.invoice_sts', '=', 'l_invoice_sts.id')
             ->where('invoice_no', $id)
@@ -165,14 +166,17 @@ class CreInvoiceController extends Controller
     }
 
     function updateslip(Request $request) {
-        if($request->file('file')){
-            $image = $request->file('file');
-            $fileName = time().'.'.$image->getClientOriginalExtension();
-            $image->move(public_path('/slip_file'), $fileName);
-        }
-
         $inv = Invoice::find($request['invoice_no']);
-        if(isset($fileName)){$inv->pay_file = $fileName;}
+        if ($request['typeupload'] == 1){
+            if($request->file('file')){
+                $image = $request->file('file');
+                $fileName = time().'.'.$image->getClientOriginalExtension();
+                $image->move(public_path('/slip_file'), $fileName);
+            }
+            if(isset($fileName)){$inv->pay_file = $fileName;}
+        }else if ($request['typeupload'] == 2) {
+            $inv->money = $request['textmoney'];
+        }
         $inv->pay_datetime = $request['pay_datetime'];
         $inv->invoice_sts = 2;
         $inv->save();
@@ -193,6 +197,7 @@ class CreInvoiceController extends Controller
             }
             $inv->invoice_sts = $sts;
             $inv->pay_file = '';
+            $inv->money = '';
             $inv->pay_datetime = '';
             $inv->save();
             

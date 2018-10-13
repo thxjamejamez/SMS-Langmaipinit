@@ -31,10 +31,16 @@ function DateThai($strDate,$format = false)
       <div class="row">
         <div class="col-12">
           <div class="callout callout-info">
-            <h5><i class="fa fa-info"></i> สถานะใบวางบิล:</h5>
+            <h5><i class="fa fa-info-circle" aria-hidden="true"></i> สถานะใบวางบิล:</h5>
             {{$invinfo->sts_name}}
           </div>
 
+          @if($invinfo->invoice_sts != 3)
+            <div class="callout callout-info">
+              <h5><i class="fa fa-money" aria-hidden="true"></i> ช่องทางการจ่ายเงิน:</h5>
+              ท่านสามารถโอนเงินผ่าน ธ. กรุงเทพ เลขที่บัญชี 758-0-456114 [นายพินิจ  ชมภูธง]
+            </div>
+          @endif
 
           <!-- Main content -->
           <div class="invoice p-3 mb-3">
@@ -67,17 +73,17 @@ function DateThai($strDate,$format = false)
                 <address>
                     <strong>{{$invinfo->company_name}}</strong><br>
                     {{$invinfo->company_address}}<br>
-                    อ.{{$invinfo->city_cus}} จ.{{$invinfo->pro_cus}}<br>
+                    อ.{{$invinfo->city_com}} จ.{{$invinfo->pro_com}}<br>
                     โทร: {{$invinfo->tel}}<br>
                     อีเมลล์: {{$invinfo->email}}
                   </address>
                 @else
                 <address>
-                    <strong>John Doe2</strong><br>
-                    795 Folsom Ave, Suite 600<br>
-                    San Francisco, CA 94107<br>
-                    Phone: (555) 539-1037<br>
-                    Email: john.doe@example.com
+                    <strong>{{$invinfo->title_name}}{{$invinfo->first_name}}  {{$invinfo->last_name}}</strong><br>
+                    {{$invinfo->address}}<br>
+                    อ.{{$invinfo->city_cus}} จ.{{$invinfo->pro_cus}}<br>
+                    โทร: {{$invinfo->tel}}<br>
+                    อีเมลล์: {{$invinfo->email}}
                   </address>
                 @endif
                 

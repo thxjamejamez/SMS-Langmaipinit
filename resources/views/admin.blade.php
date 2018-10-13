@@ -39,6 +39,23 @@
 
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+  <link href="/plugins/Smartwidzard4/css/smart_wizard.css" rel="stylesheet" type="text/css" />
+  <link href="/plugins/Smartwidzard4/css/smart_wizard_theme_dots.css" rel="stylesheet" type="text/css" />
+  <link href="/plugins/Smartwidzard4/css/smart_wizard_theme_arrows.css" rel="stylesheet" type="text/css" />
+  <style>
+        img {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 5px;
+        width: 150px;
+    }
+    
+    img:hover {
+        box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+    }
+    
+    </style>
   @yield('css')
   <?php
         function array_col(array $input, $columnKey, $indexKey = null) {
@@ -198,13 +215,20 @@
               </li>
             @else
               </li>
+              
             @endif
             @endif
           @endforeach
+          <li id="ช่วยเหลือ" class="nav-item has-treeview">
+              <a href="javascript:;" class="nav-link" onclick="$('#helpmodal').modal('show')">
+                <i class="nav-icon fa fa-question-circle"></i>
+                <p>
+                  ช่วยเหลือ
+                </p>
+              </a>
+          </li>
           </ul>
 
-
-       
       </nav>
       <!-- /.sidebar-menu -->
     </div>
@@ -234,6 +258,95 @@
     <!-- Main content -->
     <section class="content">
      @yield('content')
+     <div class="modal fade bd-example-modal-lg" id="helpmodal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">เริ่มต้นการใช้งาน</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div id="smartwizard">
+                        <ul>
+                            <li><a href="#step-1">ขั้นตอนที่ 1<br /><small>สร้างคำขอใบเสนอราคา</small></a></li>
+                            <li><a href="#step-2">ขั้นตอนที่ 2<br /><small>รอการตอบรับคำขอ และตกลงราคา</small></a></li>
+                            <li><a href="#step-3">ขั้นตอนที่ 3<br /><small>เลือกสั่งซื้อสินค้าและบริการที่ต้องการ</small></a></li>
+                            <li><a href="#step-4">ขั้นตอนที่ 4<br /><small>ยืนยันการชำระเงิน</small></a></li>
+                        </ul>
+            
+                        <div>
+                            <div id="step-1" class="">
+                                <h3 class="border-bottom border-gray pb-2">สร้างคำขอเสนอราคา</h3>
+                                วิธีสร้างคำขอใบเสนอราคานั้น เริ่มต้นจากการไปที่เมนู "ใบเสนอราคา" -> "ร้องขอใบเสนอราคา" ลูกค้าจะสามารถดูข้อมูลคำขอใบเสนอราคาได้หากเคยยื่นคำขอใบเสนอราคาไปแล้ว  หากยังไม่มีข้อมูลใบเสนอราคา ให้ทำการคลิกที่ปุ่ม "เพิ่มคำขอใบเสนอราคา" จากนั้น กรอกรายละเอียดให้ครบถ้วน  หากท่านไม่ทราบประเภทสินค้าที่ต้องการ กรุณาเลือก อื่นๆ จากนั้นรอการตอบรับจากพนักงาน
+                            </div>
+                            <div id="step-2" class="">
+                                <h3 class="border-bottom border-gray pb-2">รอการตอบรับคำขอและตกลงราคา</h3>
+                                <div>
+                                    <center>
+                                    <a href="/help/requo1.JPG" target="_blank">
+                                        <img src="/help/requo1.JPG">
+                                    </a>
+                                    <a href="/help/requo2.JPG" target="_blank">
+                                        <img src="/help/requo2.JPG">
+                                    </a>
+                                    <a href="/help/requo3.JPG" target="_blank">
+                                        <img src="/help/requo3.JPG">
+                                    </a>
+                                    </center>
+                                    <p>หากได้รับการตอบรับแล้วจะสามารถเรียกดูข้อมูลการเสนอราคาของคำร้องขอใบเสนอราคาได้ เมื่อคุณตกลงราคาสินค้าที่ได้มา กรุณาคลิกที่เครื่องหมาย <i class="fa fa-check"></i> สินค้าจะถูกเพิ่มไปยัง "สินค้าของฉัน" ทันที จากนั้นคุณจะสามารถสั่งซื้อสินค้าได้ตามความต้องการของคุณ</p>
+ 
+                                </div>
+                            </div>
+                            <div id="step-3" class="">
+                                <h3 class="border-bottom border-gray pb-2">เลือกสั่งซื้อสินค้าและบริการที่ต้องการ</h3>
+                                <center>
+                                    <a href="/help/step3-01.PNG" target="_blank">
+                                        <img src="/help/step3-01.PNG">
+                                    </a>
+                                    <a href="/help/step3-02.PNG" target="_blank">
+                                        <img src="/help/step3-02.PNG">
+                                    </a>
+                                    <a href="/help/step3-03.PNG" target="_blank">
+                                        <img src="/help/step3-03.PNG">
+                                    </a>
+                                    <a href="/help/step3-04.PNG" target="_blank">
+                                        <img src="/help/step3-04.PNG">
+                                    </a>
+                                 </center>
+                                 <p>เมื่อสามารถตกลงราคาสินค้าที่คุณต้องการได้แล้ว สามารถเลือกเมนู การสั่งซื้อ -> เพิ่มการสั่งซื้อ เพื่อทำการสั่งซื้อสินค้า พร้อมระบุวันที่ต้องการให้จัดส่งสินค้า จากนั้นรอรับการตอบรับจากพนักงาน เมื่อมีการตอบรับแล้วสามารถดูรายละเอียดการตอบรับและติดตามสถานะของการสั่งซื้อนั้น ๆ ได้</p>
+                            </div>
+                            <div id="step-4" class="">
+                                <h3 class="border-bottom border-gray pb-2">ยืนยันการชำระเงิน</h3>
+                                <center>
+                                    <a href="/help/step4-01.PNG" target="_blank">
+                                        <img src="/help/step4-01.PNG">
+                                    </a>
+                                    <a href="/help/step4-02.PNG" target="_blank">
+                                        <img src="/help/step4-02.PNG">
+                                    </a>
+                                    <a href="/help/step4-03.PNG" target="_blank">
+                                        <img src="/help/step4-03.PNG">
+                                    </a>
+                                    <a href="/help/step4-04.PNG" target="_blank">
+                                        <img src="/help/step4-04.PNG">
+                                    </a>
+                                    </center>
+                                    <p>หลังจากเกิดการสั่งซื้อสินค้า เมื่อถึงครบกำหนดวันตัดรอบของบริษัท บริษัทจะทำการออกใบวางบิลเพื่อแจ้งการชำระให้กับลูกค้า โดยสามารถดูรายละเอียดของใบวางบิลได้จากเมนู ใบวางบิล -> ใบวางบิลของฉัน -> รายละเอียด โดยกำหนดการชำระเงินจะขึ้นอยู่กับเครดิตที่ลูกค้าได้รับ จากนั้นลูกค้าสามารถแจ้งการชำระเงินได้โดยสามารถเลือกอัพโหลดสลิป หรือ กรอกข้อมูลจากหน้าฟอร์มได้</p>
+                            </div>
+                        </div>
+                    </div>
+            
+            
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        </div>
+      </div>
     </section>
     <!-- /.content -->
   </div>
@@ -311,6 +424,51 @@
 <!-- <script src="/admin/js/pages/dashboard.js"></script> -->
 <!-- AdminLTE for demo purposes -->
 <script src="/admin/js/demo.js"></script>
+<script src="/plugins/Smartwidzard4/js/jquery.smartWizard.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#smartwizard").on("showStep", function(e, anchorObject, stepNumber, stepDirection, stepPosition) {
+                if(stepPosition === 'first'){
+                    $("#prev-btn").addClass('disabled');
+                }else if(stepPosition === 'final'){
+                    $("#next-btn").addClass('disabled');
+                }else{
+                    $("#prev-btn").removeClass('disabled');
+                    $("#next-btn").removeClass('disabled');
+                }
+            });
+            $('#smartwizard').smartWizard({
+                    selected: 0,
+                    theme: 'dots',
+                    transitionEffect:'fade',
+                    showStepURLhash: true,
+                    toolbarSettings: {
+                    toolbarButtonPosition: 'end',
+                    }
+            });
+            $("#reset-btn").on("click", function() {
+                $('#smartwizard').smartWizard("reset");
+                return true;
+            });
+
+            $("#prev-btn").on("click", function() {
+                $('#smartwizard').smartWizard("prev");
+                return true;
+            });
+
+            $("#next-btn").on("click", function() {
+                $('#smartwizard').smartWizard("next");
+                return true;
+            });
+
+            $("#theme_selector").on("change", function() {
+                $('#smartwizard').smartWizard("theme", $(this).val());
+                return true;
+            });
+            $("#theme_selector").change();
+    });
+</script>
 @yield('script')
 </body>
 </html>

@@ -97,7 +97,7 @@ const app = new Vue({
             format: 'dd-mm-yyyy',
             autoclose: true
         }).on('changeDate', function (ev) {
-            $vm.senddate = moment(ev.date).format('YYYY-MM-DD');
+            $vm.senddate = moment(ev.date).format('DD-MM-YYYY');
         });
     },
 })

@@ -103,7 +103,7 @@
                         "targets": 2,
                         "render": function (data, type ,row) {
                             if(type === 'display'){
-                                data = moment(data).locale('th').format('LL')
+                                data = moment(data).format('DD-MM-YYYY');
                             }
                             return data;
                         },
@@ -112,7 +112,7 @@
                         "targets": 3,
                         "render": function (data, type ,row) {
                             if(type === 'display'){
-                                data = moment(data).locale('th').format('LL')
+                                data = moment(data).format('DD-MM-YYYY');
                             }
                             return data;
                         },

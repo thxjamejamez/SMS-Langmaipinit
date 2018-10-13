@@ -63,7 +63,7 @@ img:hover {
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div class="img-payfile text-center">
+                        <div class="form-group detail">
                         </div>
                         <div class="form-group">
                             <label>วัน - เวลาที่โอนเงิน</label>
@@ -98,7 +98,7 @@ img:hover {
                 "targets": 1,
                 "render": function (data, type ,row) {
                     if(type === 'display'){
-                        data = moment(data).locale('th').format('LL')
+                        data = moment(data).format('DD-MM-YYYY');
                     }
                     return data;
                 },
@@ -107,7 +107,7 @@ img:hover {
                 "targets": 2,
                 "render": function (data, type ,row) {
                     if(type === 'display'){
-                        data = moment(data).locale('th').format('LL')
+                        data = moment(data).format('DD-MM-YYYY');
                     }
                     return data;
                 },
@@ -144,12 +144,17 @@ img:hover {
             url: '/getdetailpay/'+id
         }).done(function(data){
             $('.pay-date').val('')
-            $('.img-payfile').empty();
+            $('.detail').empty();
             $('.modal-footer').empty();
             if(data.pay_file) {
-                $('.img-payfile').append(`<a href="/slip_file/`+data.pay_file+`" target="_blank">
-                    <img src="/slip_file/`+data.pay_file+`">
+                $('.detail').append(`<a href="/slip_file/`+data.pay_file+`" class="btn btn-block btn-info btn-sm" target="_blank">
+                    <i class="fa fa-file-text" aria-hidden="true"></i> ไฟล์แนบ
                 </a>`) 
+            }else{
+                $('.detail').append(`<label>จำนวนเงินที่โอน</label>
+                <div class="form-group">
+                    <input type="text" class="form-control" value="`+accounting.formatNumber(data.money, 2)+`" disabled>
+                </div>`) 
             }
             $('.pay-date').val(data.pay_datetime)
             $('.modal-footer').append(`<button type="button" class="btn btn-block btn-success btn-sm" style="margin-top: .5rem;" onclick="update(`+data.invoice_no+`, 3)">การชำระเงินถูกต้อง</button>

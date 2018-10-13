@@ -111,14 +111,21 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                                 </div>
-                                <input id="senddate" type="text" name="senddate" class="form-control" disabled value="{{ $order->send_date }}">
+                                <input id="senddate" type="text" name="senddate" class="form-control" disabled value="{{ date('d-m-Y', strtotime($order->send_date)) }}">
                             </div>
                         </div>
                         @if($order->file)
-                        <a href="/file_order/{{ $order->file }}" target="_blank">
-                            <img src="/file_order/{{ $order->file }}">
-                        </a>
-                    @endif
+                            <div class="form-group">
+                                <label></label>
+                                <div class="input-group" style="margin-top: 10px;">
+                                    <div>
+                                        <a href="/file_order/{{ $order->file }}" class="btn btn-block btn-info btn-sm" target="_blank">
+                                            <i class="fa fa-file-text" aria-hidden="true"></i> ไฟล์แนบ
+                                        </a>
+                                    </div>                            
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

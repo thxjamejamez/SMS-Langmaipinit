@@ -103,13 +103,13 @@
                             }},
                             {data: 'order_date', render: function(data,type,row,meta){
                                 if(type==='display'){
-                                    data = moment(data).locale('th').format('LL');
+                                    data = moment(data).format('DD-MM-YYYY');
                                 }
                                 return data;
                             }},
                             {data: 'send_date', render: function(data,type,row,meta){
                                 if(type==='display'){
-                                    data = moment(data).locale('th').format('LL');
+                                    data = moment(data).format('DD-MM-YYYY');
                                 }
                                 return data;
                             }},
@@ -195,7 +195,7 @@
             (data.order.company_address) ?
                 $('h5.address').append('<b>ที่อยู่บริษัท: </b>'+data.order.company_address+' '+data.order.city_com+' '+data.order.pro_com):
                 $('h5.address').append('<b>ที่อยู่: </b>'+data.order.address+' '+data.order.city_cus+' '+data.order.pro_cus);
-            $('h5.senddate').append('<b>กำหนดวันส่งสินค้า: </b>'+moment(data.order.send_date).locale('th').format('LL'));
+            $('h5.senddate').append('<b>กำหนดวันส่งสินค้า: </b>'+moment(data.order.send_date).format('DD-MM-YYYY'));
             if(data.orderdetail.length > 0){
                 $.each(data.orderdetail, function( key, value ) {
                     tr = $('#pd tbody').append('<tr></tr>')

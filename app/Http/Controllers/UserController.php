@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request,
+    \App\Http\Controllers\Controller,
     \App\CustomerInfo,
     \App\EmployeeInfo,
     \App\UserPermission,
@@ -18,6 +19,8 @@ class UserController extends Controller
      */
     public function index()
     {
+        // $cedit = $this->canAccessPage($this->user->id, 1);
+        // if ($cedit['view'] == 0) return \Redirect::to('/');
         return View('user.index');
     }
     

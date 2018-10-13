@@ -18,7 +18,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-4">
-                        <label for="file">อัพโหลดรูปภาพ</label>
+                        <label for="file">อัพโหลดไฟล์</label>
                         <div class="input-group">
                             <input type="file" class="form-control-file" name="requofile">
                         </div>

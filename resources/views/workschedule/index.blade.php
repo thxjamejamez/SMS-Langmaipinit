@@ -102,13 +102,13 @@
                             }},
                             {data: 'order_date', render: function(data,type,row,meta){
                                 if(type==='display'){
-                                    data = moment(data).locale('th').format('LL');
+                                    data = moment(data).format('DD-MM-YYYY');
                                 }
                                 return data;
                             }},
                             {data: 'send_date', render: function(data,type,row,meta){
                                 if(type==='display'){
-                                    data = moment(data).locale('th').format('LL');
+                                    data = moment(data).format('DD-MM-YYYY');
                                 }
                                 return data;
                             }},
@@ -203,7 +203,7 @@
         }).done(function(data){            
             $('h5.senddate').empty();
             $('#pd tbody').empty();
-            $('h5.senddate').append('<b>กำหนดวันส่งสินค้า: </b>'+moment(data.order.send_date).locale('th').format('LL'));
+            $('h5.senddate').append('<b>กำหนดวันส่งสินค้า: </b>'+moment(data.order.send_date).format('DD-MM-YYYY'));
             if(data.orderdetail.length > 0){
                 $.each(data.orderdetail, function( key, value ) {
                     let option = ''

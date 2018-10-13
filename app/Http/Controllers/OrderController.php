@@ -62,7 +62,7 @@ class OrderController extends Controller
         $orderEloquent->status = 1;
         $orderEloquent->remark = $request['orderdetail'];
         if(isset($fileName)){$orderEloquent->file = $fileName;}
-        $orderEloquent->send_date = $request['senddate'];
+        $orderEloquent->send_date = date('Y-m-d', strtotime($request['senddate']));
         $orderEloquent->save();
 
         foreach($pdorder as $key => $pd){

@@ -125,18 +125,16 @@
                     <div class="form-group type">
                         <label>
                             <input type="radio" name="rs" class="minimal-red" value=1>
-                             ข้อมูลคำสั่งซื้อไม่ถูกต้อง
+                            ข้อมูลคำสั่งซื้อไม่ถูกต้อง
                         </label>
                         <label>
                             <input type="radio" name="rs" class="minimal-red" value=2>
-                             ไม่สามารถผลิตได้ตามคำสั่งซื้อ
+                            ไม่สามารถผลิตได้ตามคำสั่งซื้อ
                         </label>
                         <label>
                             <input type="radio" name="rs" class="minimal-red" value=3>
                              อื่น ๆ
                         </label>
-                        {{-- <label>เนื่องจาก</label> --}}
-                        {{-- <select class="form-control" id="reason_type"></select> --}}
                     </div>
                     <div class="form-group inputtype">
                     </div>
@@ -168,7 +166,7 @@
                             }},
                             {data: 'order_date', render: function(data,type,row,meta){
                                 if(type==='display'){
-                                    data = moment(data).locale('th').format('LL');
+                                    data = moment(data).format('DD-MM-YYYY');
                                 }
                                 return data;
                             }},
@@ -249,7 +247,7 @@
             $trfooter.append('<td class="text-right" style="background-color: #E0E0E0"><b>บาท</b></td>');   
 
             $('#detail textarea[name=re_detail]').append(data.order.remark);
-            $('#detail #senddate').val(moment(data.order.send_date).locale('th').format('LL'));
+            $('#detail #senddate').val(moment(data.order.send_date).format('DD-MM-YYYY'));
             if(data.order.file){
                 $file = $('#detail #file').append('<label>ไฟล์แนบ</label><div class="input-group"><div class="input-group-prepend"></div></div>');
                 $file.append('<a href="/file_order/'+data.order.file+'" target="_blank" class="btn btn-block btn-info btn-sm"><i class="fa fa-file" aria-hidden="true"></i> เรียกดู</a>');

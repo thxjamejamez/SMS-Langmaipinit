@@ -56,14 +56,18 @@
                             }},
                             {data: 'order_date', render: function(data,type,row,meta){
                                 if(type==='display'){
-                                    data = moment(data).locale('th').format('LL');
+                                    data = moment(data).format('DD-MM-YYYY');
                                 }
                                 return data;
                             }},
                             {data: 'sts_name', name: 'sts_name'},
                             {data: 'order_no', render: function(data, type ,row, meta){
                                 if(type === 'display'){
-                                    data = "<a class='btn btn-block btn-warning btn-sm' href='/requireorder/"+data+"/edit'><i class='fa fa-search' aria-hidden='true'></i> เรียกดู</a>";
+                                    if(row.status == 6){
+                                        data = "<a class='btn btn-block btn-danger btn-sm' href='/requireorder/"+data+"/edit'><i class='fa fa-search' aria-hidden='true'></i> เรียกดู</a>";
+                                    }else{
+                                        data = "<a class='btn btn-block btn-warning btn-sm' href='/requireorder/"+data+"/edit'><i class='fa fa-search' aria-hidden='true'></i> เรียกดู</a>";
+                                    }
                                 }
                                 return data;
                             }},

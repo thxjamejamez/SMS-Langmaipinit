@@ -140,7 +140,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">$</span>
                             </div>
-                            <input type="text" class="form-control" name="salary" @if(isset($editprofile->salary)) value="{{ $editprofile->salary }}" @endif @if($pmedit->permission_id != 5) readonly @endif>
+                            <input type="text" class="form-control" name="salary" @if(isset($editprofile->salary)) value="{{ $editprofile->salary }}" @endif @if($pmedit->permission_id != 1) readonly @endif>
                             <div class="input-group-append text-right">
                                 <span class="input-group-text">.00</span>
                             </div>

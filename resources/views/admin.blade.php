@@ -91,9 +91,20 @@
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand border-bottom navbar-light bg-brown">
+  @if($permission->permission_id == 1)
+    <nav class="main-header navbar navbar-expand border-bottom navbar-dark bg-primary">
+  @elseif ($permission->permission_id == 2)
+    <nav class="main-header navbar navbar-expand border-bottom navbar-dark bg-info">
+  @elseif ($permission->permission_id == 3)
+    <nav class="main-header navbar navbar-expand border-bottom navbar-light bg-brown">
+  @elseif ($permission->permission_id == 4)
+    <nav class="main-header navbar navbar-expand border-bottom navbar-dark bg-success">
+  @elseif ($permission->permission_id == 5)
+    <nav class="main-header navbar navbar-expand border-bottom navbar-light bg-warning">
+  @else
+    <nav class="main-header navbar navbar-expand border-bottom navbar-dark bg-danger">
+  @endif
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
@@ -160,7 +171,20 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar elevation-4 sidebar-light-warning">
     <!-- Brand Logo -->
-    <a href="/apanel" class="brand-link bg-brown">
+    @if($permission->permission_id == 1)
+      <a href="/apanel" class="brand-link bg-primary">
+    @elseif ($permission->permission_id == 2)
+      <a href="/apanel" class="brand-link bg-info">
+    @elseif ($permission->permission_id == 3)
+      <a href="/apanel" class="brand-link bg-brown">
+    @elseif ($permission->permission_id == 4)
+      <a href="/apanel" class="brand-link bg-success">
+    @elseif ($permission->permission_id == 5)
+      <a href="/apanel" class="brand-link bg-warning">
+    @else
+      <a href="/apanel" class="brand-link bg-danger">
+    @endif
+    {{-- <a href="/apanel" class="brand-link bg-brown"> --}}
       <img src="/admin/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">Langmai Pinit</span>

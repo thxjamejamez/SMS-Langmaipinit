@@ -145,4 +145,21 @@ class EmployeeController extends Controller
     {
         
     }
+
+    function emplist(){
+        $emp = DB::table('users')
+            ->join('user_permissions','user_permissions.user_id','=','users.id')
+            ->join('group_permissions','user_permissions.permission_id','=','group_permissions.id')
+            ->join('employee_info', 'users.id', '=', 'employee_info.users_id')
+            ->select([  'users.id',
+                        'users.username', 
+                        'users.email',
+                        'permission_id',
+                        'permission_name', 
+                        'employee_info.first_name',
+                        'employee_info.last_name',
+            ])
+            ->get();
+        return response()->json(["data"=>$emp]);
+    }
 }

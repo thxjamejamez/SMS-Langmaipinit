@@ -31,6 +31,11 @@ Route::resource('employee', 'EmployeeController');
 Route::resource('user', 'UserController');
 Route::get('/getuserlist', 'UserController@userlist');
 Route::get('/profile', 'UserController@profiledetail');
+Route::get('/empinfo', function (){
+    return view('employee.index');
+});
+Route::get('/getemplist', 'EmployeeController@emplist');
+
 
 #Product Type
 Route::resource('producttype', 'ProducttypeController');

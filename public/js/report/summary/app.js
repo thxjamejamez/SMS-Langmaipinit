@@ -76,7 +76,7 @@ methods: {
         HTTP.get('/salesummaryget', function(data){
             $vm.dt.data = _.forEach(data.order, function(value, key) {
                 data.order[key].order_date_hidden = moment(value.order_date).format("YYYY-MM-DD")
-                data.order[key].order_date = moment(value.order_date).format("LL")
+                data.order[key].order_date = moment(value.order_date).format("DD-MM-YYYY")
                 data.order[key].order_no = 'PO'+numeral(value.order_no).format('000000')
                 data.order[key].sum_show = accounting.formatNumber(value.sum, 2)
             });
@@ -111,7 +111,7 @@ methods: {
 },
 filters: {
     formatDate: function (value) {
-    return moment(value).format('DD MMMM YYYY');
+    return moment(value).format('DD-MM-YYYY');
     },
 }
 

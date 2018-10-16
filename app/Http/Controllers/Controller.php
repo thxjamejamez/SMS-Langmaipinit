@@ -14,9 +14,9 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     public function __construct(){
-        // $this->user   = \Auth::user();
-        // dd(auth);
-        // $this->permission = UserPermission::where('user_id',$this->user->id)->first();
+        dump(\Auth::user());
+        $this->user   = \Auth::user();
+        $this->permission = UserPermission::where('user_id',$this->user->id)->first();
     }
 
     public function canAccessPage($uid=false,$menuid=false){

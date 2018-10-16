@@ -25,10 +25,9 @@ Auth::routes();
 Route::middleware(['auth'])->group(function () {
     Route::get('apanel', 'adminController@index');
     route::get('/logout', 'Auth\LoginController@logout');
-});
+    Route::resource('user', 'UserController');
 #User
 Route::resource('employee', 'EmployeeController');
-Route::resource('user', 'UserController');
 Route::get('/getuserlist', 'UserController@userlist');
 Route::get('/profile', 'UserController@profiledetail');
 Route::get('/empinfo', function (){
@@ -145,4 +144,6 @@ Route::get('getsalary', 'SaleSummaryController@getsalary');
 
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+});
 Auth::routes();

@@ -20,7 +20,6 @@
                             <tr>
                                 <th>รหัสผู้ขาย</th>
                                 <th>ชื่อผู้ขาย</th>
-                                <th>ที่อยู่</th>
                                 <th>อีเมล์</th>
                                 <th>เบอร์โทร</th>
                                 <th style="width: 10px"></th>
@@ -52,7 +51,6 @@
                                 return data
                             }},
                             {data: 'sup_name', name: 'sup_name'},
-                            {data: 'address', name: 'address'},
                             {data: 'email', name: 'email'},
                             {data: 'tel', name: 'tel'},
                             {data: 'sup_no', render: function(data, type ,row, meta){

@@ -14,6 +14,8 @@ class MaterialController extends Controller
      */
     public function index()
     {
+        $cedit = $this->canAccessPage($this->user->id, 52);
+        if ($cedit['view'] == 0) return \Redirect::to('/apanel');
         return view('material.index');
     }
 
@@ -123,5 +125,10 @@ class MaterialController extends Controller
         return response()->json(['data' => $buymaterial]);
     }
 
+    function buymaterial () {
+        $cedit = $this->canAccessPage($this->user->id, 58);
+        if ($cedit['view'] == 0) return \Redirect::to('/apanel');
+        return view('material.buymaterial');
+    }
     
 }

@@ -16,6 +16,9 @@ class RequireQuotationController extends Controller
      */
     public function index()
     {
+        $cedit = $this->canAccessPage($this->user->id, 41);
+        if ($cedit['view'] == 0) return \Redirect::to('/apanel');
+        
         $lrests = DB::table('l_require_sts')
             ->select(DB::raw('GROUP_CONCAT(id SEPARATOR \',\') as id'))->first();
         $rests = $lrests->id;

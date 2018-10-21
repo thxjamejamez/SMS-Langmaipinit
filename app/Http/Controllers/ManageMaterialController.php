@@ -16,6 +16,8 @@ class ManageMaterialController extends Controller
      */
     public function index()
     {
+        $cedit = $this->canAccessPage($this->user->id, 49);
+        if ($cedit['view'] == 0) return \Redirect::to('/apanel');
         $user = \Auth::user();
         $pmedit = DB::table('user_permissions')->where('user_id', $user->id)->first();
         return view('material.manage.index', compact('pmedit'));

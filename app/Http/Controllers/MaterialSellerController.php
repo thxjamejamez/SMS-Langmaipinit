@@ -11,6 +11,8 @@ class MaterialSellerController extends Controller
 {
     public function index()
     {
+        $cedit = $this->canAccessPage($this->user->id, 50);
+        if ($cedit['view'] == 0) return \Redirect::to('/apanel');
         return view('material.seller.index');
     }
 

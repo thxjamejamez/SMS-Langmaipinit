@@ -20,7 +20,6 @@ class CreInvoiceController extends Controller
         $cedit = $this->canAccessPage($this->user->id, 55);
         if ($cedit['view'] == 0) return \Redirect::to('/apanel');
         return view('invoice.create.index');
-        
     }
 
     function userhaveInvoice () {
@@ -152,6 +151,9 @@ class CreInvoiceController extends Controller
     }
 
     function myinvoiceindex () {
+        $cedit = $this->canAccessPage($this->user->id, 57);
+        if ($cedit['view'] == 0) return \Redirect::to('/apanel');
+
         $linvsts = DB::table('l_invoice_sts')->select(DB::raw('GROUP_CONCAT(id SEPARATOR \',\') as id'))->first();
         $invsts = $linvsts->id;
         $invstses = DB::table('l_invoice_sts')

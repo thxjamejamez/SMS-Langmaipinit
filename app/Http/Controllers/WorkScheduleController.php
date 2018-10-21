@@ -14,6 +14,8 @@ class WorkScheduleController extends Controller
      */
     public function index()
     {
+        $cedit = $this->canAccessPage($this->user->id,46);
+        if ($cedit['view'] == 0) return \Redirect::to('/apanel');
         $lworksts = DB::table('l_order_sts_for_work')->select(DB::raw('GROUP_CONCAT(id SEPARATOR \',\') as id'))->first();
         $worksts = $lworksts->id;
         $workstses = DB::table('l_order_sts_for_work')

@@ -299,7 +299,7 @@
                     showConfirmButton: false,
                     timer: 1000
                 });
-                $('.bd-example-modal-lg').modal('toggle');
+                $('#detail').modal('hide')
                 $('#reorder-table').DataTable().ajax.reload();
             }
         }) 

@@ -16,6 +16,8 @@ class OrderController extends Controller
      */
     public function index()
     {
+        $cedit = $this->canAccessPage($this->user->id, 43);
+        if ($cedit['view'] == 0) return \Redirect::to('/apanel');
         $lworksts = DB::table('l_order_sts')
             ->select(DB::raw('GROUP_CONCAT(id SEPARATOR \',\') as id'))->first();
         $orsts = $lworksts->id;
@@ -219,6 +221,17 @@ class OrderController extends Controller
             return 'success';
 
         }
+    }
 
+    function adminindex () {
+        $cedit = $this->canAccessPage($this->user->id, 45);
+        if ($cedit['view'] == 0) return \Redirect::to('/apanel');
+        $lworksts = DB::table('l_order_sts')
+                ->select(DB::raw('GROUP_CONCAT(id SEPARATOR \',\') as id'))->first();
+            $orsts = $lworksts->id;
+            $orstses = DB::table('l_order_sts')
+                ->where('active', 1)
+                ->get();
+        return view('order.adminindex', compact('orsts', 'orstses'));
     }
 }

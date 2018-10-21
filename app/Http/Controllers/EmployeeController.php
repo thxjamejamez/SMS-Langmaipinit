@@ -172,4 +172,16 @@ class EmployeeController extends Controller
             ->get();
         return response()->json(["data"=>$emp]);
     }
+
+    function empinfo () {
+        $cedit = $this->canAccessPage($this->user->id, 63);
+        if ($cedit['view'] == 0) return \Redirect::to('/apanel');
+        return view('employee.index');
+    }
+
+    function empsalary () {
+        $cedit = $this->canAccessPage($this->user->id, 61);
+        if ($cedit['view'] == 0) return \Redirect::to('/apanel');
+        return view('report.salary');
+    }
 }

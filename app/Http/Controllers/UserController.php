@@ -229,6 +229,9 @@ class UserController extends Controller
     }
 
     function profiledetail() {
+        $cedit = $this->canAccessPage($this->user->id, 62);
+        if ($cedit['view'] == 0) return \Redirect::to('/apanel');
+
         $user = \Auth::user();
         $pmedit = DB::table('user_permissions')->where('user_id', $user->id)->first();
         if($pmedit->permission_id == 6){

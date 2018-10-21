@@ -29,7 +29,7 @@
     </div>
 
     {{-- modal add --}}
-    <div class="modal fade" id="add_modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal fade" id="add_modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -64,7 +64,7 @@
 
 
     {{-- modal use --}}
-    <div class="modal fade" id="use_modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal fade" id="use_modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -115,7 +115,7 @@
                             {data: 'balance', name: 'balance'},
                             {sClass: "hide_column", data: 'material_no', render: function(data, type ,row, meta){
                                 if(type === 'display'){
-                                    data = "<a class='btn btn-block btn-success btn-sm' href='javascript:;' onclick='add("+data+")' data-target='.bd-example-modal-lg'><i class='fa fa-plus' aria-hidden='true'></i> เพิ่มวัตถุดิบ</a>";
+                                    data = "<a class='btn btn-block btn-success btn-sm' href='javascript:;' onclick='add("+data+")'><i class='fa fa-plus' aria-hidden='true'></i> เพิ่มวัตถุดิบ</a>";
                                 }
                                 return data
                             }},
@@ -124,7 +124,7 @@
                                     if(row.balance == 0){
                                         data = ""
                                     }else{
-                                        data = "<a class='btn btn-block btn-warning btn-sm' href='javascript:;' onclick='use("+data+", "+row.balance+")' data-toggle='modal' data-target='.bd-example-modal-lg'><i class='fa fa-minus' aria-hidden='true'></i> ใช้วัตถุดิบ</a>";
+                                        data = "<a class='btn btn-block btn-warning btn-sm' href='javascript:;' onclick='use("+data+", "+row.balance+")'><i class='fa fa-minus' aria-hidden='true'></i> ใช้วัตถุดิบ</a>";
                                     }
                                 }
                                 return data

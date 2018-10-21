@@ -18,10 +18,11 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        // $cedit = $this->canAccessPage($this->user->id, 1);
-        // if ($cedit['view'] == 0) return \Redirect::to('/');
-        return View('user.index');
+    {        
+        $cedit = $this->canAccessPage($this->user->id, 1);
+        if ($cedit['view'] == 0) return \Redirect::to('/apanel');
+        $pmedit = DB::table('user_permissions')->where('user_id', $this->user->id)->first();
+        return View('user.index', compact('pmedit'));
     }
     
     /**
@@ -137,7 +138,7 @@ class UserController extends Controller
             $userEloquent = User::find($id);
             $userEloquent->username = trim($request['username']);
             $userEloquent->nickname = $request['nickname'];
-            if(isset($request['password'])){ $userEloquent->password = \Hash::make($request['password']); }
+            if($request['password']!=NULL){ $userEloquent->password = \Hash::make($request['password']); }
             $userEloquent->email = trim($request['email']);
             $userEloquent->status = 1;
             $userEloquent->save();
@@ -248,6 +249,29 @@ class UserController extends Controller
             $group_permission = DB::table('group_permissions')->where('active', 1)->get();
             return view('employee.profile', compact('edituser', 'pmedit', 'editprofile', 'editUserPermission', 'title', 'district', 'province', 'group_permission'));    
         }
-
     }
+
+    function custinfo () {
+        $cedit = $this->canAccessPage($this->user->id, 64);
+        if ($cedit['view'] == 0) return \Redirect::to('/apanel');
+        return view('Customer.index');
+    }
+
+    function custlist () {
+        $cust = DB::table('users')
+        ->join('user_permissions','user_permissions.user_id','=','users.id')
+        ->join('group_permissions','user_permissions.permission_id','=','group_permissions.id')
+        ->join('customer_info', 'users.id', '=', 'customer_info.users_id')
+        ->select(  'users.id',
+                    'users.username', 
+                    'users.email', 
+                    'permission_id',
+                    'permission_name', 
+                    'customer_info.first_name',
+                    'customer_info.last_name'
+        )
+        ->get();
+        return response()->json(["data"=>$cust]);
+    }
+
 }

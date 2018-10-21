@@ -78,7 +78,7 @@
                             {data: 'type_name', name: 'type_name'},
                             {data: 'material_no', render: function(data, type ,row, meta){
                                 if(type === 'display'){
-                                    data = "<a class='btn btn-block btn-info btn-sm' href='javascript:;' onclick='edit("+data+")' data-toggle='modal' data-target='.bd-example-modal-lg'><i class='fa fa-pencil-square-o' aria-hidden='true'></i> แก้ไข</a>";
+                                    data = "<a class='btn btn-block btn-info btn-sm' href='javascript:;' onclick='edit("+data+")'><i class='fa fa-pencil-square-o' aria-hidden='true'></i> แก้ไข</a>";
                                 }
                                 return data
                             }},
@@ -194,7 +194,7 @@
             if (result.value) {
                 $.ajax({
                     type: 'DELETE',
-                    url: 'materialseller/' + material_no
+                    url: 'material/' + material_no
                 }).done(function (data){
                     if(data == 'success')
                         swal(

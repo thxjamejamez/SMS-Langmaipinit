@@ -26,10 +26,7 @@ class adminController extends Controller
         $chkpm = DB::table('user_permissions')
             ->where('user_permissions.user_id', $user->id)
             ->first();
-        // var_dump ($items);
         return view('index.index', compact('chk','chkpm'));
-        // return view('admin', compact('user','permission', 'items', 'ritems'));
-
     }
 
     /**
@@ -96,5 +93,9 @@ class adminController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function frontindex (){
+        return view('index');
     }
 }

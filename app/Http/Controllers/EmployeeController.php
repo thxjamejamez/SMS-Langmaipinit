@@ -71,11 +71,21 @@ class EmployeeController extends Controller
         }
 
     }
+    public function show($id){
+        $pmedit = DB::table('user_permissions')->where('user_id', $this->user->id)->first();
+        $edituser = User::where('id', $id)->first();
+        $editprofile = EmployeeInfo::where('users_id', $id)->first();
+        $editUserPermission = UserPermission::where('user_id', $id)->first();
+        $title = DB::Table('l_title')->get();
+        $district = DB::table('l_city')->get();
+        $province = DB::table('l_province')->get();
+        $group_permission = DB::table('group_permissions')->where('active', 1)->get();
+        return view('employee.Vprofile', compact('edituser', 'pmedit', 'editprofile', 'editUserPermission', 'title', 'district', 'province', 'group_permission'));
+    }
 
     public function edit($id)
     {
-        $user = \Auth::user();
-        $pmedit = DB::table('user_permissions')->where('user_id', $user->id)->first();
+        $pmedit = DB::table('user_permissions')->where('user_id', $this->user->id)->first();
         $edituser = User::where('id', $id)->first();
         $editprofile = EmployeeInfo::where('users_id', $id)->first();
         $editUserPermission = UserPermission::where('user_id', $id)->first();
@@ -99,7 +109,7 @@ class EmployeeController extends Controller
             $userEloquent = User::find($id);
             $userEloquent->username = trim($request['username']);
             $userEloquent->nickname = $request['nickname'];
-            if(isset($request['password'])){ $userEloquent->password = \Hash::make($request['password']); }
+            if($request['password']!=NULL){ $userEloquent->password = \Hash::make($request['password']); }
             $userEloquent->email = trim($request['email']);
             $userEloquent->status = 1;
             $userEloquent->save();

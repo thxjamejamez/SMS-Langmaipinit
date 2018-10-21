@@ -32,7 +32,7 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade bd-example-modal-lg" id="detail" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal fade bd-example-modal-lg" id="detail" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -150,7 +150,7 @@
 @section('script')
 <script type="text/javascript">
     $(document).ready(function () {
-        
+        pm = '{{$permission->permission_id}}'
         var usertable = $('#reorder-table').DataTable({
             processing: true,
             ajax: {
@@ -173,12 +173,22 @@
                             {data: 'sts_name', name: 'sts_name'},
                             {data: 'order_no', render: function(data, type ,row, meta){
                                 if(type === 'display'){
-                                    if(row.id == 1){
-                                        data = "<a class='btn btn-block btn-primary btn-sm' href='javascript:;' onclick='opendetail("+data+")' data-toggle='modal' data-target='.bd-example-modal-lg'><i class='fa fa-pencil-square-o' aria-hidden='true'></i> ตรวจสอบ</a>";
-                                    }else if(row.id == 6){
-                                        data = "<a class='btn btn-block btn-danger btn-sm' href='javascript:;' onclick='opendetail("+data+")' data-toggle='modal' data-target='.bd-example-modal-lg'><i class='fa fa-search' aria-hidden='true'></i> เรียกดู</a>";
-                                    }else{
-                                        data = "<a class='btn btn-block btn-warning btn-sm' href='javascript:;' onclick='opendetail("+data+")' data-toggle='modal' data-target='.bd-example-modal-lg'><i class='fa fa-search' aria-hidden='true'></i> เรียกดู</a>";
+                                    if(pm != 2){
+                                        if(row.id == 1){
+                                            data = "<a class='btn btn-block btn-primary btn-sm' href='javascript:;' onclick='opendetail("+data+")'><i class='fa fa-pencil-square-o' aria-hidden='true'></i> ตรวจสอบ</a>";
+                                        }else if(row.id == 6){
+                                            data = "<a class='btn btn-block btn-danger btn-sm' href='javascript:;' onclick='opendetail("+data+")'><i class='fa fa-search' aria-hidden='true'></i> เรียกดู</a>";
+                                        }else{
+                                            data = "<a class='btn btn-block btn-warning btn-sm' href='javascript:;' onclick='opendetail("+data+")'><i class='fa fa-search' aria-hidden='true'></i> เรียกดู</a>";
+                                        }
+                                    }else {
+                                        if(row.id == 1){
+                                            data = "<a class='btn btn-block btn-primary btn-sm' href='javascript:;' onclick='opendetail("+data+")'><i class='fa fa-search' aria-hidden='true'></i> เรียกดู</a>";
+                                        }else if(row.id == 6){
+                                            data = "<a class='btn btn-block btn-danger btn-sm' href='javascript:;' onclick='opendetail("+data+")'><i class='fa fa-search' aria-hidden='true'></i> เรียกดู</a>";
+                                        }else{
+                                            data = "<a class='btn btn-block btn-warning btn-sm' href='javascript:;' onclick='opendetail("+data+")'><i class='fa fa-search' aria-hidden='true'></i> เรียกดู</a>";
+                                        }
                                     }
                                 }
                                 return data;
@@ -221,6 +231,7 @@
     });
 
     function opendetail($order_id) {
+        $('#detail').modal('show')
         $.ajax({
             type: 'get',
             url: '/getorderdetail/'+$order_id+'/admin'
@@ -252,15 +263,18 @@
                 $file = $('#detail #file').append('<label>ไฟล์แนบ</label><div class="input-group"><div class="input-group-prepend"></div></div>');
                 $file.append('<a href="/file_order/'+data.order.file+'" target="_blank" class="btn btn-block btn-info btn-sm"><i class="fa fa-file" aria-hidden="true"></i> เรียกดู</a>');
             }
-            if(data.order.status != 1){
-                $('#detail .modal-footer').append('<button type="button" class="btn btn-block btn-success btn-sm" style="margin-top: .5rem;" onclick="changests(2, '+data.order.order_no+')" disabled>อนุมัติ</button>');
-                $('#detail .modal-footer').append('<button type="button" class="btn btn-block btn-danger btn-sm" onclick="openreason('+data.order.order_no+')" disabled>ไม่อนุมัติ</button>');
-                $('#detail .modal-footer').append('<button type="button" class="btn btn-block btn-secondary btn-sm" data-dismiss="modal">ปิด</button>');      
-            }else{
-                $('#detail .modal-footer').append('<button type="button" class="btn btn-block btn-success btn-sm" style="margin-top: .5rem;" onclick="changests(2, '+data.order.order_no+')">อนุมัติ</button>');
-                $('#detail .modal-footer').append('<button type="button" class="btn btn-block btn-danger btn-sm" onclick="openreason('+data.order.order_no+')">ไม่อนุมัติ</button>');
-                $('#detail .modal-footer').append('<button type="button" class="btn btn-block btn-secondary btn-sm" data-dismiss="modal">ปิด</button>');      
+            if (pm != 2){
+                if(data.order.status != 1){
+                    $('#detail .modal-footer').append('<button type="button" class="btn btn-block btn-success btn-sm" style="margin-top: .5rem;" onclick="changests(2, '+data.order.order_no+')" disabled>อนุมัติ</button>');
+                    $('#detail .modal-footer').append('<button type="button" class="btn btn-block btn-danger btn-sm" onclick="openreason('+data.order.order_no+')" disabled>ไม่อนุมัติ</button>');
+                    $('#detail .modal-footer').append('<button type="button" class="btn btn-block btn-secondary btn-sm" data-dismiss="modal">ปิด</button>');      
+                }else{
+                    $('#detail .modal-footer').append('<button type="button" class="btn btn-block btn-success btn-sm" style="margin-top: .5rem;" onclick="changests(2, '+data.order.order_no+')">อนุมัติ</button>');
+                    $('#detail .modal-footer').append('<button type="button" class="btn btn-block btn-danger btn-sm" onclick="openreason('+data.order.order_no+')">ไม่อนุมัติ</button>');
+                    $('#detail .modal-footer').append('<button type="button" class="btn btn-block btn-secondary btn-sm" data-dismiss="modal">ปิด</button>');      
+                }
             }
+            
 
             if(data.order.status == 6){
                 $('#detail .modal-body .alert-danger .reason_show').empty()

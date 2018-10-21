@@ -1,6 +1,7 @@
 @extends('admin')
 @section('content')
 @section('css')
+<link rel="stylesheet" href="/plugins/datepicker/datepicker3.css">
 @stop
 <div class="container-fluid col-12">
     <div class="row">
@@ -164,6 +165,7 @@
                         'success'
                     )
                     $('#dateIVmodal').modal('hide')
+                    window.location.href = '/admininvoice'
                 }
             })
         }

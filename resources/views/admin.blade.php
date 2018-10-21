@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | Dashboard</title>
+  <title>PINIT988 WOOD BOX LIMITED PARTNERSHIP</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Thaisarabun -->
@@ -310,13 +310,13 @@
                                 <h3 class="border-bottom border-gray pb-2">รอการตอบรับคำขอและตกลงราคา</h3>
                                 <div>
                                     <center>
-                                    <a href="/help/requo1.JPG" target="_blank">
+                                    <a href="/help/requo1.JPG" title="กดเพื่อดูรูปขนาดใหญ่" target="_blank">
                                         <img src="/help/requo1.JPG">
                                     </a>
-                                    <a href="/help/requo2.JPG" target="_blank">
+                                    <a href="/help/requo2.JPG" title="กดเพื่อดูรูปขนาดใหญ่" target="_blank">
                                         <img src="/help/requo2.JPG">
                                     </a>
-                                    <a href="/help/requo3.JPG" target="_blank">
+                                    <a href="/help/requo3.JPG" title="กดเพื่อดูรูปขนาดใหญ่" target="_blank">
                                         <img src="/help/requo3.JPG">
                                     </a>
                                     </center>
@@ -327,16 +327,16 @@
                             <div id="step-3" class="">
                                 <h3 class="border-bottom border-gray pb-2">เลือกสั่งซื้อสินค้าและบริการที่ต้องการ</h3>
                                 <center>
-                                    <a href="/help/step3-01.PNG" target="_blank">
+                                    <a href="/help/step3-01.PNG" title="กดเพื่อดูรูปขนาดใหญ่" target="_blank">
                                         <img src="/help/step3-01.PNG">
                                     </a>
-                                    <a href="/help/step3-02.PNG" target="_blank">
+                                    <a href="/help/step3-02.PNG" title="กดเพื่อดูรูปขนาดใหญ่" target="_blank">
                                         <img src="/help/step3-02.PNG">
                                     </a>
-                                    <a href="/help/step3-03.PNG" target="_blank">
+                                    <a href="/help/step3-03.PNG" title="กดเพื่อดูรูปขนาดใหญ่" target="_blank">
                                         <img src="/help/step3-03.PNG">
                                     </a>
-                                    <a href="/help/step3-04.PNG" target="_blank">
+                                    <a href="/help/step3-04.PNG" title="กดเพื่อดูรูปขนาดใหญ่" target="_blank">
                                         <img src="/help/step3-04.PNG">
                                     </a>
                                  </center>
@@ -345,16 +345,16 @@
                             <div id="step-4" class="">
                                 <h3 class="border-bottom border-gray pb-2">ยืนยันการชำระเงิน</h3>
                                 <center>
-                                    <a href="/help/step4-01.PNG" target="_blank">
+                                    <a href="/help/step4-01.PNG" title="กดเพื่อดูรูปขนาดใหญ่" target="_blank">
                                         <img src="/help/step4-01.PNG">
                                     </a>
-                                    <a href="/help/step4-02.PNG" target="_blank">
+                                    <a href="/help/step4-02.PNG" title="กดเพื่อดูรูปขนาดใหญ่" target="_blank">
                                         <img src="/help/step4-02.PNG">
                                     </a>
-                                    <a href="/help/step4-03.PNG" target="_blank">
+                                    <a href="/help/step4-03.PNG" title="กดเพื่อดูรูปขนาดใหญ่" target="_blank">
                                         <img src="/help/step4-03.PNG">
                                     </a>
-                                    <a href="/help/step4-04.PNG" target="_blank">
+                                    <a href="/help/step4-04.PNG" title="กดเพื่อดูรูปขนาดใหญ่" target="_blank">
                                         <img src="/help/step4-04.PNG">
                                     </a>
                                     </center>

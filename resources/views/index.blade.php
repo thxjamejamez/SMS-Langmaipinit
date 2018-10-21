@@ -45,7 +45,7 @@
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-      <a class="navbar-brand page-scroll" href="#page-top">LOGO</a> </div>
+      <a class="navbar-brand page-scroll" href="#page-top"></a> </div>
     
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -70,7 +70,7 @@
           <div class="intro-text"> <span>Welcome To</span>
             <h1> PINIT988 WOOD BOX LIMITED PARTNERSHIP</h1>
             <p>Open Daily 08:00 - 17:00</p>
-            <a href="#register" class="btn btn-custom btn-lg page-scroll" style="letter-spacing: 3px;">สมัครสมาชิก</a> </div>
+            <a href="/register" class="btn btn-custom btn-lg page-scroll" style="letter-spacing: 3px;">สมัครสมาชิก</a> </div>
         </div>
       </div>
     </div>
@@ -138,8 +138,9 @@
         <li>
           <ol class="type">
             <li><a href="#" data-filter="*" class="active">ทั้งหมด</a></li>
-            <li><a href="#" data-filter=".lorem">ประเภทไม้</a></li>
-            <li><a href="#" data-filter=".dolor">รูปแบบสินค้า</a></li>
+            <li><a href="#" data-filter=".lorem">ประเภทพาเลทไม้</a></li>
+            <li><a href="#" data-filter=".dolor">ประเภทลังไม้</a></li>
+            <li><a href="#" data-filter=".diy">งาน DIY</a></li>
             <li><a href="#" data-filter=".adipiscing">การจัดส่ง</a></li>
           </ol>
         </li>
@@ -152,16 +153,16 @@
           <div class="portfolio-item">
             <div class="hover-bg"> <a href="/forntpage/img/portfolio/large (1).jpg" title="Project Title" data-lightbox-gallery="gallery1">
               <div class="hover-text">
-                <h4>Lorem Ipsum</h4>
+                <h4>ประเภทพาเลทไม้</h4>
               </div>
               <img src="/forntpage/img/portfolio/large (1).jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-3 col-lg-3 adipiscing">
+        <div class="col-sm-6 col-md-3 col-lg-3 lorem">
           <div class="portfolio-item">
             <div class="hover-bg"> <a href="/forntpage/img/portfolio/large (2).jpg" title="Project Title" data-lightbox-gallery="gallery1">
               <div class="hover-text">
-                <h4>Adipiscing Elit</h4>
+                <h4>ประเภทพาเลทไม้</h4>
               </div>
               <img src="/forntpage/img/portfolio/large (2).jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
@@ -170,56 +171,97 @@
           <div class="portfolio-item">
             <div class="hover-bg"> <a href="/forntpage/img/portfolio/large (3).jpg" title="Project Title" data-lightbox-gallery="gallery1">
               <div class="hover-text">
-                <h4>Lorem Ipsum</h4>
+                <h4>ประเภทพาเลทไม้</h4>
               </div>
               <img src="/forntpage/img/portfolio/large (3).jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
         <div class="col-sm-6 col-md-3 col-lg-3 lorem">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="/forntpage/img/portfolio/large (4).jpg" title="Project Title" data-lightbox-gallery="gallery1">
-              <div class="hover-text">
-                <h4>Lorem Ipsum</h4>
-              </div>
-              <img src="/forntpage/img/portfolio/large (4).jpg" class="img-responsive" alt="Project Title"> </a> </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-3 col-lg-3 adipiscing">
-          <div class="portfolio-item">
             <div class="hover-bg"> <a href="/forntpage/img/portfolio/large (5).jpg" title="Project Title" data-lightbox-gallery="gallery1">
               <div class="hover-text">
-                <h4>Adipiscing Elit</h4>
+                <h4>ประเภทพาเลทไม้</h4>
               </div>
               <img src="/forntpage/img/portfolio/large (5).jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-3 col-lg-3 dolor">
+        <div class="col-sm-6 col-md-3 col-lg-3 lorem">
           <div class="portfolio-item">
             <div class="hover-bg"> <a href="/forntpage/img/portfolio/large (6).jpg" title="Project Title" data-lightbox-gallery="gallery1">
               <div class="hover-text">
-                <h4>Dolor Sit</h4>
+                <h4>ประเภทพาเลทไม้</h4>
               </div>
               <img src="/forntpage/img/portfolio/large (6).jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
+
         <div class="col-sm-6 col-md-3 col-lg-3 dolor">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="/forntpage/img/portfolio/large (7).jpg" title="Project Title" data-lightbox-gallery="gallery1">
+            <div class="hover-bg"> <a href="/forntpage/img/portfolio/large (9).jpg" title="Project Title" data-lightbox-gallery="gallery1">
               <div class="hover-text">
-                <h4>Dolor Sit</h4>
+                <h4>ประเภทลังไม้</h4>
               </div>
-              <img src="/forntpage/img/portfolio/large (7).jpg" class="img-responsive" alt="Project Title"> </a> </div>
+              <img src="/forntpage/img/portfolio/large (9).jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-3 col-lg-3 lorem">
+        <div class="col-sm-6 col-md-3 col-lg-3 dolor">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="/forntpage/img/portfolio/large (8).jpg" title="Project Title" data-lightbox-gallery="gallery1">
+            <div class="hover-bg"> <a href="/forntpage/img/portfolio/large (10).jpg" title="Project Title" data-lightbox-gallery="gallery1">
               <div class="hover-text">
-                <h4>Lorem Ipsum</h4>
+                <h4>ประเภทลังไม้</h4>
               </div>
-              <img src="/forntpage/img/portfolio/large (8).jpg" class="img-responsive" alt="Project Title"> </a> </div>
+              <img src="/forntpage/img/portfolio/large (10).jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
+        <div class="col-sm-6 col-md-3 col-lg-3 dolor">
+          <div class="portfolio-item">
+            <div class="hover-bg"> <a href="/forntpage/img/portfolio/large (11).jpg" title="Project Title" data-lightbox-gallery="gallery1">
+              <div class="hover-text">
+                <h4>ประเภทลังไม้</h4>
+              </div>
+              <img src="/forntpage/img/portfolio/large (11).jpg" class="img-responsive" alt="Project Title"> </a> </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3 col-lg-3 dolor">
+          <div class="portfolio-item">
+            <div class="hover-bg"> <a href="/forntpage/img/portfolio/large (12).jpg" title="Project Title" data-lightbox-gallery="gallery1">
+              <div class="hover-text">
+                <h4>ประเภทลังไม้</h4>
+              </div>
+              <img src="/forntpage/img/portfolio/large (12).jpg" class="img-responsive" alt="Project Title"> </a> </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-3 col-lg-3 diy">
+          <div class="portfolio-item">
+            <div class="hover-bg"> <a href="/forntpage/img/portfolio/diy1.jpg" title="Project Title" data-lightbox-gallery="gallery1">
+              <div class="hover-text">
+                <h4>งาน DIY</h4>
+              </div>
+              <img src="/forntpage/img/portfolio/diy1.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3 col-lg-3 diy">
+          <div class="portfolio-item">
+            <div class="hover-bg"> <a href="/forntpage/img/portfolio/diy2.jpg" title="Project Title" data-lightbox-gallery="gallery1">
+              <div class="hover-text">
+                <h4>งาน DIY</h4>
+              </div>
+              <img src="/forntpage/img/portfolio/diy2.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+          </div>
+        </div>
+
+
+        <div class="col-sm-6 col-md-3 col-lg-3 adipiscing">
+          <div class="portfolio-item">
+            <div class="hover-bg"> <a href="/forntpage/img/portfolio/large (6).jpg" title="Project Title" data-lightbox-gallery="gallery1">
+              <div class="hover-text">
+                <h4>Adipiscing Elit</h4>
+              </div>
+              <img src="/forntpage/img/portfolio/large (6).jpg" class="img-responsive" alt="Project Title"> </a> </div>
+          </div>
+        </div>
+        
         <div class="col-sm-6 col-md-3 col-lg-3 adipiscing">
           <div class="portfolio-item">
             <div class="hover-bg"> <a href="/forntpage/img/portfolio/large (9).jpg" title="Project Title" data-lightbox-gallery="gallery1">
@@ -229,34 +271,6 @@
               <img src="/forntpage/img/portfolio/large (9).jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-3 col-lg-3 dolor">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="/forntpage/img/portfolio/large (10).jpg" title="Project Title" data-lightbox-gallery="gallery1">
-              <div class="hover-text">
-                <h4>Dolor Sit</h4>
-              </div>
-              <img src="/forntpage/img/portfolio/large (10).jpg" class="img-responsive" alt="Project Title"> </a> </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-3 col-lg-3 dolor">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="/forntpage/img/portfolio/large (11).jpg" title="Project Title" data-lightbox-gallery="gallery1">
-              <div class="hover-text">
-                <h4>Dolor Sit</h4>
-              </div>
-              <img src="/forntpage/img/portfolio/large (11).jpg" class="img-responsive" alt="Project Title"> </a> </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-3 col-lg-3 lorem">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="/forntpage/img/portfolio/large (12).jpg" title="Project Title" data-lightbox-gallery="gallery1">
-              <div class="hover-text">
-                <h4>Lorem Ipsum</h4>
-              </div>
-              <img src="/forntpage/img/portfolio/large (12).jpg" class="img-responsive" alt="Project Title"> </a> </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </div>
@@ -270,22 +284,22 @@
       </div>
       <div class="row">
         <div class="col-md-3 col-sm-3">
-          <div class="achievement-box"> <span class="count">83</span>
+          <div class="achievement-box"> <span class="count">{{$cemp->emp}}</span>
             <h4>จำนวนพนักงาน</h4>
           </div>
         </div>
         <div class="col-md-3 col-sm-3">
-          <div class="achievement-box"> <span class="count">260</span>
+          <div class="achievement-box"> <span class="count">{{$ccust->cust}}</span>
             <h4>จำนวนลูกค้า</h4>
           </div>
         </div>
         <div class="col-md-3 col-sm-3">
-          <div class="achievement-box"> <span class="count">571</span>
+          <div class="achievement-box"> <span class="count">{{$cpro->pro}}</span>
             <h4>จำนวนรูปแบบสินค้า</h4>
           </div>
         </div>
         <div class="col-md-3 col-sm-3">
-          <div class="achievement-box"> <span class="count">1200</span>
+          <div class="achievement-box"> <span class="count">{{$csell->ord}}</span>
             <h4>จำนวนรายการสั่งสินค้า</h4>
           </div>
         </div>
@@ -364,7 +378,7 @@
 </div>
 <div id="footer">
   <div class="container text-center">
-    <p>Copyright &copy; 2016 Standout. Designed by <a href="http://www.templatewire.com" rel="nofollow">TemplateWire</a></p>
+    <p>Copyright &copy; 2016 Standout. Designed by <a href="http://www.templatewire.com" rel="nofollow">PINIT988 WOOD BOX LIMITED PARTNERSHIP</a></p>
   </div>
 </div>
 <script type="text/javascript" src="/forntpage/js/jquery.1.11.1.js"></script> 

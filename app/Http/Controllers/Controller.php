@@ -9,14 +9,22 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use DB,
     App\UserPermission,
     App\Navigation;
+use Illuminate\Support\Facades\Auth;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    protected $user;
+    protected $permission;
+
     public function __construct(){
-        dump(\Auth::user());
-        $this->user   = \Auth::user();
-        $this->permission = UserPermission::where('user_id',$this->user->id)->first();
+        $this->middleware(function ($request, $next) {
+            if(\Auth::check()){
+                $this->user   = \Auth::user();
+                $this->permission = UserPermission::where('user_id',$this->user->id)->first();
+            }
+            return $next($request);
+        });        
     }
 
     public function canAccessPage($uid=false,$menuid=false){

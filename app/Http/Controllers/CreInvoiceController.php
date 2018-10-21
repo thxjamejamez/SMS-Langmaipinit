@@ -17,6 +17,8 @@ class CreInvoiceController extends Controller
      */
     public function index()
     {
+        $cedit = $this->canAccessPage($this->user->id, 55);
+        if ($cedit['view'] == 0) return \Redirect::to('/apanel');
         return view('invoice.create.index');
         
     }
@@ -84,6 +86,8 @@ class CreInvoiceController extends Controller
     }
 
     function admininvoice (){
+        $cedit = $this->canAccessPage($this->user->id, 56);
+        if ($cedit['view'] == 0) return \Redirect::to('/apanel');
         $invlist = Invoice::join('customer_info', 'invoice.users_id', '=', 'customer_info.users_id')
             ->join('l_invoice_sts', 'invoice.invoice_sts', '=', 'l_invoice_sts.id')
             ->get();

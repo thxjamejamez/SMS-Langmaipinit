@@ -34,11 +34,11 @@
         </div>
     </div>
 
-    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="productforwork" aria-hidden="true">
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="productforwork" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">ข้อมูลผู้สั่งซื้อ</h5>
+                    <h5 class="modal-title">รายละเอียดการจัดส่ง</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -87,6 +87,7 @@
 
 @section('script')
 <script type="text/javascript">
+    var pmid = '{{$permission->permission_id}}'
     $(document).ready(function () {
         var usertable = $('#deorder-table').DataTable({
             processing: true,
@@ -116,7 +117,11 @@
                             {data: 'sts_name', name: 'sts_name'},
                             {data: 'order_no', render: function(data, type ,row, meta){
                                 if(type === 'display'){
-                                    data = "<a class='btn btn-block btn-warning btn-sm' href='javascript:;' onclick='orderdetail("+data+")' data-toggle='modal' data-target='.bd-example-modal-lg'><i class='fa fa-pencil' aria-hidden='true'></i> จัดการ</a>";
+                                    if(pmid == 2){
+                                        data = "<a class='btn btn-block btn-warning btn-sm' href='javascript:;' onclick='orderdetail("+data+")' ><i class='fa fa-search' aria-hidden='true'></i> เรียกดู</a>";
+                                    }else{
+                                        data = "<a class='btn btn-block btn-warning btn-sm' href='javascript:;' onclick='orderdetail("+data+")' ><i class='fa fa-pencil' aria-hidden='true'></i> จัดการ</a>";
+                                    }
                                 }
                                 return data;
                             }},
@@ -179,6 +184,7 @@
     }
 
     function orderdetail (id) {
+        $('#productforwork').modal('show')
         $.ajax({
             type: 'get',
             url: '/getorderdetailsend/'+id
@@ -207,11 +213,14 @@
                     tr.append('<td class="text-center">'+ value.sts_name +'</td>')
                 });
             } 
-            $('.modal-footer').append('<a class="btn btn-block btn-primary btn-sm" style="margin-top: .5rem;" href="deliveryslip/'+data.order.order_no+'/pdf" target="_blank" ><i class="fa fa-print" aria-hidden="true"></i> พิมพ์ใบส่งสินค้า</a>');
-            (data.order.status == 5) ?
-                $('.modal-footer').append('<button class="btn btn-block btn-success btn-sm" onclick="changests(5, '+data.order.order_no+')" disabled><i class="fa fa-truck" aria-hidden="true"></i> ยืนยันการจัดส่งสินค้า</button>'):
-                $('.modal-footer').append('<button class="btn btn-block btn-success btn-sm" onclick="changests(5, '+data.order.order_no+')"><i class="fa fa-truck" aria-hidden="true"></i> ยืนยันการจัดส่งสินค้า</button>');
-  
+            if(pmid != 2){
+                $('.modal-footer').append('<a class="btn btn-block btn-primary btn-sm" style="margin-top: .5rem;" href="deliveryslip/'+data.order.order_no+'/pdf" target="_blank" ><i class="fa fa-print" aria-hidden="true"></i> พิมพ์ใบส่งสินค้า</a>');
+                (data.order.status == 5) ?
+                    $('.modal-footer').append('<button class="btn btn-block btn-success btn-sm" onclick="changests(5, '+data.order.order_no+')" disabled><i class="fa fa-truck" aria-hidden="true"></i> ยืนยันการจัดส่งสินค้า</button>'):
+                    $('.modal-footer').append('<button class="btn btn-block btn-success btn-sm" onclick="changests(5, '+data.order.order_no+')"><i class="fa fa-truck" aria-hidden="true"></i> ยืนยันการจัดส่งสินค้า</button>');
+            }else{
+                $('.modal-footer').append('<a class="btn btn-block btn-primary btn-sm" style="margin-top: .5rem;" href="deliveryslip/'+data.order.order_no+'/pdf" target="_blank" ><i class="fa fa-print" aria-hidden="true"></i> เรียกดูใบส่งสินค้า</a>');
+            }
         })
     }
 
@@ -227,7 +236,7 @@
                     showConfirmButton: false,
                     timer: 1000
                 });
-                $('.bd-example-modal-lg').modal('toggle');
+                $('#productforwork').modal('toggle');
                 $('#deorder-table').DataTable().ajax.reload();
             }
         }) 

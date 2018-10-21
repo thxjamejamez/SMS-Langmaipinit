@@ -4,6 +4,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @stop
 <div class="container-fluid col-12">
+    @if($pmedit->permission_id != 2)
     <div class="row">
         <div class="form-group">
             <a href="/employee/create" style="margin-left: 20px;"><i class="fa fa-user-plus"></i> เพิ่มผู้ใช้ (พนักงาน)</a>
@@ -12,6 +13,7 @@
             <a href="/user/create" style="margin-left: 20px;"><i class="fa fa-user-plus"></i> เพิ่มผู้ใช้ (ผู้ใช้ทั่วไป)</a>
         </div>
     </div>
+    @endif
     <div class="row">
         <div class="col-sm-12">
         <div class="card">
@@ -45,6 +47,7 @@
 @section('script')
 <script type="text/javascript">
     $(document).ready(function () {
+        var pmid = '{{$pmedit->permission_id}}'
         $(".text-dark").append('ข้อมูลผู้ใช้');
         var usertable = $('#user-table').DataTable({
             processing: true,
@@ -81,6 +84,12 @@
                                 return data;
                             }},
                         ],
+                initComplete: function () {
+                    if(pmid == 2){
+                        usertable.column(6).visible(false);
+                        usertable.column(7).visible(false);
+                    }
+                }
         });
     });
 

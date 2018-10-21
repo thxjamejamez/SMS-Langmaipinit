@@ -36,6 +36,7 @@
 @section('script')
 <script type="text/javascript">
     $(document).ready(function () {
+        var pmid = '{{$permission->permission_id}}'
         var usertable = $('#emp-table').DataTable({
             processing: true,
             ajax: {
@@ -56,7 +57,9 @@
                             {data: 'permission_name', name: 'permission_name'},
                             {data: 'id', render: function(data, type ,row, meta){
                                     if(type === 'display'){
-                                        if(row.permission_id < 6){
+                                        if(pmid == 2){
+                                            data = '<a href=employee/'+ data +' class="btn btn-block btn-warning btn-sm"><i class="fa fa-search" aria-hidden="true"></i> เรียกดู</a>';
+                                        }else{
                                             data = '<a href=employee/'+ data +'/edit class="btn btn-block btn-info btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i> แก้ไข</a>';
                                         }
                                     }
@@ -69,6 +72,11 @@
                                 return data;
                             }},
                         ],
+                    initComplete: function () {
+                    if(pmid == 2){
+                        usertable.column(7).visible(false);
+                    }
+                }
         });
     });
 

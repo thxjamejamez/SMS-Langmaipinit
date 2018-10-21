@@ -35,7 +35,7 @@
         </div>
     </div>
 
-    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="productforwork" aria-hidden="true">
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="productforwork" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -131,9 +131,9 @@
                             {data: 'order_no', render: function(data, type ,row, meta){
                                 if(type === 'display'){
                                     if(row.id <= 2){
-                                        data = "<a class='btn btn-block btn-info btn-sm' href='javascript:;' onclick='doproduct("+data+")' data-toggle='modal' data-target='.bd-example-modal-lg'><i class='fa fa-pencil-square-o' aria-hidden='true'></i> จัดการ</a>";
+                                        data = "<a class='btn btn-block btn-info btn-sm' href='javascript:;' onclick='doproduct("+data+")'><i class='fa fa-pencil-square-o' aria-hidden='true'></i> จัดการ</a>";
                                     }else{
-                                        data = "<a class='btn btn-block btn-warning btn-sm' href='javascript:;' onclick='doproduct("+data+")' data-toggle='modal' data-target='.bd-example-modal-lg'><i class='fa fa-search' aria-hidden='true'></i> เรียกดู</a>";
+                                        data = "<a class='btn btn-block btn-warning btn-sm' href='javascript:;' onclick='doproduct("+data+")'><i class='fa fa-search' aria-hidden='true'></i> เรียกดู</a>";
                                     }
                                 }
                                 return data;
@@ -197,6 +197,7 @@
     }
 
     function doproduct (id) {
+        $('#productforwork').modal('show')
         $.ajax({
             type: 'get',
             url: '/getworkdetail/'+id

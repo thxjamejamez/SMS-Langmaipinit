@@ -49,9 +49,9 @@
                 </div>
                 <div class="form-group col-2">
                     <label>สิทธิ์ในการเข้าถึง</label>
-                    <select id="permission" class="form-control" name="permission">
+                    <select id="permission" class="form-control" name="permission" @if($permission->permission_id != 1) disabled @endif>
                         @foreach($group_permission as $group_permissions)
-                        <option value="{{ $group_permissions->id }}" @if(isset($editUserPermission->permission_id) && $group_permissions->id == $editUserPermission->permission_id) selected @endif>{{ $group_permissions->permission_name }}</option>
+                        <option value="{{ $group_permissions->id }}" @if(isset($editUserPermission->permission_id) && $group_permissions->id == $editUserPermission->permission_id) selected @endif >{{ $group_permissions->permission_name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -193,6 +193,7 @@
         $(".text-dark").append('ข้อมูลผู้ใช้');
         $('[data-mask]').inputmask()
         $('#birthday').datepicker({
+            endDate: 'today',
             format: 'dd-mm-yyyy',
             autoclose: true,
         });

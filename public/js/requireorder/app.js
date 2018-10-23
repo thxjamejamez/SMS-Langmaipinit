@@ -94,8 +94,10 @@ const app = new Vue({
     mounted: function (){       
         $vm = this     
         $('#senddate').datepicker({
+            todayHighlight: true,
+            startDate: 'today',
             format: 'dd-mm-yyyy',
-            autoclose: true
+            autoclose: true,
         }).on('changeDate', function (ev) {
             $vm.senddate = moment(ev.date).format('DD-MM-YYYY');
         });

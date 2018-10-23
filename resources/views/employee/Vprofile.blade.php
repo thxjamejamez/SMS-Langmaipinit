@@ -181,6 +181,7 @@
         $('.select2').select2()
         $('[data-mask]').inputmask()
         $('#birthday').datepicker({
+            endDate: 'today',
             format: 'dd-mm-yyyy',
             autoclose: true,
         });

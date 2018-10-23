@@ -210,6 +210,7 @@
         $(".text-dark").append('ข้อมูลผู้ใช้');
         $('[data-mask]').inputmask()
         $('#birthday').datepicker({
+            endDate: 'today',
             format: 'dd-mm-yyyy',
             autoclose: true
         });

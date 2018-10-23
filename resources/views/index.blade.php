@@ -141,7 +141,8 @@
             <li><a href="#" data-filter=".lorem">ประเภทพาเลทไม้</a></li>
             <li><a href="#" data-filter=".dolor">ประเภทลังไม้</a></li>
             <li><a href="#" data-filter=".diy">งาน DIY</a></li>
-            <li><a href="#" data-filter=".adipiscing">การจัดส่ง</a></li>
+            <li><a href="#" data-filter=".adipiscing">ไม้อัด</a></li>
+            <li><a href="#" data-filter=".wood">ไม้แผ่นและขาลูกเต๋า</a></li>
           </ol>
         </li>
       </ul>
@@ -231,6 +232,24 @@
               <img src="/forntpage/img/portfolio/large (12).jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
+        <div class="col-sm-6 col-md-3 col-lg-3 dolor">
+          <div class="portfolio-item">
+            <div class="hover-bg"> <a href="/forntpage/img/portfolio/IMG_4699.jpg" title="Project Title" data-lightbox-gallery="gallery1">
+              <div class="hover-text">
+                <h4>ประเภทลังไม้</h4>
+              </div>
+              <img src="/forntpage/img/portfolio/IMG_4699.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3 col-lg-3 dolor">
+          <div class="portfolio-item">
+            <div class="hover-bg"> <a href="/forntpage/img/portfolio/IMG_4700.jpg" title="Project Title" data-lightbox-gallery="gallery1">
+              <div class="hover-text">
+                <h4>ประเภทลังไม้</h4>
+              </div>
+              <img src="/forntpage/img/portfolio/IMG_4700.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+          </div>
+        </div>
 
         <div class="col-sm-6 col-md-3 col-lg-3 diy">
           <div class="portfolio-item">
@@ -254,21 +273,57 @@
 
         <div class="col-sm-6 col-md-3 col-lg-3 adipiscing">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="/forntpage/img/portfolio/large (6).jpg" title="Project Title" data-lightbox-gallery="gallery1">
+            <div class="hover-bg"> <a href="/forntpage/img/portfolio/IMG_4704.jpg" title="Project Title" data-lightbox-gallery="gallery1">
               <div class="hover-text">
-                <h4>Adipiscing Elit</h4>
+                <h4>ไม้อัด</h4>
               </div>
-              <img src="/forntpage/img/portfolio/large (6).jpg" class="img-responsive" alt="Project Title"> </a> </div>
+              <img src="/forntpage/img/portfolio/IMG_4704.jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
-        
         <div class="col-sm-6 col-md-3 col-lg-3 adipiscing">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="/forntpage/img/portfolio/large (9).jpg" title="Project Title" data-lightbox-gallery="gallery1">
+            <div class="hover-bg"> <a href="/forntpage/img/portfolio/IMG_4706.jpg" title="Project Title" data-lightbox-gallery="gallery1">
               <div class="hover-text">
-                <h4>Adipiscing Elit</h4>
+                <h4>ไม้อัด</h4>
               </div>
-              <img src="/forntpage/img/portfolio/large (9).jpg" class="img-responsive" alt="Project Title"> </a> </div>
+              <img src="/forntpage/img/portfolio/IMG_4706.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3 col-lg-3 adipiscing">
+          <div class="portfolio-item">
+            <div class="hover-bg"> <a href="/forntpage/img/portfolio/IMG_4707.jpg" title="Project Title" data-lightbox-gallery="gallery1">
+              <div class="hover-text">
+                <h4>ไม้อัด</h4>
+              </div>
+              <img src="/forntpage/img/portfolio/IMG_4707.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-3 col-lg-3 wood">
+          <div class="portfolio-item">
+            <div class="hover-bg"> <a href="/forntpage/img/portfolio/IMG_4701.jpg" title="Project Title" data-lightbox-gallery="gallery1">
+              <div class="hover-text">
+                <h4>ไม้แผ่นและขาลูกเต๋า</h4>
+              </div>
+              <img src="/forntpage/img/portfolio/IMG_4701.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3 col-lg-3 wood">
+          <div class="portfolio-item">
+            <div class="hover-bg"> <a href="/forntpage/img/portfolio/IMG_4703.jpg" title="Project Title" data-lightbox-gallery="gallery1">
+              <div class="hover-text">
+                <h4>ไม้แผ่นและขาลูกเต๋า</h4>
+              </div>
+              <img src="/forntpage/img/portfolio/IMG_4703.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3 col-lg-3 wood">
+          <div class="portfolio-item">
+            <div class="hover-bg"> <a href="/forntpage/img/portfolio/IMG_4705.jpg" title="Project Title" data-lightbox-gallery="gallery1">
+              <div class="hover-text">
+                <h4>ไม้แผ่นและขาลูกเต๋า</h4>
+              </div>
+              <img src="/forntpage/img/portfolio/IMG_4705.jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
     </div>

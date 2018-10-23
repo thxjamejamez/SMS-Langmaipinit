@@ -79,6 +79,7 @@
         $(document).ready(function () {
             disabledbt()
             $('#invoicedate').datepicker({
+                startDate: 'today',
                 format: 'dd-mm-yyyy',
                 todayHighlight: true,
                 autoclose: true

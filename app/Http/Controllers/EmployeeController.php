@@ -114,7 +114,7 @@ class EmployeeController extends Controller
             $userEloquent->status = 1;
             $userEloquent->save();
     
-            if($request['permission']!=6){
+            
                 $empinfoEloquent = EmployeeInfo::where('users_id', $id)->first();
                 $empinfoEloquent->title_id = $request['title'];
                 $empinfoEloquent->first_name = $request['firstname'];
@@ -130,12 +130,12 @@ class EmployeeController extends Controller
                 $empinfoEloquent->province_id = $request['province'];
                 $empinfoEloquent->district_id = $request['district'];
                 $empinfoEloquent->save();
-            }
-
-            DB::table('user_permissions')
-                ->where('user_permissions.user_id', $id)
-                ->update(['permission_id' => $request['permission']]);
             
+            if($request['permission'] != NULL){
+                DB::table('user_permissions')
+                    ->where('user_permissions.user_id', $id)
+                    ->update(['permission_id' => $request['permission']]);
+            }
             \Session::flash('massage','Updated');
             return \Redirect::back();
         } catch (Exception $e){

@@ -337,6 +337,8 @@
                 </div>
             `)
             $('#changedate').datepicker({
+                startDate: 'today',
+                todayHighlight: true,
                 format: 'dd-mm-yyyy',
                 autoclose: true,
             });

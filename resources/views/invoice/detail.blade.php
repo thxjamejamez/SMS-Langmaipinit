@@ -69,7 +69,7 @@ function DateThai($strDate,$format = false)
               <!-- /.col -->
               <div class="col-sm-4 invoice-col">
                 ถึง
-                @if(!isset($invinfo->customer_address))
+                @if(isset($invinfo->company_address))
                 <address>
                     <strong>{{$invinfo->company_name}}</strong><br>
                     {{$invinfo->company_address}}<br>
